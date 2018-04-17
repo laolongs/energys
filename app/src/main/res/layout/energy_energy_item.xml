@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="@dimen/y80">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80">
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/energy_monthly_pdfimg"
+                android:src="@mipmap/energy_energy_pdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/energy_monthly_load"
+                android:gravity="center"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="已下载"
+                android:visibility="gone"
+                android:background="@drawable/month_load_bg"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="7">
+            <TextView
+                android:id="@+id/energy_monthly_tv"
+                android:layout_marginTop="@dimen/x8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="南洋印染2017年6月月度能效报告"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/energy_monthly_time"
+                android:layout_marginTop="@dimen/x6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2017-07-04  18:05"
+                />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/energy_monthly_loadimg"
+            android:src="@mipmap/energy_energy_download"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        style="@style/cut_off_line_5dp"/>
+</LinearLayout>

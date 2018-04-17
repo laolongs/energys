@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#999"
+        android:layout_height="@dimen/y40">
+        <TextView
+            android:id="@+id/item_allele_cancel"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:paddingLeft="@dimen/y10"
+            android:text="取消"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/item_allele_confirm"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:paddingRight="@dimen/y10"
+            android:text="确定"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/y200"-->
+        <!--android:id="@+id/lv_view_dialog"-->
+        <!--android:divider="#999"-->
+        <!--android:dividerHeight="1px">-->
+    <!--</ListView>-->
+    <com.wx.wheelview.widget.WheelView
+        android:id="@+id/common_wheelview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

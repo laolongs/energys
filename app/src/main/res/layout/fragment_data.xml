@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+  >
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+          <android.support.v7.widget.Toolbar
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/data_toolbar"
+              style="@style/toolbar"
+              app:layout_scrollFlags="scroll|enterAlways">
+          <TextView android:id="@+id/data_toolbar_text"
+              style="@style/toolbar_center"/>
+          </android.support.v7.widget.Toolbar>
+          <RelativeLayout
+              android:layout_marginLeft="@dimen/y8"
+              android:layout_marginRight="@dimen/y8"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/btn_date_dwmy_norma_colorl"
+              >
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/datafragment_time_tv"
+                        android:layout_marginTop="@dimen/y8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_marginRight="@dimen/y8"
+                        android:layout_alignParentRight="true"
+                        android:text="3月"
+                       />
+                    <cn.tties.energy.chart.BarDataChart
+                        android:id="@+id/datafragment_chart"
+                        android:layout_below="@+id/datafragment_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y130"
+                        android:background="#FF602F">
+                    </cn.tties.energy.chart.BarDataChart>
+                    <LinearLayout
+                        android:layout_below="@+id/datafragment_chart"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y80">
+                         <RelativeLayout
+                             android:layout_weight="2"
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent">
+                              <ImageView
+                                  android:layout_alignParentBottom="true"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_marginLeft="@dimen/y8"
+                                  android:layout_marginBottom="@dimen/y15"
+                                  android:src="@mipmap/ic_logo"/>
+                         </RelativeLayout>
+
+                         <TextView
+                             android:layout_width="0dp"
+                             android:layout_height="wrap_content"
+                             android:layout_weight="1"/>
+                         <LinearLayout
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent"
+                             android:gravity="center"
+                             android:orientation="vertical"
+                             android:layout_weight="3">
+                              <TextView
+                                  android:gravity="center"
+                                  android:id="@+id/datafragment_price"
+                                  android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:textSize="30sp"
+                                  android:text="0"
+                                  android:textColor="@color/white"/>
+                              <TextView
+                                  android:gravity="center"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/white"
+                                  android:text="上月度电成本（元）"/>
+                         </LinearLayout>
+                    </LinearLayout>
+               </RelativeLayout>
+          </RelativeLayout>
+          <View
+              android:layout_marginTop="@dimen/y15"
+              style="@style/cut_off_line_5dp"
+              />
+          <LinearLayout
+              android:id="@+id/data_charge"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_charge" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="电费数据" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_amount"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_electric" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="电量数据" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_rate"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_rate" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="功率数据" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_factor"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_factor" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="功率因素" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_flow"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_current" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="电流电压" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_no"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_no" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="电流不平衡" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+
+
+          <View
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
+              style="@style/cut_off_line_1dp"/>
+          <LinearLayout
+              android:id="@+id/data_press"
+              style="@style/identity_layout">
+               <ImageView
+                   android:layout_gravity="center"
+                   style="@style/identity_imageview"
+                   android:src="@mipmap/data_press" />
+
+               <TextView
+                   android:layout_gravity="center"
+                   style="@style/identity_textview"
+                   android:text="电压不平衡" />
+               <View
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"/>
+               <ImageView
+                   style="@style/data_textview"
+                   android:src="@mipmap/head_right"
+                   />
+          </LinearLayout>
+     </LinearLayout>
+</ScrollView>

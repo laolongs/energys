@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <View
+        android:id="@+id/view_0"
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_1"
+        android:layout_below="@+id/view_0"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_2"
+        android:layout_below="@+id/view_1"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_3"
+        android:layout_below="@+id/view_2"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <ImageView
+        android:layout_marginLeft="@dimen/y1"
+        android:id="@+id/image"
+        android:layout_width="@dimen/x15"
+        android:layout_height="@dimen/y15"
+        android:layout_below="@+id/view_3"
+        android:src="@mipmap/dot" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_4"
+        android:layout_below="@+id/image"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_5"
+        android:layout_below="@+id/view_4"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_6"
+        android:layout_below="@+id/view_5"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+    <View
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginTop="@dimen/y3"
+        android:id="@+id/view_7"
+        android:layout_below="@+id/view_6"
+        android:layout_width="@dimen/x1"
+        android:layout_height="@dimen/y3"
+        android:background="#A6A6A6" />
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/y8"
+        android:layout_toRightOf="@+id/view_0"
+        android:layout_alignBottom="@+id/view_6"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/progress_title"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/darkslategray"
+            android:text="发现问题"/>
+        <TextView
+            android:layout_below="@+id/progress_title"
+            android:id="@+id/progress_time"
+            android:layout_marginTop="@dimen/y3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018/01/02 12:30:12"/>
+    </RelativeLayout>
+</RelativeLayout>
