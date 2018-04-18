@@ -5,30 +5,39 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:paddingTop="@dimen/y8"
         android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/y30"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:background="@drawable/ops_questions_tab_bg"
-            android:layout_width="@dimen/x60"
-            android:gravity="center"
-            android:layout_height="@dimen/y60">
-            <TextView
-                android:id="@+id/discuss_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:text="杜"/>
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_marginTop="@dimen/y30"
+                android:layout_marginLeft="@dimen/x44"
+                android:background="@drawable/ops_questions_tab_bg"
+                android:layout_width="@dimen/x107"
+                android:layout_height="@dimen/y96">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/discuss_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="杜"/>
+            </RelativeLayout>
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_marginLeft="@dimen/x6"
+           android:layout_marginTop="@dimen/y42"
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="horizontal"
@@ -36,36 +45,36 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/discuss_name"
-                    android:layout_marginTop="@dimen/x8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
                     android:text="杜承军"/>
                 <TextView
-                    android:layout_marginLeft="@dimen/x8"
-                    android:layout_marginTop="@dimen/x8"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:textColor="#D5D5D5"
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="工程师1组"/>
             </LinearLayout>
             <TextView
+                android:textColor="#D5D5D5"
                 android:id="@+id/discuss_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2018/01/02 12:30:12"/>
             <TextView
                 android:id="@+id/discuss_content"
-                android:layout_marginTop="@dimen/x4"
+                android:layout_marginTop="@dimen/y20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
-                android:textColor="@color/black"
+                android:textColor="#666666"
                 android:text="巡视工程师张庆丰在2月月度第二次例行巡视发现此问题."/>
         </LinearLayout>
     </LinearLayout>
 
     <View
-        android:layout_marginTop="@dimen/y8"
-        style="@style/cut_off_line_1dp"/>
+        style="@style/cut_off_line_2dp"/>
 </LinearLayout>

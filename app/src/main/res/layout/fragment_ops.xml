@@ -18,36 +18,35 @@
             android:background="@mipmap/ops_bg"
             android:layout_weight="1">
             <android.support.v7.widget.Toolbar
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/data_toolbar"
                 style="@style/headtoolbar"
                 app:layout_scrollFlags="scroll|enterAlways">
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/y65"
+                    android:layout_width="@dimen/x229"
+                    android:layout_height="@dimen/y66"
                     android:src="@mipmap/ic_logo"
                     style="@style/toolbar_center"/>
             </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:orientation="vertical"
                 >
                 <TextView
+                    android:layout_marginTop="@dimen/y10"
                     android:id="@+id/ops_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="50sp"
+                    android:textSize="62sp"
                     android:text="0"
                     android:layout_gravity="center"
+                    android:typeface="serif"
                     android:textColor="@color/white"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     android:text="待处理问题"
                     android:layout_gravity="center"
                     android:textColor="@color/white"/>
@@ -65,13 +64,12 @@
             android:orientation="horizontal"
             android:layout_weight="2">
             <View
-                android:layout_width="@dimen/x2"
+                android:layout_width="@dimen/x12"
                 android:layout_height="match_parent"
                 android:background="@color/border"
                 />
 
             <RadioGroup
-                    android:paddingTop="10dp"
                     android:id="@+id/ops_rcy_left_rg"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -79,7 +77,8 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:paddingTop="@dimen/y28"
+                        android:textSize="11sp"
                         android:id="@+id/ops_rcy_left_bt1"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -91,7 +90,8 @@
                         android:text="全部"
                         />
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:textSize="11sp"
+                        android:paddingTop="@dimen/y28"
                         android:id="@+id/ops_rcy_left_bt2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -103,7 +103,8 @@
                         android:text="房间"
                         />
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:textSize="11sp"
+                        android:paddingTop="@dimen/y28"
                         android:id="@+id/ops_rcy_left_bt3"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -115,7 +116,8 @@
                         android:text="柜子"
                         />
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:paddingTop="@dimen/y28"
+                        android:textSize="11sp"
                         android:id="@+id/ops_rcy_left_bt4"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -127,7 +129,8 @@
                         android:text="变压器"
                         />
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:textSize="11sp"
+                        android:paddingTop="@dimen/y28"
                         android:id="@+id/ops_rcy_left_bt5"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -139,7 +142,8 @@
                         android:text="绝缘器"
                     />
                     <RadioButton
-                        android:padding="@dimen/y8"
+                        android:textSize="11sp"
+                        android:paddingTop="@dimen/y28"
                         android:id="@+id/ops_rcy_left_bt6"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -152,11 +156,11 @@
                     />
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
+                        android:layout_height="@dimen/y88"
                        />
                 </RadioGroup>
             <View
-                android:layout_width="@dimen/x2"
+                android:layout_width="@dimen/x12"
                 android:layout_height="match_parent"
                 android:background="@color/border"
                />
@@ -193,7 +197,7 @@
 
                 </in.srain.cube.views.ptr.PtrFrameLayout>
             <View
-                android:layout_width="@dimen/x2"
+                android:layout_width="@dimen/x12"
                 android:layout_height="match_parent"
                 android:background="@color/border"
                 />

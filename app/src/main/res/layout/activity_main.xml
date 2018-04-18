@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hjm="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,22 +18,25 @@
         android:id="@+id/main_rg"
         android:background="@drawable/main_button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y50"
-        android:paddingTop="@dimen/y6"
+        android:layout_height="@dimen/y98"
         android:orientation="horizontal"
         >
         <RadioButton
+            android:paddingTop="@dimen/y10"
             android:id="@+id/main_bt1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:button="@null"
+            android:textSize="11sp"
             android:drawableTop="@drawable/mian_imgone"
             android:textColor="@drawable/main_text"
             android:text="运维"
             />
         <RadioButton
+            android:paddingTop="@dimen/y10"
+            android:textSize="11sp"
             android:id="@+id/main_bt2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -45,6 +48,8 @@
             android:text="能效"
             />
         <RadioButton
+            android:paddingTop="@dimen/y10"
+            android:textSize="11sp"
             android:id="@+id/main_bt3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -56,6 +61,8 @@
             android:text="数据"
             />
         <RadioButton
+            android:paddingTop="@dimen/y10"
+            android:textSize="11sp"
             android:id="@+id/main_bt4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -67,6 +74,10 @@
             android:text="我的"
             />
     </RadioGroup>
+
+
+
+
 
 </RelativeLayout>
 

@@ -2,11 +2,14 @@ package cn.tties.energy.view;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 
 import java.util.List;
 
@@ -28,6 +31,7 @@ import cn.tties.energy.view.iview.IMainView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
 
+
     @BindView(R.id.main_fl)
     FrameLayout mainFl;
     @BindView(R.id.main_bt1)
@@ -42,16 +46,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     RadioGroup mainRg;
     private List<View> mViews;
     private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ButterKnife.bind(this);
+        initButton();
         initView();
 //        checkVersion();
     }
 
+    private void initButton() {
+        Drawable drawableone = getResources().getDrawable(R.drawable.mian_imgone);
+        drawableone.setBounds(0,0,50,50);
+        mainBt1.setCompoundDrawables(null,drawableone , null, null);
+        Drawable drawabletwo = getResources().getDrawable(R.drawable.mian_imgtwo);
+        drawabletwo.setBounds(0,0,50,50);
+        mainBt2.setCompoundDrawables(null,drawabletwo , null, null);
+        Drawable drawablethree = getResources().getDrawable(R.drawable.mian_imgthree);
+        drawablethree.setBounds(0,0,50,50);
+        mainBt3.setCompoundDrawables(null,drawablethree , null, null);
+        Drawable drawablefour = getResources().getDrawable(R.drawable.mian_imgfour);
+        drawablefour.setBounds(0,0,50,50);
+        mainBt4.setCompoundDrawables(null,drawablefour , null, null);
+    }
+
     private void initView() {
+
         mainRg.check(R.id.main_bt1);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).commit();
         mainRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

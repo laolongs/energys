@@ -2,99 +2,104 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/x44"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/y30"
     android:orientation="vertical" >
     <View
+        android:layout_marginLeft="@dimen/y10"
         android:id="@+id/view_0"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_1"
         android:layout_below="@+id/view_0"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_2"
         android:layout_below="@+id/view_1"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_3"
         android:layout_below="@+id/view_2"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <ImageView
-        android:layout_marginLeft="@dimen/y1"
+        android:layout_marginTop="@dimen/y4"
+        android:layout_marginLeft="@dimen/y3"
         android:id="@+id/image"
-        android:layout_width="@dimen/x15"
-        android:layout_height="@dimen/y15"
+        android:layout_width="@dimen/x22"
+        android:layout_height="@dimen/y20"
         android:layout_below="@+id/view_3"
         android:src="@mipmap/dot" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y10"
         android:id="@+id/view_4"
         android:layout_below="@+id/image"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_5"
         android:layout_below="@+id/view_4"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_6"
         android:layout_below="@+id/view_5"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
     <View
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y3"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginTop="@dimen/y6"
         android:id="@+id/view_7"
         android:layout_below="@+id/view_6"
-        android:layout_width="@dimen/x1"
-        android:layout_height="@dimen/y3"
-        android:background="#A6A6A6" />
+        android:layout_width="@dimen/x4"
+        android:layout_height="@dimen/y8"
+        android:background="#D5D5D5" />
 
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/y8"
+        android:layout_marginLeft="@dimen/x32"
         android:layout_toRightOf="@+id/view_0"
         android:layout_alignBottom="@+id/view_6"
         android:orientation="vertical" >
         <TextView
             android:id="@+id/progress_title"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/y30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/darkslategray"
+            android:textSize="14sp"
+            android:textColor="#666666"
             android:text="发现问题"/>
         <TextView
             android:layout_below="@+id/progress_title"
             android:id="@+id/progress_time"
             android:layout_marginTop="@dimen/y3"
             android:layout_width="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#D5D5D5"
             android:layout_height="wrap_content"
             android:text="2018/01/02 12:30:12"/>
     </RelativeLayout>

@@ -7,8 +7,8 @@
     android:layout_height="match_parent">
     <ImageView
         android:id="@+id/header_iv"
-        android:layout_width="@dimen/y10"
-        android:layout_height="@dimen/y10"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y36"
         android:src="@mipmap/ops_load"/>
     <TextView
         android:id="@+id/header_tv"

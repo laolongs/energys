@@ -6,161 +6,177 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/identity_toolbar"
-        style="@style/toolbar"
-        android:background="#FF7F00"
-        app:layout_scrollFlags="scroll|enterAlways">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y656">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/identity_toolbar"
+            style="@style/ident_headtoolbar"
+            android:background="#FF7F00"
+            app:layout_scrollFlags="scroll|enterAlways">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/y85"
+            android:layout_width="@dimen/x229"
+            android:layout_height="@dimen/y66"
             android:src="@mipmap/ic_logo"
             style="@style/toolbar_center"/>
-    </android.support.v7.widget.Toolbar>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:gravity="center"
-        android:background="#FF7F00"
-        android:orientation="vertical">
-
+        </android.support.v7.widget.Toolbar>
         <LinearLayout
-            android:layout_marginLeft="@dimen/y8"
-            android:layout_marginRight="@dimen/y8"
+            android:background="#FF7F00"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y180"
-            android:orientation="vertical"
-            android:background="@drawable/btn_date_dwmy_normal"
-            >
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/y40"
+            android:orientation="vertical">
             <LinearLayout
+                android:background="@drawable/ident_bg"
+                android:layout_marginLeft="@dimen/x45"
+                android:layout_marginRight="@dimen/x45"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="@dimen/y80"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_marginTop="@dimen/y20"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="客户名称"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/identity_name"
-                        android:layout_marginTop="@dimen/y20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="张丰富"/>
-                    <TextView
-                        android:id="@+id/identity_company"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="绍兴市科普织造有限公司"/>
-                </LinearLayout>
-
-            </LinearLayout>
-            <View
-                android:layout_marginLeft="@dimen/y8"
-                android:layout_marginRight="@dimen/y8"
-                style="@style/cut_off_line_1dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="@dimen/y80"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/identity_img"
-                        android:src="@mipmap/identity_electricity"
-                        android:layout_marginTop="@dimen/y20"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                      />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_marginTop="@dimen/y20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="使用中的电表号"/>
-                    <TextView
-                        android:textColor="@color/black"
-                        android:id="@+id/identity_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="9824234234234"/>
+                android:layout_height="@dimen/y428"
+                android:orientation="vertical">
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:background="@color/white"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/identity_switch_electricity"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="切换电表"/>
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/y6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/head_right"/>
-                    </LinearLayout>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginTop="@dimen/y56"
+                                android:layout_marginLeft="@dimen/x46"
+                                android:textSize="13sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="客户名称"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_weight="2.5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/identity_name"
+                                android:layout_marginTop="@dimen/y46"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="22sp"
+                                android:text="张丰富"/>
+                            <TextView
+                                android:id="@+id/identity_company"
+                                android:layout_marginTop="@dimen/y10"
+                                android:textSize="13sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="绍兴市科普织造有限公司"/>
+                        </LinearLayout>
 
+                    </LinearLayout>
+                    <View
+                        android:layout_marginLeft="@dimen/x44"
+                        android:layout_marginRight="@dimen/x44"
+                        style="@style/cut_off_line_1dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:id="@+id/identity_img"
+                                android:src="@mipmap/identity_electricity"
+                                android:layout_marginTop="@dimen/y50"
+                                android:layout_marginLeft="@dimen/x43"
+                                android:layout_width="@dimen/x94"
+                                android:layout_height="@dimen/y124"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="2.5"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginTop="@dimen/y42"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:text="使用中的电表号"/>
+                            <TextView
+                                android:textColor="@color/black"
+                                android:id="@+id/identity_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="26sp"
+                                android:text="9824234234234"/>
+                            <LinearLayout
+                                android:layout_marginTop="@dimen/y8"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <TextView
+                                    android:textSize="13sp"
+                                    android:id="@+id/identity_switch_electricity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="切换电表"/>
+                                <ImageView
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/y6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/head_right"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
 
         </LinearLayout>
-
-
-
     </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <LinearLayout
             android:id="@+id/layout_password"
             android:layout_weight="1"
             style="@style/identity_layout_item">
 
             <ImageView
-                style="@style/identity_imageview"
+                style="@style/identity_imageviews"
                 android:src="@mipmap/identity_password" />
 
             <TextView
-                style="@style/identity_textview"
+                style="@style/identity_textviews"
                 android:text="修改密码" />
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <ImageView
-                style="@style/data_textview"
-               android:src="@mipmap/head_right"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/y26"
+                android:layout_marginRight="@dimen/x67"
+                android:src="@mipmap/head_right"
                 />
         </LinearLayout>
 
 
-        <ImageView
-            android:layout_marginLeft="@dimen/y20"
-            android:layout_marginRight="@dimen/y20"
-            style="@style/cut_off_line_1dp"/>
+        <View
+            android:layout_marginLeft="@dimen/x67"
+            android:layout_marginRight="@dimen/x67"
+            style="@style/cut_off_line_2dp"/>
         <LinearLayout
             android:id="@+id/layout_version"
             android:layout_weight="1"
@@ -178,15 +194,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <ImageView
-                style="@style/data_textview"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/y26"
+                android:layout_marginRight="@dimen/x67"
                 android:src="@mipmap/head_right"
                 />
         </LinearLayout>
 
-        <ImageView
-            android:layout_marginLeft="@dimen/y20"
-            android:layout_marginRight="@dimen/y20"
-            style="@style/cut_off_line_1dp"/>
+        <View
+            android:layout_marginLeft="@dimen/x67"
+            android:layout_marginRight="@dimen/x67"
+            style="@style/cut_off_line_2dp"/>
 
         <LinearLayout
             android:id="@+id/identity_about"
@@ -205,15 +223,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <ImageView
-                style="@style/data_textview"
-               android:src="@mipmap/head_right"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/y26"
+                android:layout_marginRight="@dimen/x67"
+                android:src="@mipmap/head_right"
                 />
         </LinearLayout>
 
-        <ImageView
-            android:layout_marginLeft="@dimen/y20"
-            android:layout_marginRight="@dimen/y20"
-            style="@style/cut_off_line_1dp"/>
+        <View
+            android:layout_marginLeft="@dimen/x67"
+            android:layout_marginRight="@dimen/x67"
+            style="@style/cut_off_line_2dp"/>
 
         <LinearLayout
             android:id="@+id/layout_loginout"
@@ -226,16 +246,20 @@
 
             <TextView
                 style="@style/identity_textview"
-                android:text="推出登录" />
+                android:text="退出登录" />
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <ImageView
-                style="@style/data_textview"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/y26"
+                android:layout_marginRight="@dimen/x67"
                 android:src="@mipmap/head_right"
                 />
         </LinearLayout>
+    </LinearLayout>
+
 
 
 </LinearLayout>

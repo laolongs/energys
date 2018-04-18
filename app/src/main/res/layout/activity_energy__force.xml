@@ -14,12 +14,13 @@
         <include layout="@layout/toobar"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y40"
+            android:layout_height="@dimen/y85"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
 
             <TextView
+                android:textSize="13sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -27,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:text="有功功率" />
             <TextView
+                android:textSize="13sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -34,6 +36,7 @@
                 android:layout_height="match_parent"
                 android:text="无功功率" />
             <TextView
+                android:textSize="13sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -44,10 +47,10 @@
 
 
         <View
-            style="@style/cut_off_line_1dp"/>
+            style="@style/cut_off_line_2dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y40"
+            android:layout_height="@dimen/y85"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
@@ -86,16 +89,16 @@
         <View
             style="@style/cut_off_line_5dp"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
             android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y120"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
             <TextView
-                android:layout_marginLeft="@dimen/y8"
+                android:layout_marginLeft="@dimen/x33"
                 android:layout_weight="6"
                 android:layout_width="0dp"
-                android:gravity="center"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="功率因数历史趋势"/>
@@ -106,6 +109,7 @@
                 android:layout_height="wrap_content"
                 />
             <TextView
+                android:textSize="13sp"
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"
@@ -117,56 +121,56 @@
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="2018年"
-
                 />
             <ImageView
+               android:layout_marginTop="@dimen/y8"
+                android:layout_marginLeft="@dimen/y10"
                 android:id="@+id/energy_force_select"
-                android:layout_marginRight="@dimen/y8"
+                android:layout_marginRight="@dimen/x47"
                 android:background="@color/black"
                 android:src="@mipmap/arrows"
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_width="@dimen/x14"
+                android:layout_height="@dimen/x24" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y200"
+            android:layout_height="@dimen/y450"
             android:orientation="vertical">
             <cn.tties.energy.chart.LineDataChart
                 android:id="@+id/energy_force_chart1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/y428">
 
             </cn.tties.energy.chart.LineDataChart>
         </LinearLayout>
         <View
-            android:layout_marginTop="@dimen/y10"
             style="@style/cut_off_line_5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y50"
-            android:paddingLeft="@dimen/y8"
+            android:layout_height="@dimen/y120"
+            android:paddingLeft="@dimen/x33"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
             <TextView
                 android:layout_width="wrap_content"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="每月节约电费"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y220"
+            android:layout_height="@dimen/y450"
             android:orientation="vertical">
             <cn.tties.energy.chart.BarDataCharttwo
                 android:id="@+id/energy_force_chart2"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y200">
+                android:layout_height="@dimen/y428">
             </cn.tties.energy.chart.BarDataCharttwo>
         </LinearLayout>
     </LinearLayout>

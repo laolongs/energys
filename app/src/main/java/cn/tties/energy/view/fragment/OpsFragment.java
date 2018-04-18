@@ -1,6 +1,7 @@
 package cn.tties.energy.view.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,8 +87,31 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
         opsNumber = inflate.findViewById(R.id.ops_number);
         unbinder = ButterKnife.bind(this, inflate);
         initView();
+        initButton();
         initRefresh();
         return inflate;
+    }
+
+    private void initButton() {
+        Drawable drawableone = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgone);
+        drawableone.setBounds(0,0,50,50);
+        opsRcyLeftBt1.setCompoundDrawables(null,drawableone , null, null);
+        Drawable drawabletwo = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgtwo);
+        drawabletwo.setBounds(0,0,50,50);
+        opsRcyLeftBt2.setCompoundDrawables(null,drawabletwo , null, null);
+        Drawable drawablethree = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgthree);
+        drawablethree.setBounds(0,0,50,50);
+        opsRcyLeftBt3.setCompoundDrawables(null,drawablethree , null, null);
+        Drawable drawablefour = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgfour);
+        drawablefour.setBounds(0,0,50,50);
+        opsRcyLeftBt4.setCompoundDrawables(null,drawablefour , null, null);
+        Drawable drawablefive = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgfive);
+        drawablefive.setBounds(0,0,50,50);
+        opsRcyLeftBt5.setCompoundDrawables(null,drawablefive , null, null);
+        Drawable drawablesix = getResources().getDrawable(R.drawable.selector_radiobtn_ops_imgsix);
+        drawablesix.setBounds(0,0,50,50);
+        opsRcyLeftBt6.setCompoundDrawables(null,drawablesix , null, null);
+
     }
 
     private void initView() {

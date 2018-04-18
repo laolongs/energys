@@ -65,7 +65,7 @@ public class MyEnergyProgressRound extends View{
 
     private void getCustomAttr(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MyProgressRound);
-        mRadiuSize = array.getDimension(R.styleable.MyProgressRound_radiuSize, 180);
+        mRadiuSize = array.getDimension(R.styleable.MyProgressRound_radiuSize, 130);
         mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 10);
         mTextSize = array.getDimension(R.styleable.MyProgressRound_textSize, 10);
         mProgressColor = array.getColor(R.styleable.MyProgressRound_progressColor, Color.BLACK);

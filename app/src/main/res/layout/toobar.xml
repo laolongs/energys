@@ -7,12 +7,14 @@
     style="@style/toolbar"
     app:layout_scrollFlags="scroll|enterAlways">
     <ImageView
-        android:layout_marginLeft="@dimen/y4"
+        android:layout_marginTop="@dimen/y90"
+        android:layout_marginLeft="@dimen/x40"
         android:id="@+id/toolbar_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/x25"
+        android:layout_height="@dimen/y40"
         android:src="@mipmap/head_left"
         />
     <TextView android:id="@+id/toolbar_text"
+        android:layout_marginTop="@dimen/y90"
         style="@style/toolbar_center"/>
 </android.support.v7.widget.Toolbar>

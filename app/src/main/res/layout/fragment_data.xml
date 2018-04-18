@@ -12,93 +12,100 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:orientation="vertical">
-          <android.support.v7.widget.Toolbar
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/data_toolbar"
-              style="@style/toolbar"
-              app:layout_scrollFlags="scroll|enterAlways">
-          <TextView android:id="@+id/data_toolbar_text"
-              style="@style/toolbar_center"/>
-          </android.support.v7.widget.Toolbar>
-          <RelativeLayout
-              android:layout_marginLeft="@dimen/y8"
-              android:layout_marginRight="@dimen/y8"
+          <LinearLayout
+              android:background="#F2F2F2"
+              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/btn_date_dwmy_norma_colorl"
-              >
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/datafragment_time_tv"
-                        android:layout_marginTop="@dimen/y8"
+              android:layout_height="@dimen/y656">
+               <android.support.v7.widget.Toolbar
+                   android:id="@+id/data_toolbar"
+                   android:background="#F2F2F2"
+                   style="@style/headtoolbars"
+                   app:layout_scrollFlags="scroll|enterAlways">
+                    <TextView android:id="@+id/data_toolbar_text"
+                        android:layout_marginTop="@dimen/y88"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_marginRight="@dimen/y8"
-                        android:layout_alignParentRight="true"
-                        android:text="3月"
-                       />
-                    <cn.tties.energy.chart.BarDataChart
-                        android:id="@+id/datafragment_chart"
-                        android:layout_below="@+id/datafragment_time_tv"
+                        android:textSize="19sp"
+                        android:textColor="@color/black"
+                        style="@style/toolbar_center"/>
+               </android.support.v7.widget.Toolbar>
+               <RelativeLayout
+                   android:layout_marginTop="@dimen/y48"
+                   android:layout_marginLeft="@dimen/x45"
+                   android:layout_marginRight="@dimen/x45"
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/y428"
+                   android:background="@drawable/btn_date_dwmy_norma_colorl"
+                   >
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/y130"
-                        android:background="#FF602F">
-                    </cn.tties.energy.chart.BarDataChart>
-                    <LinearLayout
-                        android:layout_below="@+id/datafragment_chart"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y80">
+                        android:layout_height="wrap_content">
+                         <TextView
+                             android:id="@+id/datafragment_time_tv"
+                             android:layout_marginTop="@dimen/y40"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:textColor="@color/white"
+                             android:layout_marginRight="@dimen/x38"
+                             android:layout_alignParentRight="true"
+                             android:textSize="12sp"
+                             android:text="3月"
+                             />
+                         <cn.tties.energy.chart.BarDataChart
+                             android:layout_marginTop="@dimen/y10"
+                             android:id="@+id/datafragment_chart"
+                             android:layout_below="@+id/datafragment_time_tv"
+                             android:layout_width="match_parent"
+                             android:layout_height="@dimen/y182"
+                             android:background="#FF602F">
+                         </cn.tties.energy.chart.BarDataChart>
                          <RelativeLayout
-                             android:layout_weight="2"
-                             android:layout_width="0dp"
+                             android:layout_below="@+id/datafragment_chart"
+                             android:orientation="horizontal"
+                             android:layout_width="match_parent"
                              android:layout_height="match_parent">
-                              <ImageView
+                              <RelativeLayout
                                   android:layout_alignParentBottom="true"
                                   android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_marginLeft="@dimen/y8"
-                                  android:layout_marginBottom="@dimen/y15"
-                                  android:src="@mipmap/ic_logo"/>
-                         </RelativeLayout>
+                                  android:layout_height="match_parent">
+                                   <ImageView
+                                       android:layout_alignParentBottom="true"
+                                       android:layout_width="@dimen/x165"
+                                       android:layout_height="@dimen/y46"
+                                       android:layout_marginLeft="@dimen/x44"
+                                       android:layout_marginBottom="@dimen/y40"
+                                       android:src="@mipmap/ic_logo"/>
+                              </RelativeLayout>
 
-                         <TextView
-                             android:layout_width="0dp"
-                             android:layout_height="wrap_content"
-                             android:layout_weight="1"/>
-                         <LinearLayout
-                             android:layout_width="0dp"
-                             android:layout_height="match_parent"
-                             android:gravity="center"
-                             android:orientation="vertical"
-                             android:layout_weight="3">
-                              <TextView
-                                  android:gravity="center"
-                                  android:id="@+id/datafragment_price"
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:textSize="30sp"
-                                  android:text="0"
-                                  android:textColor="@color/white"/>
-                              <TextView
-                                  android:gravity="center"
+
+                              <LinearLayout
+                                  android:layout_alignParentRight="true"
                                   android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/white"
-                                  android:text="上月度电成本（元）"/>
-                         </LinearLayout>
-                    </LinearLayout>
+                                  android:layout_height="match_parent"
+                                  android:gravity="center"
+                                  android:paddingBottom="@dimen/y30"
+                                  android:layout_marginRight="@dimen/x45"
+                                  android:orientation="vertical"
+                               >
+                                   <TextView
+                                       android:id="@+id/datafragment_price"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       android:textSize="32sp"
+                                       android:text="0"
+                                       android:textColor="@color/white"/>
+                                   <TextView
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:textColor="@color/white"
+                                       android:textSize="13sp"
+                                       android:text="上月度电成本(元)"/>
+                              </LinearLayout>
+                         </RelativeLayout>
+                    </RelativeLayout>
                </RelativeLayout>
-          </RelativeLayout>
-          <View
-              android:layout_marginTop="@dimen/y15"
-              style="@style/cut_off_line_5dp"
-              />
+          </LinearLayout>
           <LinearLayout
               android:id="@+id/data_charge"
               style="@style/identity_layout">
@@ -116,16 +123,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_amount"
               style="@style/identity_layout">
@@ -143,16 +152,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_rate"
               style="@style/identity_layout">
@@ -170,16 +181,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_factor"
               style="@style/identity_layout">
@@ -197,16 +210,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_flow"
               style="@style/identity_layout">
@@ -224,16 +239,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_no"
               style="@style/identity_layout">
@@ -251,16 +268,18 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
 
           <View
-              android:layout_marginLeft="@dimen/y20"
-              android:layout_marginRight="@dimen/y20"
-              style="@style/cut_off_line_1dp"/>
+              android:layout_marginLeft="@dimen/x67"
+              android:layout_marginRight="@dimen/x67"
+              style="@style/cut_off_line_2dp"/>
           <LinearLayout
               android:id="@+id/data_press"
               style="@style/identity_layout">
@@ -278,7 +297,9 @@
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
                <ImageView
-                   style="@style/data_textview"
+                   android:layout_width="@dimen/x18"
+                   android:layout_height="@dimen/y26"
+                   android:layout_marginRight="@dimen/x67"
                    android:src="@mipmap/head_right"
                    />
           </LinearLayout>

@@ -3,64 +3,67 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="@dimen/y80">
+    android:layout_height="match_parent">
     <LinearLayout
-        android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y80">
+        android:layout_height="@dimen/y196">
         <RelativeLayout
-            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginLeft="@dimen/x33"
+            android:layout_marginTop="@dimen/y30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
+            >
             <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/energy_monthly_pdfimg"
                 android:src="@mipmap/energy_energy_pdf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/y107"
+                android:layout_height="@dimen/y136" />
             <TextView
                 android:id="@+id/energy_monthly_load"
                 android:gravity="center"
-                android:layout_width="60dp"
+                android:layout_width="@dimen/x78"
                 android:layout_height="wrap_content"
                 android:text="已下载"
+                android:textSize="10sp"
                 android:visibility="gone"
                 android:background="@drawable/month_load_bg"
                 android:textColor="@color/white"/>
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/x10"
+           android:paddingTop="@dimen/y30"
+            android:paddingLeft="@dimen/x44"
+            android:paddingRight="@dimen/x52"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="7">
+            android:layout_weight="1">
             <TextView
                 android:id="@+id/energy_monthly_tv"
-                android:layout_marginTop="@dimen/x8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="南洋印染2017年6月月度能效报告"
                 android:textColor="@color/black"
-                android:textSize="17sp"/>
+                android:textSize="16sp"/>
             <TextView
+                android:textColor="#717171"
+                android:textSize="12sp"
                 android:id="@+id/energy_monthly_time"
-                android:layout_marginTop="@dimen/x6"
+                android:layout_marginTop="@dimen/y14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2017-07-04  18:05"
                 />
         </LinearLayout>
         <ImageView
+            android:layout_marginTop="@dimen/y48"
             android:id="@+id/energy_monthly_loadimg"
             android:src="@mipmap/energy_energy_download"
-            android:layout_marginRight="@dimen/x8"
-            android:layout_width="wrap_content"
-            android:layout_weight="2"
-            android:layout_height="wrap_content" />
+            android:layout_marginRight="@dimen/x44"
+            android:layout_width="@dimen/x112"
+            android:layout_height="@dimen/y100" />
     </LinearLayout>
     <View
         style="@style/cut_off_line_5dp"/>

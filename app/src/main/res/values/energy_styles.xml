@@ -2,19 +2,29 @@
     <!-- toobar -->
     <style name="toolbar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_height">@dimen/y186</item>
         <item name="android:background">#F2F2F2</item>
-        <item name="android:minHeight">40dp</item>
+        <item name="android:minHeight">@dimen/y80</item>
         <item name="android:theme">@style/toolbar_blue_theme</item>
     </style>
-    <!-- toobar -->
+    <!-- headtoolbar -->
     <style name="headtoolbar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:minHeight">40dp</item>
+        <item name="android:layout_height">@dimen/y140</item>
         <item name="android:theme">@style/toolbar_blue_theme</item>
     </style>
-
+    <!-- headtoolbar -->
+    <style name="ident_headtoolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y186</item>
+        <item name="android:theme">@style/toolbar_blue_theme</item>
+    </style>
+    <!-- headtoolbars -->
+    <style name="headtoolbars">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y140</item>
+        <item name="android:theme">@style/toolbar_blue_theme</item>
+    </style>
     <style name="toolbar_center">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -143,8 +153,8 @@
 
     <style name="identity_layout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">62dp</item>
-        <item name="android:paddingLeft">24dp</item>
+        <item name="android:layout_height">@dimen/y146</item>
+        <item name="android:paddingLeft">@dimen/x67</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/selector_layout</item>
@@ -160,9 +170,16 @@
     <style name="identity_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/y24</item>
+        <item name="android:layout_marginLeft">@dimen/x23</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="identity_textviews">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/x27</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="identity_textright">
         <item name="android:layout_width">wrap_content</item>
@@ -174,8 +191,12 @@
     </style>
 
     <style name="identity_imageview">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/x74</item>
+        <item name="android:layout_height">@dimen/y66</item>
+    </style>
+    <style name="identity_imageviews">
+        <item name="android:layout_width">@dimen/x63</item>
+        <item name="android:layout_height">@dimen/y56</item>
     </style>
     <!-- 通用 -->
     <style name="layout_radiogroup">
@@ -323,13 +344,17 @@
 
     <style name="cut_off_line_1dp">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/x1</item>
+        <item name="android:layout_height">@dimen/y5</item>
         <item name="android:background">@color/border</item>
     </style>
-
+    <style name="cut_off_line_2dp">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/y2</item>
+        <item name="android:background">@color/border</item>
+    </style>
     <style name="cut_off_line_5dp">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">5dp</item>
+        <item name="android:layout_height">@dimen/y10</item>
         <item name="android:background">@color/border</item>
     </style>
 
@@ -341,8 +366,8 @@
     <style name="ops_item_top_textview">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/x14</item>
-        <item name="android:layout_marginTop">@dimen/x14</item>
+        <item name="android:layout_marginLeft">@dimen/x45</item>
+        <item name="android:layout_marginTop">@dimen/y40</item>
         <item name="android:textColor">@color/gray</item>
         <item name="android:layout_weight">2</item>
         <item name="android:textSize">15sp</item>
@@ -350,13 +375,13 @@
     <style name="data_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:layout_marginRight">@dimen/x67</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">25sp</item>
     </style>
     <style name="questions_text_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/x94</item>
+        <item name="android:layout_height">@dimen/y42</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/questions_text_shop</item>
         <item name="android:gravity">center</item>
