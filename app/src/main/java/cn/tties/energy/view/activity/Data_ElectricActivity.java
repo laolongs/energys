@@ -19,6 +19,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_Electricbean;
@@ -28,6 +29,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
 
 /**
@@ -54,8 +56,9 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     TextView dataElectricalTimeTv;
     private BottomStyleDialog dialog;
     double num = 0;
-    MyTimePickerDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +69,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     private void initView() {
         mPresenter.getAllElectricityData();
         dataElectricalTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_ElectricActivity.this);
         toolbarText.setText("电量数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,12 +80,12 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         dataElectricalTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_ElectricActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataElectricalTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataElectricalTv.setText(tiemMonthBase);
                         mPresenter.getData_Electric();
                     }
                 });

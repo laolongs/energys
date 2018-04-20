@@ -10,10 +10,6 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +23,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_HaveKwbean;
@@ -37,6 +34,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_RateView;
 
 /**
@@ -48,18 +46,18 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.havekw_tv)
-    TextView havekwTv;
-    @BindView(R.id.havakw_time)
-    TextView havakwTime;
-    @BindView(R.id.havakw_year)
-    TextView havakwYear;
-    @BindView(R.id.nokvar_tv)
-    TextView nokvarTv;
-    @BindView(R.id.nokvar_time)
-    TextView nokvarTime;
-    @BindView(R.id.nokvar_year)
-    TextView nokvarYear;
+//    @BindView(R.id.havekw_tv)
+//    TextView havekwTv;
+//    @BindView(R.id.havakw_time)
+//    TextView havakwTime;
+//    @BindView(R.id.havakw_year)
+//    TextView havakwYear;
+//    @BindView(R.id.nokvar_tv)
+//    TextView nokvarTv;
+//    @BindView(R.id.nokvar_time)
+//    TextView nokvarTime;
+//    @BindView(R.id.nokvar_year)
+//    TextView nokvarYear;
     @BindView(R.id.havakw_chart)
     LineDataTwoChart havakwChart;
     @BindView(R.id.nokvar_chart)
@@ -73,7 +71,8 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     @BindView(R.id.data_rate_ele_tv)
     TextView dataRateEleTv;
     private BottomStyleDialog dialog;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
     DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     }
 
     private void initView() {
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_RateActivity.this);
         dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         toolbarText.setText("功率数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +96,14 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         dataRateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_RateActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataRateTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataRateTv.setText(tiemMonthBase);
                         mPresenter.getData_HaveKwData();
                         mPresenter.getData_NoKvarKwData();
-
                     }
                 });
             }

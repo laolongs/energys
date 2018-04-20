@@ -47,11 +47,11 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     Unbinder unbinder;
     @BindView(R.id.identity_toolbar)
     Toolbar identityToolbar;
-//    @BindView(R.id.identity_name)
+    //    @BindView(R.id.identity_name)
     TextView identityName;
-//    @BindView(R.id.identity_company)
+    //    @BindView(R.id.identity_company)
     TextView identityCompany;
-//    @BindView(R.id.identity_number)
+    //    @BindView(R.id.identity_number)
     TextView identityNumber;
     @BindView(R.id.layout_password)
     LinearLayout layoutPassword;
@@ -61,21 +61,24 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     LinearLayout identityAbout;
     @BindView(R.id.layout_loginout)
     LinearLayout layoutLoginout;
-//    @BindView(R.id.identity_switch_electricity)
+    //    @BindView(R.id.identity_switch_electricity)
     TextView identitySwitchElectricity;
     @BindView(R.id.identity_img)
     ImageView identityImg;
-    int num=0;
+    int num = 0;
+    @BindView(R.id.identity_switch_selsect)
+    ImageView identitySwitchSelsect;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_identity, null);
         EventBus.getDefault().isRegistered(this);
-        identityName=inflate.findViewById(R.id.identity_name);
-        identityNumber=inflate.findViewById(R.id.identity_number);
-        identityCompany=inflate.findViewById(R.id.identity_company);
-        identitySwitchElectricity=inflate.findViewById(R.id.identity_switch_electricity);
+        identityName = inflate.findViewById(R.id.identity_name);
+        identityNumber = inflate.findViewById(R.id.identity_number);
+        identityCompany = inflate.findViewById(R.id.identity_company);
+        identitySwitchElectricity = inflate.findViewById(R.id.identity_switch_electricity);
         unbinder = ButterKnife.bind(this, inflate);
         Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
 //        mPresenter.getOpsloginData();//1502183891109
@@ -150,34 +153,36 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
         OpsLoginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
         List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = opsLoginbean.getResult().getEnergyLedgerList();
         identityName.setText(opsLoginbean.getResult().getMaintUser().getStaffName());
-        identityCompany.setText(opsLoginbean.getResult().getCompanyName()+"");
-        if(opsLoginbean.getResult().getEnergyLedgerList().size()>0){
+        identityCompany.setText(opsLoginbean.getResult().getCompanyName() + "");
+        if (opsLoginbean.getResult().getEnergyLedgerList().size() > 0) {
             String ischeck = ACache.getInstance().getAsString(Constants.CACHE_ISCHECK);
             int postion = Integer.parseInt(ischeck);
             for (int i = 0; i < energyLedgerList.size(); i++) {
                 if (i == postion) {
                     long energyLedgerId = loginbean.getResult().getEnergyLedgerList().get(postion).getEnergyLedgerId();
-                    identityNumber.setText(energyLedgerId+"");
-                    Log.i(TAG, "getOpsLoginData: "+energyLedgerId);
+                    identityNumber.setText(energyLedgerId + "");
+                    Log.i(TAG, "getOpsLoginData: " + energyLedgerId);
                 }
             }
-            num=opsLoginbean.getResult().getEnergyLedgerList().size();
-            if(num>0&&num==1){
+            num = opsLoginbean.getResult().getEnergyLedgerList().size();
+            if (num > 0 && num == 1) {
+                identitySwitchSelsect.setVisibility(View.INVISIBLE);
                 identitySwitchElectricity.setText("仅有1个电表");
-            }else{
-                identitySwitchElectricity.setText("共有"+num+"个电表 切换电表");
+            } else {
+                identitySwitchSelsect.setVisibility(View.VISIBLE);
+                identitySwitchElectricity.setText("共有" + num + "个电表 切换电表");
                 identitySwitchElectricity.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent1 = new Intent(getActivity(), ChangeTableActivity.class);
-                        intent1.putExtra("bean",opsLoginbean);
+                        intent1.putExtra("bean", opsLoginbean);
                         startActivity(intent1);
                     }
                 });
 
             }
-        }else{
-            Log.i(TAG, "getOpsLoginData: "+"当前运维无信息");
+        } else {
+            Log.i(TAG, "getOpsLoginData: " + "当前运维无信息");
         }
 
 

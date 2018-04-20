@@ -1,6 +1,7 @@
 package cn.tties.energy.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,10 +12,6 @@ import android.widget.Toast;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +23,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Databean;
@@ -37,13 +35,14 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IDataView;
 
 /**
  * 电费数据
  */
 public class DataActivity extends BaseActivity<DataPresenter> implements View.OnClickListener, IDataView {
-
+    private static final String TAG = "DataActivity";
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -77,8 +76,10 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
     private BottomStyleDialog dialog;
-    MyTimePickerDialog dialogtime;
+//    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
+    int year=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +94,12 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     }
 
     private void initView() {
-        dialogtime=new MyTimePickerDialog();
+        int currentYear = DateUtil.getCurrentYear();
+        int currentMonth = DateUtil.getCurrentMonth();
+        Log.i(TAG, "createArrays: "+currentYear);
+        Log.i(TAG, "createArrays: "+currentMonth);
+//        dialogtime=new MyTimePickerDialog();
+        dialogtime=new MyTimePickerWheelDialog(DataActivity.this);
         toolbarText.setText("电费数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,22 +107,22 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 finish();
             }
         });
-        dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        dataTimeTv.setText(DateUtil.getCurrentYear()+"年");
         mPresenter.getAllElectricityData();
         dataTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimeYearPickerDialog(DataActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE,text+"-01");
-                        dataTimeTv.setText(text+"年");
+                    public void OnCliekTimeListener(int poaiton) {
+                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                        dataTimeTv.setText(tiemBase+"年");
                         mPresenter.getData();
                         mPresenter.getchartData();
+
                     }
                 });
-
             }
         });
         //总电量
@@ -130,7 +136,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
             }
         });
     }
-
     @Override
     protected void createPresenter() {
         mPresenter = new DataPresenter(this);
@@ -240,6 +245,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
             mPresenter.getchartData();
             dataElectricityTv.setText("总电量");
             dialog = new BottomStyleDialog(DataActivity.this, allElectricitybean);
+
             dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
                 @Override
                 public void OnCliekAllElectricityListener(int poaiton) {

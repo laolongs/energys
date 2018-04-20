@@ -4,55 +4,67 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/y20"
+        android:layout_marginRight="@dimen/y50"
+        android:layout_width="@dimen/x534"
+        android:layout_height="@dimen/y252">
         <ImageView
             android:id="@+id/up_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/y20"
+            android:layout_marginLeft="@dimen/y80"
             android:background="@drawable/popup_window_arrow_up" />
         <ImageView
             android:id="@+id/down_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/y20"
+            android:layout_marginLeft="@dimen/y80"
             android:background="@drawable/down_arrow_drawable" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/y18"
+            android:layout_marginRight="@dimen/y80"
+            android:background="@mipmap/popup_window_arrow" />
         <LinearLayout
             android:layout_below="@+id/up_arrow"
-            android:background="#FFA030"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="@dimen/y140">
+            android:background="@drawable/data_charge_dailog_bg"
+            android:layout_height="@dimen/y245">
             <TextView
-                android:paddingTop="@dimen/y10"
+                android:paddingTop="@dimen/y42"
                 android:id="@+id/tip_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/up_arrow"
-                android:gravity="center"
-                android:paddingLeft="@dimen/y10"
-                android:paddingRight="@dimen/y10"
-                android:textSize="18sp"
+                android:paddingLeft="@dimen/x23"
+                android:paddingRight="@dimen/x23"
+                android:lineSpacingMultiplier="1.2"
+                android:textSize="14sp"
                 android:text="国家电网结算并获取到对账单后5个工作日左右"
                 android:textColor="@android:color/white" />
-
             <LinearLayout
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/y20"
-                android:layout_width="@dimen/y100"
-                android:background="@drawable/data_charge_dailog_bg"
-                android:layout_height="@dimen/y50">
-                <TextView
-                    android:id="@+id/btn"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="#ffffff"
-                    android:layout_width="@dimen/y100"
-                    android:layout_height="@dimen/y50"
-                    android:text="知道了"/>
+                    android:layout_marginTop="@dimen/x40"
+                    android:layout_marginBottom="@dimen/y30"
+                    android:layout_width="@dimen/x241"
+                    android:background="@drawable/data_charge_dailog_bg"
+                    android:layout_height="@dimen/y60">
+                    <TextView
+                        android:id="@+id/btn"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="知道了"/>
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

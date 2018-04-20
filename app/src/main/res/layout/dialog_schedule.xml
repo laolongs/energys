@@ -1,69 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginLeft="@dimen/y8"
-    android:layout_marginRight="@dimen/y8"
-    android:background="@drawable/btn_date_dwmy_normal"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y220">
+    android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_marginTop="@dimen/y10"
-            android:layout_marginLeft="@dimen/y10"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y40">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="回复"/>
-                <TextView
-                    android:id="@+id/question_dialog_name"
-                    android:layout_marginLeft="@dimen/y8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="都城均"/>
-        </LinearLayout>
-        <EditText
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y80"
-            android:background="@drawable/bg_edittext_gray"
-            android:layout_marginLeft="@dimen/y10"
-            android:layout_marginRight="@dimen/y10"
-            android:gravity="left|top"
-            android:textColor="@color/black"
-            android:inputType="textMultiLine"
-            android:minLines="6" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y20">
+            android:layout_height="@dimen/y480">
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                        <Button
-                            android:id="@+id/question_btn_confirm"
+                    android:layout_marginTop="@dimen/y40"
+                    android:layout_marginLeft="@dimen/x34"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y40">
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y40"
-                            android:background="@drawable/versetion_text_shop_select"
-                            android:text="回复"
-                            android:textColor="@color/white" />
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:text="回复"/>
+                        <TextView
+                            android:textSize="17sp"
+                            android:id="@+id/question_dialog_name"
+                            android:layout_marginLeft="@dimen/y8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="都城均"/>
                 </LinearLayout>
+                <EditText
+                    android:layout_marginTop="@dimen/y40"
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y180"
+                    android:background="@drawable/bg_edittext_gray"
+                    android:layout_marginLeft="@dimen/x34"
+                    android:layout_marginRight="@dimen/x34"
+                    android:gravity="left|top"
+                    android:textColor="@color/black"
+                    android:inputType="textMultiLine"
+                    android:minLines="6" />
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                        <Button
-                            android:id="@+id/question_btn_cancel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/y40"
-                            android:background="@drawable/versetion_text_shop"
-                            android:text="取消"
-                            android:textColor="@color/white" />
+                    android:paddingBottom="@dimen/y30"
+                    android:layout_marginTop="@dimen/y40">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/x60"
+                            >
+                                <Button
+                                    android:id="@+id/question_btn_confirm"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/y90"
+                                    android:background="@drawable/versetion_text_shop_select"
+                                    android:text="回复"
+                                    android:textColor="@color/white" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/x60"
+                            android:layout_marginLeft="@dimen/x38"
+                            >
+                                <Button
+                                    android:id="@+id/question_btn_cancel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/y90"
+                                    android:background="@drawable/versetion_text_shop"
+                                    android:text="取消"
+                                    android:textColor="@color/white" />
+                        </LinearLayout>
                 </LinearLayout>
+
         </LinearLayout>
 </LinearLayout>

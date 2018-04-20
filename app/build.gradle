@@ -52,7 +52,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     //    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     //时间
-    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+//    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     //json
 //    compile 'com.google.code.gson:gson:2.2.4'
     //下拉刷新

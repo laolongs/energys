@@ -18,6 +18,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.model.result.Energy_BasePlanbean;
@@ -26,6 +27,7 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
 
 /**
@@ -67,7 +69,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     TextView enTv3;
     @BindView(R.id.energy_base_year)
     TextView energyBaseYear;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     }
 
     private void initView() {
-        dialogtime = new MyTimePickerDialog();
+        dialogtime=new MyTimePickerWheelDialog(Energy_BaseenergyActivity.this);
         mPresenter.getEnergy_Baseenergy();
         mPresenter.getEnergy_BasePlan();
         toolbarText.setText("基本电费优化");
@@ -88,17 +90,18 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
             }
         });
         energyBaseYear.setText(DateUtil.getCurrentYear()+"年");
-        energyBaseSelect.setOnClickListener(new View.OnClickListener() {
+        energyBaseYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimeYearPickerDialog(Energy_BaseenergyActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text+"-01");
-                        energyBaseYear.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                        energyBaseYear.setText(tiemBase+"年");
                         mPresenter.getEnergy_BaseenergyYear();
                     }
+
                 });
             }
         });

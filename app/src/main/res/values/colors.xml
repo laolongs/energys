@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="datatextcolor">#262626</color>
     <color name="main">#157cd3</color>
     <color name="border">#e2e2e2</color>
     <color name="menu_sel">#2183de</color>

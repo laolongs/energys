@@ -20,7 +20,7 @@ import cn.tties.energy.view.iview.IMainView;
 public class MainPresenter extends BasePresenter<IMainView> {
     IMainView view;
     IMainModel mainModel;
-    public MainPresenter(MainActivity view){
+    public MainPresenter(IMainView view){
        this.view=view;
         mainModel=new MainModel();
 

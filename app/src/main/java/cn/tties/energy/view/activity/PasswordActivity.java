@@ -125,7 +125,7 @@ public class PasswordActivity extends BaseActivity<Identity_PassPresenter> imple
     private void callPhone() {
         //检查拨打电话权限
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Intent.ACTION_CALL);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" +"4006682879"));
             startActivity(intent);
         }

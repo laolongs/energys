@@ -12,10 +12,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +24,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Pressbean;
 import cn.tties.energy.presenter.Data_PressPresenter;
@@ -38,6 +35,7 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.BottomStyleDialogTwo;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_PressView;
 
 /**
@@ -64,7 +62,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     @BindView(R.id.data_press_ele_tv)
     TextView dataPressEleTv;
     private BottomStyleDialogTwo dialog;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     private void initView() {
         dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_PressActivity.this);
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,12 +86,12 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         dataPressTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_PressActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataTimeTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataTimeTv.setText(tiemMonthBase);
                         mPresenter.getData_PressData();
                     }
                 });

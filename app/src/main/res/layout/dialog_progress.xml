@@ -3,8 +3,8 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="@dimen/y180"
-        android:layout_height="@dimen/y180"
+        android:layout_width="@dimen/x356"
+        android:layout_height="@dimen/y320"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_loading" >
 
@@ -27,7 +27,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y10"
+                android:layout_marginTop="@dimen/y20"
                 android:text="执行中.."
                 android:textColor="#fff"
                 android:textSize="20sp" />

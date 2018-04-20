@@ -65,7 +65,7 @@ public class MyProgressRound extends View{
     private void getCustomAttr(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MyProgressRound);
         mRadiuSize = array.getDimension(R.styleable.MyProgressRound_radiuSize, 190);
-        mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 10);
+        mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 15);
         mTextSize = array.getDimension(R.styleable.MyProgressRound_textSize, 10);
         mProgressColor = array.getColor(R.styleable.MyProgressRound_progressColor, Color.BLACK);
 
@@ -133,18 +133,18 @@ public class MyProgressRound extends View{
         int paintMincolor = Color.parseColor("#435E60");
         int paintMinRadiucolor = Color.parseColor("#6BE96A");
 
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(mRingSize);
         paint.setColor(paintMaxcolor);
         paint.setStyle(Paint.Style.STROKE);
-        paintCenter.setStrokeWidth(5);
+        paintCenter.setStrokeWidth(mRingSize);
         paintCenter.setColor(paintCentercolor);
         paintCenter.setStyle(Paint.Style.STROKE);
-        paintMin.setStrokeWidth(5);
+        paintMin.setStrokeWidth(mRingSize);
         paintMin.setColor(paintMincolor);
         paintMin.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
-        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-30, paintCenter);
-        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-60, paintMin);
+        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-60, paintCenter);
+        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-120, paintMin);
 
 //        paint.setTextSize(mTextSize);
 //        String text = mCountProgress + "%";
@@ -155,11 +155,11 @@ public class MyProgressRound extends View{
         paint.setStrokeWidth(mRingSize);
         paint.setColor(paintMaxRadiucolor);
         canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
-        RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +30,getMeasuredHeight()/2 - mRadiuSize +30,getMeasuredWidth()/2 + mRadiuSize - 30,getMeasuredHeight()/2 + mRadiuSize - 30);
+        RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +60,getMeasuredHeight()/2 - mRadiuSize +60,getMeasuredWidth()/2 + mRadiuSize - 60,getMeasuredHeight()/2 + mRadiuSize - 60);
         paintCenter.setStrokeWidth(mRingSize);
         paintCenter.setColor(paintCenterRadiucolor);
         canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
-        RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +60,getMeasuredHeight()/2 - mRadiuSize +60,getMeasuredWidth()/2 + mRadiuSize - 60,getMeasuredHeight()/2 + mRadiuSize - 60);
+        RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +120,getMeasuredHeight()/2 - mRadiuSize +120,getMeasuredWidth()/2 + mRadiuSize - 120,getMeasuredHeight()/2 + mRadiuSize - 120);
         paintMin.setStrokeWidth(mRingSize);
         paintMin.setColor(paintMinRadiucolor);
         canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);

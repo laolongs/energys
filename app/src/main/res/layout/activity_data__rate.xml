@@ -13,166 +13,166 @@
         android:layout_height="match_parent">
         <include
             layout="@layout/toobar"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="@dimen/y60">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:paddingLeft="@dimen/y8"
-                    android:gravity="center_vertical"
-                    android:text="最大有功功率"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"/>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_height="@dimen/y98">-->
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:paddingLeft="@dimen/x34"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="最大有功功率"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:textColor="#262626"/>-->
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_weight="3">
-                    <TextView
-                        android:id="@+id/havekw_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:textColor="@color/orangered"
-                        android:text="0"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/y8"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/y4"
-                        android:text="Kw"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3">
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/y30">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/y4"
-                            android:src="@mipmap/data_unbalance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/havakw_time"
-                            android:layout_marginLeft="@dimen/y4"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25sp"
-                            android:textColor="@color/gray"
-                            android:text="00:00"/>
-                    </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_weight="3">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/havekw_tv"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="30sp"-->
+                        <!--android:textColor="@color/orangered"-->
+                        <!--android:text="0"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="@dimen/y8"-->
+                        <!--android:layout_marginLeft="@dimen/y6"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="@dimen/y4"-->
+                        <!--android:text="Kw"/>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="3">-->
+                    <!--<LinearLayout-->
+                        <!--android:gravity="center"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/y30">-->
+                        <!--<ImageView-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_marginTop="@dimen/y4"-->
+                            <!--android:src="@mipmap/data_unbalance"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
+                        <!--<TextView-->
+                            <!--android:id="@+id/havakw_time"-->
+                            <!--android:layout_marginLeft="@dimen/y4"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:textColor="@color/gray"-->
+                            <!--android:text="00:00"/>-->
+                    <!--</LinearLayout>-->
 
-                    <TextView
-                        android:id="@+id/havakw_year"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/gray"
-                        android:paddingTop="@dimen/y4"
-                        android:text="0000/00/00"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <View
-           style="@style/cut_off_line_1dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="60dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:paddingLeft="@dimen/y8"
-                    android:gravity="center_vertical"
-                    android:text="最大无功功率"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/havakw_year"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/gray"-->
+                        <!--android:paddingTop="@dimen/y4"-->
+                        <!--android:text="0000/00/00"/>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+        <!--<View-->
+           <!--style="@style/cut_off_line_1dp"/>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_height="60dp">-->
+                <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:paddingLeft="@dimen/y8"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="最大无功功率"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textColor="@color/black"/>-->
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_weight="3">
-                    <TextView
-                        android:id="@+id/nokvar_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:textColor="@color/gray"
-                        android:text="0"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/y8"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/y4"
-                        android:text="Kvar"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:orientation="vertical"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3">
-                    <LinearLayout
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp">
-                        <ImageView
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/y4"
-                            android:src="@mipmap/data_unbalance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/nokvar_time"
-                            android:layout_marginLeft="@dimen/y4"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25sp"
-                            android:textColor="@color/gray"
-                            android:text="00:00"/>
-                    </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_weight="3">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/nokvar_tv"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="30sp"-->
+                        <!--android:textColor="@color/gray"-->
+                        <!--android:text="0"/>-->
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="@dimen/y8"-->
+                        <!--android:layout_marginLeft="@dimen/y6"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="@dimen/y4"-->
+                        <!--android:text="Kvar"/>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="3">-->
+                    <!--<LinearLayout-->
+                        <!--android:gravity="center"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="30dp">-->
+                        <!--<ImageView-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_marginTop="@dimen/y4"-->
+                            <!--android:src="@mipmap/data_unbalance"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
+                        <!--<TextView-->
+                            <!--android:id="@+id/nokvar_time"-->
+                            <!--android:layout_marginLeft="@dimen/y4"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:textColor="@color/gray"-->
+                            <!--android:text="00:00"/>-->
+                    <!--</LinearLayout>-->
 
-                    <TextView
-                        android:id="@+id/nokvar_year"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/gray"
-                        android:paddingTop="@dimen/y4"
-                        android:text="0000/00/00"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            style="@style/cut_off_line_5dp"
-            />
+                    <!--<TextView-->
+                        <!--android:id="@+id/nokvar_year"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/gray"-->
+                        <!--android:paddingTop="@dimen/y4"-->
+                        <!--android:text="0000/00/00"/>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+        <!--<View-->
+            <!--style="@style/cut_off_line_5dp"-->
+            <!--/>-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -183,27 +183,43 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y60"
+                    android:layout_height="@dimen/y122"
                     android:orientation="vertical">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:paddingLeft="@dimen/y8"
+                        android:paddingLeft="@dimen/x34"
                         android:gravity="center_vertical"
-                        android:text="数据详情"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+                        android:text="有功功率"
+                        android:textSize="14sp"
+                        android:textColor="@color/datatextcolor"/>
                 </LinearLayout>
                 <cn.tties.energy.chart.LineDataTwoChart
                     android:id="@+id/havakw_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y200">
+                    android:layout_height="@dimen/y390">
                 </cn.tties.energy.chart.LineDataTwoChart>
+                <View
+                    android:layout_below="@+id/data_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y20"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y122"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:paddingLeft="@dimen/x34"
+                        android:gravity="center_vertical"
+                        android:text="无功功率"
+                        android:textSize="14sp"
+                        android:textColor="@color/datatextcolor"/>
+                </LinearLayout>
                 <cn.tties.energy.chart.LineDataChart
-                    android:layout_marginTop="@dimen/y20"
                     android:id="@+id/nokvar_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y200">
+                    android:layout_height="@dimen/y390">
                 </cn.tties.energy.chart.LineDataChart>
             </LinearLayout>
             <View
@@ -216,7 +232,7 @@
                 android:layout_below="@+id/data_rate_vv"
                 android:id="@+id/data_rate_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y49"
+                android:layout_height="@dimen/y98"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
                 android:background="@color/slategrey"
@@ -229,22 +245,23 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <TextView
+                        android:textSize="14sp"
                         android:id="@+id/data_rate_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text=""/>
+                        android:text="选择时间"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x23"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/y24"
                         />
                 </LinearLayout>
                 <View
-                    android:background="@color/white"
-                    android:layout_width="@dimen/y1"
-                    android:layout_height="match_parent"/>
+                    android:layout_width="@dimen/x2"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
                 <LinearLayout
                     android:id="@+id/data_rate_electrical"
                     android:layout_width="0dp"
@@ -252,18 +269,19 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <TextView
+                        android:textSize="14sp"
                         android:id="@+id/data_rate_ele_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:text=""/>
+                        android:text="总电量"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_marginLeft="@dimen/x23"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/y24"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

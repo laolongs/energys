@@ -10,10 +10,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +22,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataThreeChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_CurrentPressbean;
 import cn.tties.energy.model.result.Data_Currentbean;
@@ -37,6 +34,7 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.BottomStyleDialogTwo;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_CurrentView;
 
 /**
@@ -61,8 +59,8 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
     @BindView(R.id.data_current_ele_tv)
     TextView dataCurrentEleTv;
     private BottomStyleDialogTwo dialog;
-    MyTimePickerDialog dialogtime;
-
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +71,7 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
 
     private void initView() {
         dataCurrentTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_CurrentActivity.this);
         toolbarText.setText("电流电压");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,16 +82,27 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
         dataCurrentTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_CurrentActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+//                dialogtime.getTimePickerDialog(Data_CurrentActivity.this);
+//                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+//                    @Override
+//                    public void OnTimeClickListener(String text) {
+//                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
+//                        dataCurrentTimeTv.setText(text);
+//                        mPresenter.getData_CurrentData();
+//                        mPresenter.getData_CurrentPressKwData();
+//                    }
+//                });
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataCurrentTimeTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataCurrentTimeTv.setText(tiemMonthBase);
                         mPresenter.getData_CurrentData();
                         mPresenter.getData_CurrentPressKwData();
                     }
                 });
+                
             }
         });
         dataCurrentAllelectric.setOnClickListener(new View.OnClickListener() {

@@ -12,9 +12,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +24,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Nobean;
 import cn.tties.energy.presenter.Data_NoPresenter;
@@ -37,6 +35,7 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.BottomStyleDialogTwo;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_NoView;
 
 /**
@@ -66,7 +65,8 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     @BindView(R.id.data_no_ele_tv)
     TextView dataNoEleTv;
     private BottomStyleDialogTwo dialog;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,17 +78,23 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
     private void initView() {
         dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_NoActivity.this);
         toolbarText.setText("电流不平衡");
+        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         dataNoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_NoActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataNoTimeTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataNoTimeTv.setText(tiemMonthBase);
                         mPresenter.getData_NoData();
                     }
                 });

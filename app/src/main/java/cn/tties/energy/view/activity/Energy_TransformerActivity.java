@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Energy_TransformerDamgebean;
 import cn.tties.energy.model.result.Energy_TransformerListbean;
@@ -29,6 +31,7 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_TransformerView;
 
 /**
@@ -55,7 +58,8 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     @BindView(R.id.energy_transformer_kwh)
     TextView energyTransformerKwh;
     int transformerId = 0;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelDialog dialogtime;
+    int year=0;
     @BindView(R.id.energy_transformer_year1)
     TextView energyTransformerYear1;
     @BindView(R.id.energy_transformer_year2)
@@ -66,9 +70,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initView();
-
     }
-
     private void initView() {
         mPresenter.getEnergy_TransformerList();
         toolbarText.setText("变压器优化");
@@ -78,37 +80,43 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                 finish();
             }
         });
-        dialogtime = new MyTimePickerDialog();
-        energyTransformerSelect1.setOnClickListener(new View.OnClickListener() {
+        dialogtime=new MyTimePickerWheelDialog(Energy_TransformerActivity.this);
+        energyTransformerYear1.setText(DateUtil.getCurrentYear()+"年");
+        energyTransformerYear1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimeYearPickerDialog(Energy_TransformerActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        energyTransformerYear1.setText(text + "年");
+                    public void OnCliekTimeListener(int poaiton) {
+                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                        energyTransformerYear1.setText(tiemBase + "年");
                         mPresenter.getEnergy_TransformerTemperature(transformerId);
                     }
+
+
                 });
             }
         });
-        energyTransformerSelect2.setOnClickListener(new View.OnClickListener() {
+
+        energyTransformerYear2.setText(DateUtil.getCurrentYear()+"年");
+        energyTransformerYear2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimeYearPickerDialog(Energy_TransformerActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE, text  );
-                        energyTransformerYear2.setText(text + "年");
+                    public void OnCliekTimeListener(int poaiton) {
+                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                        energyTransformerYear2.setText(tiemBase + "年");
                         mPresenter.getEnergy_TransformerVolume(transformerId);
                     }
+
+
                 });
             }
         });
     }
-
     @Override
     protected void createPresenter() {
         mPresenter = new Energy_TransformerPresenter(this);

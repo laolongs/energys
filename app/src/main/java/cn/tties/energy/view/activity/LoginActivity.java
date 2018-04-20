@@ -64,12 +64,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     }
     private void initView() {
         toolbarText.setText("登录");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        toolbarLeft.setVisibility(View.GONE);
         sp=getSharedPreferences("login",MODE_PRIVATE);
         editor= sp.edit();
         if(sp.getBoolean("islogin",false)){
@@ -169,7 +164,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     private void callPhone() {
         //检查拨打电话权限
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Intent.ACTION_CALL);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" +"4006682879"));
             startActivity(intent);
         }

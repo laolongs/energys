@@ -17,16 +17,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="@dimen/y60">
+            android:layout_height="@dimen/y100">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:paddingLeft="@dimen/y8"
+                android:paddingLeft="@dimen/x33"
                 android:gravity="center_vertical"
                 android:text="电量"
-                android:textSize="17sp"
-                android:textColor="@color/black"/>
+                android:textSize="14sp"
+                android:textColor="#262626"/>
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -37,10 +37,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:paddingTop="@dimen/y8"
-                    android:textSize="13sp"
+                    android:paddingTop="@dimen/y12"
+                    android:textSize="11sp"
+                    android:textColor="#C8C8C8"
                     android:text="原始"/>
                 <TextView
+                    android:textColor="#C8C8C8"
                     android:id="@+id/electrical_num"
                     android:layout_below="@+id/tv1"
                     android:layout_width="wrap_content"
@@ -55,35 +57,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
                 <!--<TextView-->
-                    <!--android:id="@+id/tv2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:textColor="@color/orangered"-->
-                    <!--android:paddingTop="5dp"-->
-                    <!--android:text="校验后"/>-->
+                <!--android:id="@+id/tv2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:textColor="@color/orangered"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:text="校验后"/>-->
                 <TextView
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:textSize="17sp"
-                    android:textColor="@color/orangered"
+                    android:layout_alignParentRight="true"
+                    android:textSize="16sp"
+                    android:textColor="#FFA030"
                     android:text="正在校验"/>
             </RelativeLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/data_charge_img4"
-                    android:src="@mipmap/data_checkout"
-                    android:layout_marginLeft="@dimen/y6"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/data_charge_img4"
+                android:src="@mipmap/data_checkout"
+                android:layout_marginLeft="@dimen/y9"
+                android:layout_marginRight="@dimen/x23"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/x32"
+                android:layout_height="@dimen/y28" />
         </LinearLayout>
     </LinearLayout>
 
@@ -99,26 +96,26 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y60"
+                android:layout_height="@dimen/y120"
                 android:orientation="vertical">
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
-                    android:paddingLeft="@dimen/y8"
+                    android:paddingLeft="@dimen/x34"
                     android:gravity="center_vertical"
                     android:text="电量详情"
-                    android:textSize="17sp"
-                    android:textColor="@color/black"/>
+                    android:textSize="14sp"
+                    android:textColor="#262626"/>
             </LinearLayout>
             <cn.tties.energy.chart.LineDataChart
                 android:id="@+id/electrical_chart"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y200">
+                android:layout_height="@dimen/y390">
             </cn.tties.energy.chart.LineDataChart>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y49"
+            android:layout_height="@dimen/y98"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:background="@color/slategrey"
@@ -131,20 +128,21 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/data_electrical_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text=""/>
+                    android:text="选择时间"/>
                 <ImageView
                     android:src="@mipmap/arrows"
-                    android:layout_marginLeft="@dimen/y8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x23"
+                    android:layout_width="@dimen/x14"
+                    android:layout_height="@dimen/y24"
                     />
             </LinearLayout>
             <View
-                android:layout_width="1dp"
+                android:layout_width="@dimen/x2"
                 android:layout_height="match_parent"
                 android:background="@color/white"/>
             <LinearLayout
@@ -154,18 +152,19 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/data_electrical_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/white"
-                    android:text=""/>
+                    android:text="总电量"/>
                 <ImageView
                     android:src="@mipmap/arrows"
-                    android:layout_marginLeft="@dimen/y8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_marginLeft="@dimen/x23"
+                    android:layout_width="@dimen/x14"
+                    android:layout_height="@dimen/y24"
+                    />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

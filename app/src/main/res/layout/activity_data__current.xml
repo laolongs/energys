@@ -20,26 +20,29 @@
             <LinearLayout
                 android:id="@+id/data_current_ll"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y60"
+                    android:layout_height="@dimen/y122"
                     android:orientation="vertical">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:paddingLeft="@dimen/y8"
+                        android:paddingLeft="@dimen/x34"
                         android:gravity="center_vertical"
                         android:text="电流数据详情"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+                        android:textSize="14sp"
+                        android:textColor="#262626"/>
                 </LinearLayout>
                 <cn.tties.energy.chart.LineDataThreeChart
                     android:id="@+id/data_current_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="@dimen/y520">
                 </cn.tties.energy.chart.LineDataThreeChart>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y60"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_below="@+id/data_current_ll"
@@ -49,33 +52,34 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y60"
+                    android:layout_height="@dimen/y122"
                     android:orientation="vertical">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:paddingLeft="@dimen/y8"
+                        android:paddingLeft="@dimen/x34"
                         android:gravity="center_vertical"
                         android:text="电压数据详情"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+                        android:textSize="14sp"
+                        android:textColor="#262626"/>
                 </LinearLayout>
                 <cn.tties.energy.chart.LineDataThreeChart
                     android:id="@+id/data_currentpress_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="@dimen/y520">
                 </cn.tties.energy.chart.LineDataThreeChart>
             </LinearLayout>
             <View
                 android:layout_below="@+id/data_currentpress_ll"
                 android:id="@+id/data_currentpress_vv"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y20">
+                android:layout_height="@dimen/y60">
             </View>
+
             <LinearLayout
                 android:layout_below="@+id/data_currentpress_vv"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y49"
+                android:layout_height="@dimen/y98"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
                 android:background="@color/slategrey"
@@ -88,22 +92,23 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <TextView
+                        android:textSize="14sp"
                         android:id="@+id/data_current_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text=""/>
+                        android:text="选择时间"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x23"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/y24"
                         />
                 </LinearLayout>
                 <View
-                    android:background="@color/white"
-                    android:layout_width="@dimen/x1"
-                    android:layout_height="match_parent"/>
+                    android:layout_width="@dimen/x2"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
                 <LinearLayout
                     android:id="@+id/data_current_allelectric"
                     android:layout_width="0dp"
@@ -111,6 +116,7 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <TextView
+                        android:textSize="14sp"
                         android:id="@+id/data_current_ele_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,10 +125,10 @@
                         android:text="总电量"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="@dimen/y6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_marginLeft="@dimen/x23"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/y24"
+                        />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

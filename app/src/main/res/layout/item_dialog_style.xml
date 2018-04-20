@@ -4,41 +4,34 @@
     android:gravity="center"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/y5" >
+    android:layout_height="@dimen/y148"
+    android:paddingLeft="@dimen/x89"
+    android:paddingRight="@dimen/x67"
+    >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_height="@dimen/y70"
+        android:layout_height="match_parent"
         android:layout_weight="3">
         <TextView
+            android:layout_marginTop="@dimen/y28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#747C83"
             android:text="电表号"/>
         <TextView
             android:id="@+id/table_electrical_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:text="条目"
-            android:textColor="#000"
-            android:textSize="18sp" />
+            android:textColor="#1D405C"
+            android:textSize="26sp" />
     </LinearLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/y80"
-        android:layout_weight="1">
-        <CheckBox
-            android:id="@+id/table_electrical_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/CustomCheckBoxTheme"
-           />
-    </LinearLayout>
-
-
+    <CheckBox
+        android:id="@+id/table_electrical_check"
+        android:layout_width="@dimen/x72"
+        android:layout_height="@dimen/y64"
+        style="@style/CustomCheckBoxTheme"
+       />
 </LinearLayout>

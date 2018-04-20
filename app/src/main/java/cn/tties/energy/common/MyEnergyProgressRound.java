@@ -13,7 +13,6 @@ import android.view.View;
 import cn.tties.energy.R;
 
 /**
- * Created by yfeng on 2017/10/9.
  * 在xml里面可以设置 进度圆环的属性
  * 1、颜色
  * 2、文本大小
@@ -41,6 +40,7 @@ public class MyEnergyProgressRound extends View{
 
     private float mRadiuSize = 0;
     private float mRingSize = 0;
+    private float mRingSizetwo = 0;
     private float mTextSize = 0;
     private int mProgressColor = 0;
 
@@ -67,6 +67,7 @@ public class MyEnergyProgressRound extends View{
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MyProgressRound);
         mRadiuSize = array.getDimension(R.styleable.MyProgressRound_radiuSize, 130);
         mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 10);
+        mRingSizetwo = array.getDimension(R.styleable.MyProgressRound_ringSizetwo, 10);
         mTextSize = array.getDimension(R.styleable.MyProgressRound_textSize, 10);
         mProgressColor = array.getColor(R.styleable.MyProgressRound_progressColor, Color.BLACK);
 
@@ -127,26 +128,26 @@ public class MyEnergyProgressRound extends View{
         int paintMaxcolor = Color.parseColor("#649FE3");
         int paintMaxRadiucolor = Color.parseColor("#BFDDFF");
 
-        paint.setStrokeWidth(3);
+        paint.setStrokeWidth(mRingSize);
         paint.setColor(paintMaxcolor);
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
 
 
         painttext.setTextSize(mTextSize);
-        painttext.setStrokeWidth(10);
+        painttext.setStrokeWidth(mRingSize);
         painttext.setColor(paintMaxRadiucolor);
         String text = mCountProgress+"";
         float textWidth = painttext.measureText(text);
-        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2-20 , getMeasuredHeight()/2 + mTextSize/2-10, painttext);
-        painttext.setTextSize(30);
-        painttext.setStrokeWidth(5);
+        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2-30 , getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        painttext.setTextSize(35);
+        painttext.setStrokeWidth(mRingSizetwo);
         String text2 = "分";
         float textWidth2 = painttext.measureText(text);
-        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +43, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +60, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
 //
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
-        paint.setStrokeWidth(mRingSize);
+        paint.setStrokeWidth(mRingSizetwo);
         paint.setColor(paintMaxRadiucolor);
         canvas.drawArc(rectF, -90, mProgressMax, false, paint);
     }

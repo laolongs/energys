@@ -57,7 +57,7 @@
                              android:id="@+id/datafragment_chart"
                              android:layout_below="@+id/datafragment_time_tv"
                              android:layout_width="match_parent"
-                             android:layout_height="@dimen/y182"
+                             android:layout_height="@dimen/y185"
                              android:background="#FF602F">
                          </cn.tties.energy.chart.BarDataChart>
                          <RelativeLayout

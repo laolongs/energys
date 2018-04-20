@@ -27,7 +27,7 @@ public class MyPopupWindow {
         // 如果设置为wrap_content,showAsDropDown会认为下面空间一直很充足（我以认为这个Google的bug）
         // 备注如果PopupWindow里面有ListView,ScrollView时，一定要动态设置PopupWindow的大小
         final PopupWindow popupWindow = new PopupWindow(contentView,
-                contentView.getMeasuredWidth() + 40, contentView.getMeasuredHeight()+20, false);
+                contentView.getMeasuredWidth(), contentView.getMeasuredHeight(), false);
 
         contentView.setOnClickListener(new View.OnClickListener() {
             @Override

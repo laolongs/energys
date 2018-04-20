@@ -62,7 +62,7 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:textSize="17sp"
                 android:text="0kW" />
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:textSize="17sp"
                 android:text="0kVar" />
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:textSize="17sp"
                 android:text="0" />
         </LinearLayout>
@@ -95,17 +95,17 @@
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
             <TextView
-                android:layout_marginLeft="@dimen/x33"
-                android:layout_weight="6"
+                android:layout_marginLeft="@dimen/x34"
+                android:layout_weight="8"
                 android:layout_width="0dp"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:layout_height="wrap_content"
                 android:text="功率因数历史趋势"/>
             <TextView
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:layout_width="0dp"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:layout_height="wrap_content"
                 />
             <TextView
@@ -122,17 +122,16 @@
                 android:layout_weight="4"
                 android:layout_width="0dp"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:layout_height="wrap_content"
                 android:text="2018年"
                 />
             <ImageView
-               android:layout_marginTop="@dimen/y8"
+                android:layout_marginTop="@dimen/y8"
                 android:layout_marginLeft="@dimen/y10"
                 android:id="@+id/energy_force_select"
                 android:layout_marginRight="@dimen/x47"
-                android:background="@color/black"
-                android:src="@mipmap/arrows"
+                android:src="@mipmap/arrowsblack"
                 android:layout_width="@dimen/x14"
                 android:layout_height="@dimen/x24" />
         </LinearLayout>
@@ -159,7 +158,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@color/black"
+                android:textColor="@color/datatextcolor"
                 android:layout_height="wrap_content"
                 android:text="每月节约电费"/>
         </LinearLayout>

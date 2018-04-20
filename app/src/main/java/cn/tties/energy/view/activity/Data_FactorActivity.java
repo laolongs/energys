@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -24,6 +21,7 @@ import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_Factorbean;
@@ -34,6 +32,7 @@ import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_FactorView;
 
 /**
@@ -59,7 +58,8 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     TextView dataFactorEleTv;
     private BottomStyleDialog dialog;
     double num = 0;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelTwoDialog dialogtime;
+    MyAllTimeYear timeYear=new MyAllTimeYear();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,7 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     private void initView() {
         mPresenter.getAllElectricityData();
         dataFactorTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
-        dialogtime = new MyTimePickerDialog();
+        dialogtime = new MyTimePickerWheelTwoDialog(Data_FactorActivity.this);
         toolbarText.setText("功率因数");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,12 +82,12 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         dataFactorTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimePickerDialog(Data_FactorActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-                        dataFactorTv.setText(text);
+                    public void OnCliekTimeListener(int poaiton) {
+                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                        dataFactorTv.setText(tiemMonthBase);
                         mPresenter.getData_Electric();
                     }
                 });

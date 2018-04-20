@@ -3,29 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
     <include
         layout="@layout/toobar"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y120"
+        android:layout_height="@dimen/y250"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/y15"
-        android:paddingRight="@dimen/y50">
+        >
         <LinearLayout
+            android:paddingLeft="@dimen/x89"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y36"
-            android:layout_marginTop="@dimen/y20">
+            android:layout_height="@dimen/y124"
+            >
             <TextView
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="用户名"
-                android:textColor="@color/black" />
+                android:textSize="16sp"
+                android:textColor="@color/datatextcolor" />
 
             <EditText
                 android:background="@null"
@@ -34,26 +35,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:hint="请输入用户名"
+                android:textSize="16sp"
                 android:layout_toRightOf="@+id/identity_pass_oldpwdtv"
               />
 
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"
+            android:background="@color/border"/>
         <LinearLayout
+            android:paddingLeft="@dimen/x89"
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y36"
-            android:layout_marginTop="@dimen/y20">
+            android:layout_height="@dimen/y124"
+            >
             <TextView
                 android:gravity="center_vertical"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:textSize="16sp"
                 android:text="密码"
-                android:textColor="@color/black" />
+                android:textColor="@color/datatextcolor"/>
 
             <EditText
                 android:background="@null"
@@ -62,18 +69,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:hint="请输入密码"
+                android:textSize="16sp"
                 android:layout_toRightOf="@+id/identity_pass_newpwdtv"
                 android:inputType="textPassword" />
         </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
-        android:paddingLeft="@dimen/y15"
+        android:paddingLeft="@dimen/x89"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y60"
-        android:layout_marginTop="@dimen/y20">
+        android:layout_marginTop="@dimen/y40">
         <CheckBox
             android:gravity="center_vertical"
             android:id="@+id/login_check"
@@ -82,41 +90,47 @@
             android:layout_height="match_parent"
             android:singleLine="true"
             android:text="保存密码"
-            android:textColor="@color/black" />
+            android:textColor="@color/datatextcolor" />
     </LinearLayout>
     <Button
         android:layout_gravity="center"
         android:id="@+id/btn_intoMain"
-        android:layout_width="@dimen/y200"
-        android:layout_height="@dimen/y49"
-        android:layout_marginTop="@dimen/y10"
+        android:layout_width="@dimen/x534"
+        android:layout_height="@dimen/y98"
+        android:layout_marginTop="@dimen/y60"
         android:background="@drawable/versetion_text_shop_select"
         android:text="登录"
+        android:textSize="14sp"
         android:textColor="@color/white" />
     <LinearLayout
-        android:layout_marginTop="@dimen/y20"
+        android:layout_marginTop="@dimen/y100"
         android:orientation="vertical"
+        android:paddingLeft="@dimen/x103"
+        android:paddingRight="@dimen/x103"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:layout_gravity="center"
-            android:layout_width="@dimen/y250"
+            android:textColor="@color/datatextcolor"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="您正在进行修改密码操作，如遇账户问题请联系天天智电客户服务热线"/>
         <LinearLayout
-            android:layout_marginTop="@dimen/y10"
-            android:gravity="center"
+            android:layout_marginTop="@dimen/y30"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/x94"
+                android:layout_height="@dimen/y84"
                 android:src="@mipmap/login_phone"/>
             <TextView
-                android:layout_marginLeft="@dimen/y10"
+                android:layout_marginTop="@dimen/y12"
+                android:layout_marginLeft="@dimen/x13"
                 android:id="@+id/login_call"
-                android:textSize="17sp"
+                android:textSize="21sp"
+                android:textColor="@color/datatextcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="400 668 2879"/>

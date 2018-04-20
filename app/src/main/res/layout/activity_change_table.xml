@@ -25,12 +25,12 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:background="#607180"
-        android:layout_height="@dimen/y50">
+        android:layout_height="@dimen/y98">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:text="确定使用此电表"/>
     </LinearLayout>
 </RelativeLayout>

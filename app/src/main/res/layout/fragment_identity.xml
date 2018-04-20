@@ -36,7 +36,7 @@
                 android:layout_height="@dimen/y428"
                 android:orientation="vertical">
                     <LinearLayout
-                        android:background="@color/white"
+                        android:background="@drawable/ident_bg"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -76,10 +76,15 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                    <View
-                        android:layout_marginLeft="@dimen/x44"
-                        android:layout_marginRight="@dimen/x44"
-                        style="@style/cut_off_line_1dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y6"
+                    android:layout_marginLeft="@dimen/x44"
+                    android:layout_marginRight="@dimen/x44"
+                    android:background="@drawable/bg_dotted_line"
+                    android:layerType="software"
+                    />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -118,10 +123,11 @@
                                 android:textSize="26sp"
                                 android:text="9824234234234"/>
                             <LinearLayout
+                                android:layout_marginBottom="@dimen/y10"
                                 android:layout_marginTop="@dimen/y8"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="wrap_content">
                                 <TextView
                                     android:textSize="13sp"
                                     android:id="@+id/identity_switch_electricity"
@@ -129,10 +135,11 @@
                                     android:layout_height="wrap_content"
                                     android:text="切换电表"/>
                                 <ImageView
+                                    android:id="@+id/identity_switch_selsect"
                                     android:layout_gravity="center"
-                                    android:layout_marginLeft="@dimen/y6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/x12"
+                                    android:layout_width="@dimen/x12"
+                                    android:layout_height="@dimen/y18"
                                     android:src="@mipmap/head_right"/>
                             </LinearLayout>
 
@@ -183,11 +190,11 @@
             style="@style/identity_layout_item">
 
             <ImageView
-                style="@style/identity_imageview"
+                style="@style/identity_imageviews"
                 android:src="@mipmap/identity_version" />
 
             <TextView
-                style="@style/identity_textview"
+                style="@style/identity_textviews"
                 android:text="版本更新" />
             <View
                 android:layout_width="0dp"
@@ -212,11 +219,11 @@
             style="@style/identity_layout_item">
 
             <ImageView
-                style="@style/identity_imageview"
+                style="@style/identity_imageviews"
                 android:src="@mipmap/identity_we" />
 
             <TextView
-                style="@style/identity_textview"
+                style="@style/identity_textviews"
                 android:text="关于我们" />
             <View
                 android:layout_width="0dp"
@@ -241,11 +248,11 @@
             style="@style/identity_layout_item">
 
             <ImageView
-                style="@style/identity_imageview"
+                style="@style/identity_imageviews"
                 android:src="@mipmap/identity_logout" />
 
             <TextView
-                style="@style/identity_textview"
+                style="@style/identity_textviews"
                 android:text="退出登录" />
             <View
                 android:layout_width="0dp"

@@ -79,11 +79,11 @@ public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> im
     }
     public void start(View view){
         ToastUtil.showShort(this,"ok");
-//        ShareUtils.shareWeb(this, Defaultcontent.url, Defaultcontent.title
-//                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
-//        );
         ShareUtils.shareWeb(this, Defaultcontent.url, Defaultcontent.title
-                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.QQ
+                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
         );
+//        ShareUtils.shareWeb(this, Defaultcontent.url, Defaultcontent.title
+//                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.QQ
+//        );
     }
 }

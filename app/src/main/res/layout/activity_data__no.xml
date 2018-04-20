@@ -15,62 +15,71 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="@dimen/y60">
+            android:layout_height="@dimen/y122">
             <TextView
-                android:textColor="@color/black"
-                android:paddingLeft="@dimen/y8"
+                android:textColor="#262626"
+                android:paddingLeft="@dimen/x34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="不平衡最大值"/>
+                android:textSize="14sp"
+                android:text="不平衡度最大值"/>
         </LinearLayout>
         <cn.tties.energy.chart.LineDataChart
             android:id="@+id/data_no_chart1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y200">
+            android:layout_height="@dimen/y520">
         </cn.tties.energy.chart.LineDataChart>
+        <View
+            style="@style/cut_off_line_5dp">
+        </View>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="@dimen/y60">
+            android:layout_height="@dimen/y122">
             <TextView
-                android:textColor="@color/black"
-                android:paddingLeft="@dimen/y8"
+                android:textColor="#262626"
+                android:paddingLeft="@dimen/x34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:text="不平衡最大值发生时间"/>
+                android:textSize="14sp"
+                android:text="不平衡度最大值发生时间"/>
         </LinearLayout>
         <cn.tties.energy.chart.LineDataChart
             android:id="@+id/data_no_chart2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y200">
+            android:layout_height="@dimen/y520">
         </cn.tties.energy.chart.LineDataChart>
+        <View
+            style="@style/cut_off_line_5dp">
+        </View>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="@dimen/y60">
+            android:layout_height="@dimen/y122">
             <TextView
-                android:textColor="@color/black"
-                android:paddingLeft="@dimen/y8"
+                android:textColor="#262626"
+                android:paddingLeft="@dimen/x34"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:text="不平衡度越限日累计时间"/>
         </LinearLayout>
         <cn.tties.energy.chart.LineDataChart
             android:id="@+id/data_no_chart3"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y200">
+            android:layout_height="@dimen/y520">
         </cn.tties.energy.chart.LineDataChart>
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x20"/>
+            android:layout_height="@dimen/y20"/>
         <LinearLayout
+            android:layout_below="@+id/data_rate_vv"
+            android:id="@+id/data_rate_bottom"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="@dimen/y98"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:background="@color/slategrey"
             >
@@ -82,22 +91,23 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/data_no_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="2018年2月"/>
+                    android:text="选择时间"/>
                 <ImageView
                     android:src="@mipmap/arrows"
-                    android:layout_marginLeft="@dimen/y6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x23"
+                    android:layout_width="@dimen/x14"
+                    android:layout_height="@dimen/y24"
                     />
             </LinearLayout>
             <View
-                android:background="@color/white"
-                android:layout_width="@dimen/x1"
-                android:layout_height="match_parent"/>
+                android:layout_width="@dimen/x2"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
             <LinearLayout
                 android:id="@+id/data_no_allelectric"
                 android:layout_width="0dp"
@@ -105,6 +115,7 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
+                    android:textSize="14sp"
                     android:id="@+id/data_no_ele_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,10 +124,10 @@
                     android:text="总电量"/>
                 <ImageView
                     android:src="@mipmap/arrows"
-                    android:layout_marginLeft="@dimen/y6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_marginLeft="@dimen/x23"
+                    android:layout_width="@dimen/x14"
+                    android:layout_height="@dimen/y24"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

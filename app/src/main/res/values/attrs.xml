@@ -12,6 +12,7 @@
         <attr name="progressColor" format="color"/>
         <attr name="textSize" format="dimension"/>
         <attr name="ringSize" format="dimension"/>
+        <attr name="ringSizetwo" format="dimension"/>
         <attr name="radiuSize" format="dimension"/>
     </declare-styleable>
 </resources>

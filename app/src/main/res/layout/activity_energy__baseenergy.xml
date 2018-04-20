@@ -87,56 +87,64 @@
                 android:text="0元" />
         </LinearLayout>
         <LinearLayout
-            android:layout_height="@dimen/y116"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:paddingLeft="@dimen/x24"
-            android:id="@+id/data_factor"
-            android:orientation="horizontal"
-            android:background="@drawable/beseenergy_item_bg"
-            >
+            android:layout_height="@dimen/y116">
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:gravity="center_vertical"
-                android:layout_height="match_parent">
-                <TextView
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:text="本月最大需量"/>
-                <TextView
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:id="@+id/energy_base_monthmax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x15"
-                    android:text="678kw"/>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="5"
-                android:layout_width="0dp"
-                android:gravity="center_vertical"
-                android:layout_height="match_parent">
-                <TextView
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发生时间"/>
-                <TextView
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:id="@+id/energy_base_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2017-11-01  12：07"/>
+                android:layout_marginLeft="@dimen/x12"
+                android:layout_marginRight="@dimen/x12"
+                android:layout_height="@dimen/y116"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/x24"
+                android:id="@+id/data_factor"
+                android:orientation="horizontal"
+                android:background="@drawable/beseenergy_item_bg"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:text="本月最大需量"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:id="@+id/energy_base_monthmax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x15"
+                        android:text="678kw"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发生时间"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:id="@+id/energy_base_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2017-11-01  12：07"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
         <View
             style="@style/cut_off_line_5dp"/>
         <LinearLayout
@@ -176,8 +184,7 @@
                     android:layout_marginLeft="@dimen/x13"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/energy_base_select"
-                    android:src="@mipmap/arrows"
-                    android:background="@color/black"
+                    android:src="@mipmap/arrowsblack"
                     android:layout_width="@dimen/x15"
                     android:layout_height="@dimen/y24"
                     />
@@ -218,16 +225,16 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/x13"
-            android:layout_marginRight="@dimen/x13"
+            android:layout_marginLeft="@dimen/x23"
+            android:layout_marginRight="@dimen/x23"
             android:layout_width="match_parent"
-            android:background="@drawable/beseenergy_item_bgtwo"
+            android:background="@drawable/beseenergy_item_bgtwos"
             android:layout_height="@dimen/y174">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#FF1054"
+                android:background="@drawable/beseenergy_item_bgtwo"
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"
@@ -303,17 +310,17 @@
             style="@style/cut_off_line_5dp"/>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/x13"
-            android:layout_marginRight="@dimen/x13"
+            android:layout_marginLeft="@dimen/x23"
+            android:layout_marginRight="@dimen/x23"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:background="@drawable/beseenergy_item_bgtwo"
+            android:background="@drawable/beseenergy_item_bgtwos"
             android:layout_height="@dimen/y174">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#FF7C10"
+                android:background="@drawable/beseenergy_item_bgthree"
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"
@@ -389,18 +396,18 @@
             style="@style/cut_off_line_5dp"/>
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/x13"
-            android:layout_marginRight="@dimen/x13"
+            android:layout_marginLeft="@dimen/x23"
+            android:layout_marginRight="@dimen/x23"
             android:id="@+id/data_press"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:background="@drawable/beseenergy_item_bgtwo"
+            android:background="@drawable/beseenergy_item_bgtwos"
             android:layout_height="@dimen/y174">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#71B767"
+                android:background="@drawable/beseenergy_item_bgfour"
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"

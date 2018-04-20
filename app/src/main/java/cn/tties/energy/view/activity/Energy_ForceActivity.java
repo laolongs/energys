@@ -21,6 +21,7 @@ import cn.tties.energy.chart.BarDataChart;
 import cn.tties.energy.chart.BarDataCharttwo;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.DataFragmentbean;
 import cn.tties.energy.model.result.Databean;
@@ -29,6 +30,7 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_ForceView;
 
 /**
@@ -54,7 +56,8 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     BarDataCharttwo energyForceChart2;
     @BindView(R.id.energy_force_year)
     TextView energyForceYear;
-    MyTimePickerDialog dialogtime;
+    MyTimePickerWheelDialog dialogtime;
+    int year=0;
     int currentYear;
     int currentMonth;
     DataAllbean dataAllbean=new DataAllbean();
@@ -67,7 +70,7 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     }
 
     private void initView() {
-        dialogtime = new MyTimePickerDialog();
+        dialogtime=new MyTimePickerWheelDialog(Energy_ForceActivity.this);
         //当月
         mPresenter.getEnergy_Force();
 
@@ -81,15 +84,15 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
         });
         energyForceYear.setText(DateUtil.getCurrentYear()+"年");
         //选择年
-        energyForceSelect.setOnClickListener(new View.OnClickListener() {
+        energyForceYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.getTimeYearPickerDialog(Energy_ForceActivity.this);
-                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                dialogtime.show();
+                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
                     @Override
-                    public void OnTimeClickListener(String text) {
-                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text+"-01");
-                        energyForceYear.setText(text+"年");
+                    public void OnCliekTimeListener(int poaiton) {
+                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                        energyForceYear.setText(tiemBase+"年");
                         mPresenter.getEnergy_ForcechartData();
                     }
                 });

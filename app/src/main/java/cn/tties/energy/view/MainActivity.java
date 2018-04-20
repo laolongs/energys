@@ -2,14 +2,12 @@ package cn.tties.energy.view;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RadioButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -29,70 +27,56 @@ import cn.tties.energy.view.fragment.IdentityFragment;
 import cn.tties.energy.view.fragment.OpsFragment;
 import cn.tties.energy.view.iview.IMainView;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
+public class MainActivity extends BaseActivity<MainPresenter> implements IMainView, View.OnClickListener {
 
 
-    @BindView(R.id.main_fl)
-    FrameLayout mainFl;
-    @BindView(R.id.main_bt1)
-    RadioButton mainBt1;
-    @BindView(R.id.main_bt2)
-    RadioButton mainBt2;
-    @BindView(R.id.main_bt3)
-    RadioButton mainBt3;
-    @BindView(R.id.main_bt4)
-    RadioButton mainBt4;
-    @BindView(R.id.main_rg)
-    RadioGroup mainRg;
+    @BindView(R.id.ivOps)
+    ImageView ivOps;
+    @BindView(R.id.tvOps)
+    TextView tvOps;
+    @BindView(R.id.llOps)
+    LinearLayout llOps;
+    @BindView(R.id.ivEnergy)
+    ImageView ivEnergy;
+    @BindView(R.id.tvEnergy)
+    TextView tvEnergy;
+    @BindView(R.id.llEnergy)
+    LinearLayout llEnergy;
+    @BindView(R.id.ivData)
+    ImageView ivData;
+    @BindView(R.id.tvData)
+    TextView tvData;
+    @BindView(R.id.llData)
+    LinearLayout llData;
+    @BindView(R.id.ivIden)
+    ImageView ivIden;
+    @BindView(R.id.tvIden)
+    TextView tvIden;
+    @BindView(R.id.llIden)
+    LinearLayout llIden;
+    private ImageView ivCurrent;
+    private TextView tvCurrent;
     private List<View> mViews;
     private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ButterKnife.bind(this);
-        initButton();
         initView();
 //        checkVersion();
     }
 
-    private void initButton() {
-        Drawable drawableone = getResources().getDrawable(R.drawable.mian_imgone);
-        drawableone.setBounds(0,0,50,50);
-        mainBt1.setCompoundDrawables(null,drawableone , null, null);
-        Drawable drawabletwo = getResources().getDrawable(R.drawable.mian_imgtwo);
-        drawabletwo.setBounds(0,0,50,50);
-        mainBt2.setCompoundDrawables(null,drawabletwo , null, null);
-        Drawable drawablethree = getResources().getDrawable(R.drawable.mian_imgthree);
-        drawablethree.setBounds(0,0,50,50);
-        mainBt3.setCompoundDrawables(null,drawablethree , null, null);
-        Drawable drawablefour = getResources().getDrawable(R.drawable.mian_imgfour);
-        drawablefour.setBounds(0,0,50,50);
-        mainBt4.setCompoundDrawables(null,drawablefour , null, null);
-    }
-
     private void initView() {
-
-        mainRg.check(R.id.main_bt1);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).commit();
-        mainRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case R.id.main_bt1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).commit();
-                        break;
-                    case R.id.main_bt2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new EnergyFragment()).commit();
-                        break;
-                    case R.id.main_bt3:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new DataFragment()).commit();
-                        break;
-                    case R.id.main_bt4:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new IdentityFragment()).commit();
-                        break;
-                }
-            }
-        });
+        llOps.setOnClickListener(this);
+        llData.setOnClickListener(this);
+        llEnergy.setOnClickListener(this);
+        llIden.setOnClickListener(this);
+        ivOps.setSelected(true);
+        tvOps.setSelected(true);
+        ivCurrent=ivOps;
+        tvCurrent=tvOps;
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl, new OpsFragment()).commit();
     }
 
     @Override
@@ -132,5 +116,43 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();
+    }
+
+    @Override
+    public void onClick(View view) {
+        ivCurrent.setSelected(false);
+        tvCurrent.setSelected(false);
+        switch (view.getId()){
+            case R.id.llOps:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fl, new OpsFragment()).commit();
+                ivOps.setSelected(true);
+                tvOps.setSelected(true);
+                ivCurrent=ivOps;
+                tvCurrent=tvOps;
+                break;
+            case R.id.llEnergy:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fl, new EnergyFragment()).commit();
+                ivEnergy.setSelected(true);
+                tvEnergy.setSelected(true);
+                ivCurrent=ivEnergy;
+                tvCurrent=tvEnergy;
+                break;
+            case R.id.llData:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fl, new DataFragment()).commit();
+                ivData.setSelected(true);
+                tvData.setSelected(true);
+                ivCurrent=ivData;
+                tvCurrent=tvData;
+                break;
+            case R.id.llIden:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fl, new IdentityFragment()).commit();
+                ivIden.setSelected(true);
+                tvIden.setSelected(true);
+                ivCurrent=ivIden;
+                tvCurrent=tvIden;
+                break;
+            default:
+                break;
+        }
     }
 }

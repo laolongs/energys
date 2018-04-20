@@ -47,7 +47,7 @@ public class MyApplication extends Application {
     //各个平台的配置
     {
         //微信
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setWeixin("wx373d9c107c84ae60", "d5b070aef80059f95f8b0321dc46fb99");
         //新浪微博(第三个参数为回调地址)
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com/sina2/callback");
         //QQ

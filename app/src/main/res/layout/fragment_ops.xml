@@ -41,7 +41,7 @@
                     android:textSize="62sp"
                     android:text="0"
                     android:layout_gravity="center"
-                    android:typeface="serif"
+                    android:typeface="monospace"
                     android:textColor="@color/white"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,97 +68,168 @@
                 android:layout_height="match_parent"
                 android:background="@color/border"
                 />
+            <LinearLayout
+                android:layout_width="@dimen/x120"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_date_dwmy_normal"
+                android:orientation="vertical"
+               >
+                <LinearLayout
+                    android:id="@+id/llQues1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
 
-            <RadioGroup
-                    android:id="@+id/ops_rcy_left_rg"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/btn_date_dwmy_normal"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <RadioButton
-                        android:paddingTop="@dimen/y28"
-                        android:textSize="11sp"
-                        android:id="@+id/ops_rcy_left_bt1"
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv1"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgone" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv1"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgone"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
-                        android:text="全部"
-                        />
-                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:text="运维"
                         android:textSize="11sp"
-                        android:paddingTop="@dimen/y28"
-                        android:id="@+id/ops_rcy_left_bt2"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llQues2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv2"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgtwo" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv2"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
+                        android:layout_height="wrap_content"
                         android:text="房间"
-                        />
-                    <RadioButton
                         android:textSize="11sp"
-                        android:paddingTop="@dimen/y28"
-                        android:id="@+id/ops_rcy_left_bt3"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llQues3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv3"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgthree" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv3"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgthree"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
+                        android:layout_height="wrap_content"
                         android:text="柜子"
-                        />
-                    <RadioButton
-                        android:paddingTop="@dimen/y28"
                         android:textSize="11sp"
-                        android:id="@+id/ops_rcy_left_bt4"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llQues4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv4"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgfour" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv4"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgfour"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
+                        android:layout_height="wrap_content"
                         android:text="变压器"
-                        />
-                    <RadioButton
                         android:textSize="11sp"
-                        android:paddingTop="@dimen/y28"
-                        android:id="@+id/ops_rcy_left_bt5"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llQues5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv5"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgfive" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv5"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgfive"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
+                        android:layout_height="wrap_content"
                         android:text="绝缘器"
-                    />
-                    <RadioButton
                         android:textSize="11sp"
-                        android:paddingTop="@dimen/y28"
-                        android:id="@+id/ops_rcy_left_bt6"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llQues6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_marginTop="@dimen/y25"
+                        android:id="@+id/iv6"
+                        android:layout_width="@dimen/x56"
+                        android:layout_height="@dimen/y50"
+                        android:background="#00000000"
+                        android:src="@drawable/selector_radiobtn_ops_imgsix" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/y5"
+                        android:id="@+id/tv6"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgsix"
-                        android:textColor="@drawable/selector_radiobtn_ops_text"
+                        android:layout_height="wrap_content"
                         android:text="环境"
-                    />
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/y88"
-                       />
-                </RadioGroup>
+                        android:textSize="11sp"
+                        android:textColor="@drawable/selector_radiobtn_ops_text" />
+                </LinearLayout>
+
+                <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y88"
+                />
+            </LinearLayout>
             <View
                 android:layout_width="@dimen/x12"
                 android:layout_height="match_parent"

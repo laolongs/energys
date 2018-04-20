@@ -13,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,6 +44,7 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.adapter.DescriptionListViewAdapter;
 import cn.tties.energy.view.adapter.ImagePickerAdapter;
 import cn.tties.energy.view.adapter.MyQurestionTabAdapter;
+import cn.tties.energy.view.dialog.MyPressDialog;
 import cn.tties.energy.view.fragment.Questions_discussFragment;
 import cn.tties.energy.view.fragment.Questions_progressFragment;
 import cn.tties.energy.view.iview.IQuestionsView;
@@ -166,10 +170,9 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 Button confirm = inflate.findViewById(R.id.question_btn_confirm);
                 Button cancel = inflate.findViewById(R.id.question_btn_cancel);
                 Loginbean userInfo = MyApplication.getUserInfo();
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
-                builder.setView(inflate);
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,200,inflate,R.style.myCorDialog);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this,R.style.myCorDialog);
+                builder.show();
                 if (!name.equals("暂无")) {
                     staffname.setText(name);
                 } else {
@@ -182,7 +185,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                         String s = editText.getText().toString();
                         if (!s.isEmpty()) {
                             mPresenter.getDiscuss(questionId, s);
-                            dialog.dismiss();
+                            builder.dismiss();
                         } else {
                             ToastUtil.showShort(QuestionsActivity.this, "回复信息不能为空！");
                         }
@@ -192,7 +195,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dialog.dismiss();
+                        builder.dismiss();
                     }
                 });
 //                Log.i(TAG, "onClick: "+userInfo.g);
@@ -281,7 +284,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     private void callPhone() {
         //检查拨打电话权限
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Intent.ACTION_CALL);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + staffTel));
             startActivity(intent);
         }

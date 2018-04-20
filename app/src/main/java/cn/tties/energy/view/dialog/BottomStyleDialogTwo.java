@@ -77,7 +77,7 @@ private void initView() {
         mWv.setWheelSize(5);
         mWv.setSkin(WheelView.Skin.Holo);
         mWv.setWheelData(createArrays());
-//        mWv.setSelection(2);
+        mWv.setSelection(2);
         mWv.setLoop(true);
         mWv.setWheelClickable(true);
         mWv.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectedListener() {
