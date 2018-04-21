@@ -80,7 +80,8 @@
         <activity
             android:name=".view.activity.UpdateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Transparency"
+            />
         <!-- 电量数据 -->
         <activity
             android:name=".view.activity.Data_ElectricActivity"

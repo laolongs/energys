@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:text="杜"/>
+                    android:text=""/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -49,21 +49,22 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="#666666"
-                    android:text="杜承军"/>
+                    android:text=""/>
                 <TextView
+                    android:id="@+id/discuss_group"
                     android:layout_marginLeft="@dimen/x24"
                     android:textColor="#D5D5D5"
                     android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="工程师1组"/>
+                    android:text=""/>
             </LinearLayout>
             <TextView
                 android:textColor="#D5D5D5"
                 android:id="@+id/discuss_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018/01/02 12:30:12"/>
+                android:text=""/>
             <TextView
                 android:id="@+id/discuss_content"
                 android:layout_marginTop="@dimen/y20"
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:textColor="#666666"
-                android:text="巡视工程师张庆丰在2月月度第二次例行巡视发现此问题."/>
+                android:text="."/>
         </LinearLayout>
     </LinearLayout>
 

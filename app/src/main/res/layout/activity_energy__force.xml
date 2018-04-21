@@ -108,6 +108,7 @@
                 android:textColor="@color/datatextcolor"
                 android:layout_height="wrap_content"
                 />
+
             <TextView
                 android:textSize="13sp"
                 android:gravity="center"
@@ -116,24 +117,30 @@
                 android:layout_height="wrap_content"
                 android:text="选择年度"
                 />
-            <TextView
-                android:id="@+id/energy_force_year"
-                android:gravity="center"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_weight="4"
                 android:layout_width="0dp"
-                android:textSize="14sp"
-                android:textColor="@color/datatextcolor"
-                android:layout_height="wrap_content"
-                android:text="2018年"
-                />
-            <ImageView
-                android:layout_marginTop="@dimen/y8"
-                android:layout_marginLeft="@dimen/y10"
-                android:id="@+id/energy_force_select"
-                android:layout_marginRight="@dimen/x47"
-                android:src="@mipmap/arrowsblack"
-                android:layout_width="@dimen/x14"
-                android:layout_height="@dimen/x24" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/energy_force_year"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/datatextcolor"
+                    android:layout_height="wrap_content"
+                    android:text="2018年"
+                    />
+                <ImageView
+                    android:layout_marginTop="@dimen/y8"
+                    android:layout_marginLeft="@dimen/y10"
+                    android:id="@+id/energy_force_select"
+                    android:layout_marginRight="@dimen/x47"
+                    android:src="@mipmap/arrowsblack"
+                    android:layout_width="@dimen/x14"
+                    android:layout_height="@dimen/x24" />
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

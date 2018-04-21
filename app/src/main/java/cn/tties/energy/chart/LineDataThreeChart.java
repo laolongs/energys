@@ -95,7 +95,7 @@ public class LineDataThreeChart extends  LineChart {
         set.setCircleHoleRadius(8f);
         set.enableDashedHighlightLine(10f, 5f, 0f);//点击后的高亮线的显示样式
         set.setHighlightLineWidth(2f);//设置点击交点后显示高亮线宽
-        set.setHighlightEnabled(true);//是否禁用点击高亮线
+        set.setHighlightEnabled(false);//是否禁用点击高亮线
         set.setHighLightColor(HighLightcolor);//设置点击交点后显示交高亮线的颜色
         set.setValueTextSize(0f);//设置显示值的文字大小
         set.setDrawFilled(false);//设置禁用范围背景填充 设置包括的范围区域填充颜色
@@ -126,7 +126,7 @@ public class LineDataThreeChart extends  LineChart {
         set.setCircleHoleRadius(8f);
         set.enableDashedHighlightLine(10f, 5f, 0f);//点击后的高亮线的显示样式
         set.setHighlightLineWidth(2f);//设置点击交点后显示高亮线宽
-        set.setHighlightEnabled(true);//是否禁用点击高亮线
+        set.setHighlightEnabled(false);//是否禁用点击高亮线
         set.setHighLightColor(HighLightcolor);//设置点击交点后显示交高亮线的颜色
         set.setValueTextSize(0f);//设置显示值的文字大小
         set.setDrawFilled(false);//设置禁用范围背景填充 设置包括的范围区域填充颜色
@@ -204,7 +204,7 @@ public class LineDataThreeChart extends  LineChart {
         XAxis xAxis = getXAxis();
         xAxis.setEnabled(true);//设置轴启用或禁用 如果禁用以下的设置全部不生效
         xAxis.setDrawAxisLine(true);//是否绘制轴线
-        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
+        xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
         //xAxis.setTextSize(20f);//设置字体
@@ -257,17 +257,17 @@ public class LineDataThreeChart extends  LineChart {
         leftAxis.setDrawAxisLine(true); //无轴线
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
+        leftAxis.setAxisMinimum(0f);
 
-
-        setTouchEnabled(true); // 设置是否可以触摸
-        setDragEnabled(true);// 是否可以拖拽
+        setTouchEnabled(false); // 设置是否可以触摸
+        setDragEnabled(false);// 是否可以拖拽
         setScaleEnabled(false);// 是否可以缩放 x和y轴, 默认是true
-        setScaleXEnabled(true); //是否可以缩放 仅x轴
-        setScaleYEnabled(true); //是否可以缩放 仅y轴
-        setPinchZoom(true);  //设置x轴和y轴能否同时缩放。默认是否
-        setDoubleTapToZoomEnabled(true);//设置是否可以通过双击屏幕放大图表。默认是true
-        setHighlightPerDragEnabled(true);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
-        setDragDecelerationEnabled(true);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
+        setScaleXEnabled(false); //是否可以缩放 仅x轴
+        setScaleYEnabled(false); //是否可以缩放 仅y轴
+        setPinchZoom(false);  //设置x轴和y轴能否同时缩放。默认是否
+        setDoubleTapToZoomEnabled(false);//设置是否可以通过双击屏幕放大图表。默认是true
+        setHighlightPerDragEnabled(false);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
+        setDragDecelerationEnabled(false);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
         setDragDecelerationFrictionCoef(0.99f);//与上面那个属性配合，持续滚动时的速度快慢，[0,1) 0代表立即停止。
         //设置图列文字颜色
 

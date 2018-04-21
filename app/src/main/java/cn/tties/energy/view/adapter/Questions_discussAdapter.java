@@ -25,6 +25,7 @@ public class Questions_discussAdapter extends RecyclerView.Adapter<Questions_dis
     List<Opsbean.ResultBean.QuestionListBean.AdviceListBean> bean;
 
 
+
     public Questions_discussAdapter(Context context, List<Opsbean.ResultBean.QuestionListBean.AdviceListBean> bean) {
         this.context = context;
         this.bean = bean;
@@ -37,10 +38,11 @@ public class Questions_discussAdapter extends RecyclerView.Adapter<Questions_dis
 
     @Override
     public void onBindViewHolder(MydiscussViewHolder holder, int position) {
+        holder.discussGroup.setText("工程师一组");
         holder.discussContent.setText(bean.get(position).getContent());
         holder.discussTime.setText(bean.get(position).getCreateTime());
         holder.discussName.setText(bean.get(position).getMbStaff().getStaffName());
-        String str=new String(bean.get(position).getMbStaff().getStaffName());
+        String str = new String(bean.get(position).getMbStaff().getStaffName());
         String substring = str.substring(0, 1);
         holder.discussLogo.setText(substring);
     }
@@ -59,9 +61,11 @@ public class Questions_discussAdapter extends RecyclerView.Adapter<Questions_dis
         TextView discussTime;
         @BindView(R.id.discuss_content)
         TextView discussContent;
+        @BindView(R.id.discuss_group)
+        TextView discussGroup;
         public MydiscussViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#666666"
-            android:text="发现问题"/>
+            android:text=""/>
         <TextView
             android:layout_below="@+id/progress_title"
             android:id="@+id/progress_time"
@@ -101,6 +101,6 @@
             android:textSize="13sp"
             android:textColor="#D5D5D5"
             android:layout_height="wrap_content"
-            android:text="2018/01/02 12:30:12"/>
+            android:text=""/>
     </RelativeLayout>
 </RelativeLayout>

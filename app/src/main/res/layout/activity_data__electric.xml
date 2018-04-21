@@ -17,11 +17,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_height="@dimen/y100">
+            android:layout_height="@dimen/y122">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:paddingLeft="@dimen/x33"
                 android:gravity="center_vertical"
                 android:text="电量"
@@ -42,6 +42,7 @@
                     android:textColor="#C8C8C8"
                     android:text="原始"/>
                 <TextView
+                    android:paddingTop="@dimen/y12"
                     android:textColor="#C8C8C8"
                     android:id="@+id/electrical_num"
                     android:layout_below="@+id/tv1"
@@ -74,7 +75,7 @@
                     android:text="正在校验"/>
             </RelativeLayout>
             <ImageView
-                android:id="@+id/data_charge_img4"
+                android:id="@+id/electrical_verify"
                 android:src="@mipmap/data_checkout"
                 android:layout_marginLeft="@dimen/y9"
                 android:layout_marginRight="@dimen/x23"
@@ -96,7 +97,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y120"
+                android:layout_height="@dimen/y122"
                 android:orientation="vertical">
                 <TextView
                     android:layout_height="match_parent"
@@ -107,10 +108,14 @@
                     android:textSize="14sp"
                     android:textColor="#262626"/>
             </LinearLayout>
+
             <cn.tties.energy.chart.LineDataChart
                 android:id="@+id/electrical_chart"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y390">
+                android:layout_height="@dimen/y428"
+                android:layout_alignParentTop="true"
+                >
+
             </cn.tties.energy.chart.LineDataChart>
         </LinearLayout>
         <LinearLayout

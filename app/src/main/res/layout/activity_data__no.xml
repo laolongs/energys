@@ -7,6 +7,7 @@
     tools:context="cn.tties.energy.view.activity.Data_PressActivity">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

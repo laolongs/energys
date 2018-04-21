@@ -41,7 +41,9 @@ public class MyEnergyProgressRound extends View{
     private float mRadiuSize = 0;
     private float mRingSize = 0;
     private float mRingSizetwo = 0;
+    private float mNumdistance = 0;
     private float mTextSize = 0;
+    private float mScoredistance = 0;
     private int mProgressColor = 0;
 
 
@@ -69,6 +71,10 @@ public class MyEnergyProgressRound extends View{
         mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 10);
         mRingSizetwo = array.getDimension(R.styleable.MyProgressRound_ringSizetwo, 10);
         mTextSize = array.getDimension(R.styleable.MyProgressRound_textSize, 10);
+        //数字大小
+        mNumdistance = array.getDimension(R.styleable.MyProgressRound_numdistance, 10);
+        //分 大小
+        mScoredistance = array.getDimension(R.styleable.MyProgressRound_scoredistance, 10);
         mProgressColor = array.getColor(R.styleable.MyProgressRound_progressColor, Color.BLACK);
 
     }
@@ -139,12 +145,12 @@ public class MyEnergyProgressRound extends View{
         painttext.setColor(paintMaxRadiucolor);
         String text = mCountProgress+"";
         float textWidth = painttext.measureText(text);
-        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2-30 , getMeasuredHeight()/2 + mTextSize/2-10, painttext);
-        painttext.setTextSize(35);
+        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2-mNumdistance , getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        painttext.setTextSize(33);
         painttext.setStrokeWidth(mRingSizetwo);
         String text2 = "分";
         float textWidth2 = painttext.measureText(text);
-        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +60, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +mScoredistance, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
 //
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
         paint.setStrokeWidth(mRingSizetwo);

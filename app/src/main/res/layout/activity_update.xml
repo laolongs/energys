@@ -1,41 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x44"
+        android:layout_marginRight="@dimen/x44"
+        android:layout_width="@dimen/x745"
+        android:layout_height="@dimen/y460"
         android:background="@drawable/layout_corners_black"
         android:elevation="@dimen/y5"
         android:orientation="vertical">
         <TextView
+            android:layout_marginTop="@dimen/y40"
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="检测到新版本"
             android:textColor="@color/black"
-            android:textSize="17sp" />
+            android:textSize="22sp" />
         <LinearLayout
+            android:layout_marginTop="@dimen/y54"
+            android:layout_marginLeft="@dimen/x96"
+            android:layout_marginRight="@dimen/x96"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/y90">
             <TextView
                 android:id="@+id/description"
-                android:layout_marginTop="@dimen/y10"
-                android:paddingLeft="@dimen/y30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="描述"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="11sp" />
+            <TextView
+                android:id="@+id/description2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+            <TextView
+                android:id="@+id/description3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y20">
+            android:layout_marginTop="@dimen/y60">
             <LinearLayout
                 android:gravity="center"
                 android:layout_width="0dp"
@@ -43,10 +62,11 @@
                 android:layout_weight="1">
                 <Button
                     android:id="@+id/btn_confirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y40"
+                    android:layout_width="@dimen/x289"
+                    android:layout_height="@dimen/y98"
                     android:background="@drawable/versetion_text_shop_select"
                     android:text="马上升级"
+                    android:textSize="11sp"
                     android:textColor="@color/white" />
             </LinearLayout>
             <LinearLayout
@@ -56,10 +76,11 @@
                 android:layout_weight="1">
                 <Button
                     android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y40"
+                    android:layout_width="@dimen/x289"
+                    android:layout_height="@dimen/y98"
                     android:background="@drawable/versetion_text_shop"
                     android:text="取消"
+                    android:textSize="11sp"
                     android:textColor="@color/white" />
             </LinearLayout>
 

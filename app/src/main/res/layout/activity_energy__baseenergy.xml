@@ -202,7 +202,7 @@
             <cn.tties.energy.chart.LineDataChart
                 android:id="@+id/energy_base_chart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/y414">
 
             </cn.tties.energy.chart.LineDataChart>
         </LinearLayout>

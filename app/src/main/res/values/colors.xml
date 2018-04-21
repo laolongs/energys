@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--設置透明背景色， 版本更新-->
+    <color name="transparent">#9000</color>
     <color name="datatextcolor">#262626</color>
     <color name="main">#157cd3</color>
     <color name="border">#e2e2e2</color>

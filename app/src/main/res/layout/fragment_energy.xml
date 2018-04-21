@@ -50,6 +50,8 @@
                         app:radiuSize="@dimen/y130"
                         app:progressColor="#BFDDFF"
                         app:textSize="40sp"
+                        app:numdistance="@dimen/x30"
+                        app:scoredistance="@dimen/x45"
                         />
                 </LinearLayout>
                     <TextView

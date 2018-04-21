@@ -27,8 +27,9 @@ import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.presenter.Energy_ElectricalPersenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
+
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IDataView;
 
@@ -128,17 +129,19 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
             Log.i(TAG, "setDataDatalow: " + low);
             Log.i(TAG, "setDataDatanum: " + num);
             enereyElectricalMonth.setText(bean.getDataList().get(0).getBaseDate() + "");
-            //尖峰
-            electricalMyview.setProgressMax(cusp, num);
-            //高峰
-            electricalMyview.setProgressCenter(hight, num);
-            //低谷
-            electricalMyview.setProgressMin(low, num);
-            enereyElectricalCusp.setText(bean.getDataList().get(0).getSectorJianValue() + "度");
-            enereyElectricalHight.setText(bean.getDataList().get(0).getSectorFengValue() + "度");
-            enereyElectricalLow.setText(bean.getDataList().get(0).getSectorGuValue() + "度");
-            enereyElectricalKva.setText(bean.getDataList().get(0).getTotalEnergy() + "kVA");
-            enereyElectricalPrice.setText((int) bean.getDataList().get(0).getTotalSum() + "元");
+            electricalMyview.setAllPregerssData(cusp,hight,low,num);
+//            //尖峰
+//            electricalMyview.setProgressMax(cusp, num);
+//            //高峰
+//            electricalMyview.setProgressCenter(hight, num);
+//            //低谷
+//            electricalMyview.setProgressMin(low, num);
+
+            enereyElectricalCusp.setText(DoubleUtils.getNum(bean.getDataList().get(0).getSectorJianValue()) + "度");
+            enereyElectricalHight.setText(DoubleUtils.getNum(bean.getDataList().get(0).getSectorFengValue()) + "度");
+            enereyElectricalLow.setText(DoubleUtils.getNum(bean.getDataList().get(0).getSectorGuValue()) + "度");
+            enereyElectricalKva.setText( DoubleUtils.getNum(bean.getDataList().get(0).getTotalEnergy()) + "kVA");
+            enereyElectricalPrice.setText(DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()) + "元");
         }
 
     }

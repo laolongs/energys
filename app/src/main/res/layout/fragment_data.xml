@@ -50,7 +50,7 @@
                              android:layout_marginRight="@dimen/x38"
                              android:layout_alignParentRight="true"
                              android:textSize="12sp"
-                             android:text="3月"
+                             android:text=""
                              />
                          <cn.tties.energy.chart.BarDataChart
                              android:layout_marginTop="@dimen/y10"

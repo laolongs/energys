@@ -34,7 +34,7 @@ import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.BottomStyleDialogTwo;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
+
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_NoView;
 

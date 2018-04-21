@@ -30,7 +30,7 @@ import cn.tties.energy.presenter.Energy_TransformerPresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
+
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_TransformerView;
 
@@ -130,6 +130,8 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
 
     @Override
     public void setEnergy_TransformerListbeanData(final Energy_TransformerListbean bean) {
+        //设置可以滑动
+        energyTransformerTab.setTabMode(TabLayout.MODE_SCROLLABLE);
         if (bean.getResult().size() > 0) {
             for (int i = 0; i < bean.getResult().size(); i++) {
                 energyTransformerTab.addTab(energyTransformerTab.newTab().setText(bean.getResult().get(i).getName()));
@@ -167,12 +169,12 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     @Override
     public void setEnergy_TransformerDamgebeanData(Energy_TransformerDamgebean bean) {
         if (bean.getResult().getConsume() == 0) {
-            energyTransformerKwh.setText("∞");
+            energyTransformerKwh.setText("NaN");
         }else{
             energyTransformerKwh.setText(bean.getResult().getConsume() + "");
         }
         if (bean.getResult().getDamge() == 0) {
-            energyTransformerDamge.setText("∞");
+            energyTransformerDamge.setText("NaN");
         }else{
             energyTransformerDamge.setText(bean.getResult().getDamge() + "%");
         }

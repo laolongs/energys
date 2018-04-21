@@ -4,10 +4,10 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/y20"
+        android:layout_marginTop="@dimen/y40"
         android:layout_marginRight="@dimen/y50"
         android:layout_width="@dimen/x534"
-        android:layout_height="@dimen/y252">
+        android:layout_height="@dimen/y282">
         <ImageView
             android:id="@+id/up_arrow"
             android:layout_width="wrap_content"
@@ -22,16 +22,18 @@
             android:background="@drawable/down_arrow_drawable" />
         <ImageView
             android:layout_alignParentRight="true"
-            android:layout_width="@dimen/x20"
-            android:layout_height="@dimen/y18"
+            android:layout_width="@dimen/x34"
+            android:layout_height="@dimen/y30"
             android:layout_marginRight="@dimen/y80"
             android:background="@mipmap/popup_window_arrow" />
         <LinearLayout
+            android:layout_marginTop="@dimen/y15"
             android:layout_below="@+id/up_arrow"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/x534"
+            android:layout_height="@dimen/y252"
             android:orientation="vertical"
             android:background="@drawable/data_charge_dailog_bg"
-            android:layout_height="@dimen/y245">
+            >
             <TextView
                 android:paddingTop="@dimen/y42"
                 android:id="@+id/tip_text"

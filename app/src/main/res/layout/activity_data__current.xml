@@ -40,15 +40,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y520">
                 </cn.tties.energy.chart.LineDataThreeChart>
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y60"/>
+
             </LinearLayout>
-            <LinearLayout
+            <View
                 android:layout_below="@+id/data_current_ll"
+                android:id="@+id/data_currentpress_vvv"
+                style="@style/cut_off_line_5dp"
+                />
+            <LinearLayout
+                android:layout_below="@+id/data_currentpress_vvv"
                 android:id="@+id/data_currentpress_ll"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"

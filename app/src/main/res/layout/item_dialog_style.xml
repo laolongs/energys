@@ -24,7 +24,7 @@
             android:id="@+id/table_electrical_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="条目"
+            android:text=""
             android:textColor="#1D405C"
             android:textSize="26sp" />
     </LinearLayout>

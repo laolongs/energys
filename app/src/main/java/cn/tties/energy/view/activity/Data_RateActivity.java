@@ -33,7 +33,6 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_RateView;
 

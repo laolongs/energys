@@ -9,7 +9,7 @@
             android:id="@+id/tv_item_dialog_name"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/y88"
-            android:text="条目"
+            android:text=""
             android:gravity="center"
             android:textColor="#000"
             android:textSize="18sp"

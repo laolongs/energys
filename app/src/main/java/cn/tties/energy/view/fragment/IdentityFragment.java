@@ -32,6 +32,7 @@ import cn.tties.energy.view.activity.AboutActivity;
 import cn.tties.energy.view.activity.ChangeTableActivity;
 import cn.tties.energy.view.activity.LoginActivity;
 import cn.tties.energy.view.activity.PasswordActivity;
+import cn.tties.energy.view.activity.UpdateActivity;
 import cn.tties.energy.view.activity.VersionActivity;
 import cn.tties.energy.view.dialog.ConfirmDialog;
 import cn.tties.energy.view.iview.IIdentityFragmentView;
@@ -66,7 +67,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     @BindView(R.id.identity_img)
     ImageView identityImg;
     int num = 0;
-    @BindView(R.id.identity_switch_selsect)
+//    @BindView(R.id.identity_switch_selsect)
     ImageView identitySwitchSelsect;
 
     @Nullable
@@ -78,6 +79,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
         identityName = inflate.findViewById(R.id.identity_name);
         identityNumber = inflate.findViewById(R.id.identity_number);
         identityCompany = inflate.findViewById(R.id.identity_company);
+        identitySwitchSelsect = inflate.findViewById(R.id.identity_switch_selsect);
         identitySwitchElectricity = inflate.findViewById(R.id.identity_switch_electricity);
         unbinder = ButterKnife.bind(this, inflate);
         Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
@@ -116,13 +118,13 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                 break;
             //版本更新
             case R.id.layout_version:
-                intent = new Intent(getActivity(), VersionActivity.class);
+                intent = new Intent(getActivity(), UpdateActivity.class);
                 startActivity(intent);
                 break;
             //关于我们
             case R.id.identity_about:
-                intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), AboutActivity.class);
+//                startActivity(intent);
                 break;
             //设置
             case R.id.layout_loginout:

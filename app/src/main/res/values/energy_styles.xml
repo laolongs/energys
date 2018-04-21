@@ -360,8 +360,8 @@
 
     <style name="cut_off_line_9dp">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/y20</item>
-        <item name="android:background">@color/border</item>
+        <item name="android:layout_height">@dimen/y15</item>
+        <item name="android:background">#F2F2F2</item>
     </style>
     <style name="ops_item_top_textview">
         <item name="android:layout_width">0dp</item>
@@ -398,22 +398,7 @@
     </style>
     <!--dialog弹出框设置圆角-->
     <style name="myCorDialog" parent="android:style/Theme.Dialog">
-        <!--<item name="android:windowBackground">@drawable/press_bg</item> &lt;!&ndash; 背景透明 &ndash;&gt;-->
-        <!--<item name="android:windowNoTitle">true</item> &lt;!&ndash; 没有标题 &ndash;&gt;-->
-        <!--<item name="android:backgroundDimEnabled">true</item> &lt;!&ndash; 背景模糊 &ndash;&gt;-->
-        <!--<item name="android:windowFrame">@null</item>-->
-        <!--<item name="android:windowIsFloating">true</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:background">@android:color/transparent</item>-->
-        <!--<item name="android:backgroundDimAmount">0.6</item>-->
-        <!--<item name="android:windowFrame">@null</item>-->
-        <!--<item name="android:windowIsFloating">true</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:background">@android:color/transparent</item>-->
         <item name="android:windowBackground">@drawable/press_bg</item>
-        <!--<item name="android:backgroundDimEnabled">true</item>-->
-        <!--<item name="android:backgroundDimAmount">0.6</item>-->
     </style>
     <!-- CustomCheckBox theme -->
     <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">

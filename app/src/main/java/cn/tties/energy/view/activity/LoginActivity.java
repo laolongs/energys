@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         if(sp.getBoolean("islogin",false)){
             loginCheck.setChecked(true);
             edittextUsername.setText(ACache.getInstance().getAsString(Constants.CACHE_LOGIN_USERNAME));
-            Log.i("111111111", "onCreate: " + ACache.getInstance().getAsString(Constants.CACHE_LOGIN_PASSWORD));
+            Log.i("TAG", "onCreate: " + ACache.getInstance().getAsString(Constants.CACHE_LOGIN_PASSWORD));
             edittextPassword.setText(ACache.getInstance().getAsString(Constants.CACHE_LOGIN_PASSWORD));
         }
         loginCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

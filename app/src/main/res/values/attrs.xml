@@ -14,5 +14,7 @@
         <attr name="ringSize" format="dimension"/>
         <attr name="ringSizetwo" format="dimension"/>
         <attr name="radiuSize" format="dimension"/>
+        <attr name="numdistance" format="dimension"/>
+        <attr name="scoredistance" format="dimension"/>
     </declare-styleable>
 </resources>

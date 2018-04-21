@@ -25,8 +25,8 @@ import cn.tties.energy.model.result.Energy_BasePlanbean;
 import cn.tties.energy.presenter.Energy_BaseenergyPresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
 
@@ -130,8 +130,8 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                 energyBaseType.setText("需量");
             }
 
-            energyBasePrice.setText(bean.getDataList().get(0).getBaseSum() + "元");
-            energyBaseMonthmax.setText(bean.getDataList().get(0).getMaxMD() + "kW");
+            energyBasePrice.setText(DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum())+"元");
+            energyBaseMonthmax.setText(DoubleUtils.getNum(bean.getDataList().get(0).getMaxMD()) + "kW");
             energyBaseTime.setText(bean.getDataList().get(0).getMaxMDDate() + "");
         }
 
@@ -169,12 +169,15 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         } else {
             enTv3.setText("报装需量");
         }
-        energyBasePlanKw1.setText(bean.getBestValue() + "kW");
-        energyBasePlanKw2.setText(bean.getVolumeValue() + "kW");
-        energyBasePlanKw3.setText(bean.getDemandValue() + "kW");
-        energyBasePlanAllprice1.setText(bean.getBestFee() + "元");
-        energyBasePlanAllprice2.setText(bean.getVolumeFee() + "元");
-        energyBasePlanAllprice3.setText(bean.getDemandFee() + "元");
+        energyBasePlanKw1.setText(DoubleUtils.getNum(bean.getBestValue()) + "kW");
+        energyBasePlanKw2.setText(DoubleUtils.getNum(bean.getVolumeValue()) + "kW");
+        energyBasePlanKw3.setText(DoubleUtils.getNum(bean.getDemandValue()) + "kW");
+        energyBasePlanAllprice1.setText( DoubleUtils.getNum(bean.getBestFee())+"元");
+        energyBasePlanAllprice2.setText(DoubleUtils.getNum(bean.getVolumeFee())+"元");
+        energyBasePlanAllprice3.setText(DoubleUtils.getNum(bean.getDemandFee())+"元");
+//        energyBasePlanAllprice1.setText(bean.getBestFee() + "元");
+//        energyBasePlanAllprice2.setText(bean.getVolumeFee() + "元");
+//        energyBasePlanAllprice3.setText(bean.getDemandFee() + "元");
     }
     //计算x数量
     public void getChartXCount(LineDataChart lineDataChart){
@@ -182,7 +185,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         int currentYear = DateUtil.getCurrentYear();
         int currentMonth= DateUtil.getCurrentMonth();
         XAxis xAxis = lineDataChart.getXAxis();
-//        xAxis.setLabelRotationAngle(0);
+        xAxis.setLabelRotationAngle(0);
         String baseData = allbean.getBaseData();
         String[] split = StringUtil.split(baseData, "-");
         if(split[0].equals(currentYear+"")){
@@ -191,8 +194,8 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
 //            }
             xAxis.setLabelCount(currentMonth,true);
         }else{
-            xAxis.setLabelCount(12,true);
-//            xAxis.setLabelRotationAngle(-50);
+            xAxis.setLabelCount(12,false);
+            xAxis.setLabelRotationAngle(-50);
         }
     }
 }

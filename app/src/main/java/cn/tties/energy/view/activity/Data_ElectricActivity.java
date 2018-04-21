@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,10 @@ import cn.tties.energy.model.result.Data_Electricbean;
 import cn.tties.energy.presenter.Data_ElectricPresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
+import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
 
@@ -54,11 +55,14 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     LinearLayout dataAllelectricElectrical;
     @BindView(R.id.data_electrical_time_tv)
     TextView dataElectricalTimeTv;
+    @BindView(R.id.electrical_verify)
+    ImageView electricalVerify;
     private BottomStyleDialog dialog;
     double num = 0;
-    DataAllbean allbean=new DataAllbean();
+    DataAllbean allbean = new DataAllbean();
     MyTimePickerWheelTwoDialog dialogtime;
-    MyAllTimeYear timeYear=new MyAllTimeYear();
+    MyAllTimeYear timeYear = new MyAllTimeYear();
+    private MyPopupWindow popupWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +71,9 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     }
 
     private void initView() {
+        popupWindow = new MyPopupWindow();
         mPresenter.getAllElectricityData();
-        dataElectricalTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        dataElectricalTv.setText(DateUtil.getCurrentYear() + "年" + DateUtil.getCurrentMonth() + "月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_ElectricActivity.this);
         toolbarText.setText("电量数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +106,17 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 //                ToastUtil.showShort(Data_NoActivity.this,"");
             }
         });
+        electricalVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.showTipPopupWindow(electricalVerify, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -125,16 +141,16 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getDataList().get(i).getA());
                 values.add(entry);
-                if(bean.getDataList().get(i).getFreezeTime()!=null||bean.getDataList().get(i).getFreezeTime().equals("")){
-                    String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
+                if (bean.getDataList().get(i).getFreezeTime() != null || bean.getDataList().get(i).getFreezeTime().equals("")) {
+                    String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(), 5, 10);
                     listDate.add(split);
                 }
 
             }
             XAxis xAxis = electricalChart.getXAxis();
-            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelCount(bean.getDataList().size(), true);
             xAxis.setLabelRotationAngle(-50);
-            electricalNum.setText(num + "");
+            electricalNum.setText("￥" + DoubleUtils.getNum(num));
             electricalChart.setDataSet(values, "");
             electricalChart.setDayXAxis(listDate);
             electricalChart.loadChart();
@@ -145,10 +161,10 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        if(allElectricitybean.getMeterList().size()>0){
+        if (allElectricitybean.getMeterList().size() > 0) {
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
-            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getData_Electric();
             dataElectricalTimeTv.setText("总电量");
             dialog = new BottomStyleDialog(Data_ElectricActivity.this, allElectricitybean);

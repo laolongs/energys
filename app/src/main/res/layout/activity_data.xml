@@ -17,11 +17,11 @@
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="@dimen/y98">
+              android:layout_height="@dimen/y122">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
-                   android:layout_weight="3"
+                   android:layout_weight="2"
                    android:paddingLeft="@dimen/x34"
                    android:gravity="center_vertical"
                    android:text="总电费"
@@ -43,6 +43,7 @@
                         android:text="原始"/>
 
                     <TextView
+                        android:paddingTop="@dimen/y12"
                         android:layout_below="@+id/tv1"
                         android:id="@+id/data_all_charge"
                         android:layout_width="wrap_content"
@@ -91,11 +92,11 @@
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="@dimen/y98">
+              android:layout_height="@dimen/y122">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
-                   android:layout_weight="3"
+                   android:layout_weight="2"
                    android:paddingLeft="@dimen/x34"
                    android:gravity="center_vertical"
                    android:text="基本电费"
@@ -116,6 +117,7 @@
                         android:textSize="11sp"
                         android:text="原始"/>
                     <TextView
+                        android:paddingTop="@dimen/y12"
                         android:textColor="#C8C8C8"
                         android:id="@+id/data_base_charge"
                         android:layout_below="@+id/tv2"
@@ -164,11 +166,11 @@
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="@dimen/y98">
+              android:layout_height="@dimen/y122">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
-                   android:layout_weight="3"
+                   android:layout_weight="2"
                    android:paddingLeft="@dimen/y34"
                    android:gravity="center_vertical"
                    android:text="年度电费"
@@ -189,6 +191,7 @@
                         android:textSize="11sp"
                         android:text="原始"/>
                     <TextView
+                        android:paddingTop="@dimen/y12"
                         android:textColor="#C8C8C8"
                         android:id="@+id/data_year_charge"
                         android:layout_below="@+id/tv3"
@@ -237,11 +240,11 @@
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="@dimen/y98">
+              android:layout_height="@dimen/y122">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
-                   android:layout_weight="3"
+                   android:layout_weight="2"
                    android:paddingLeft="@dimen/y34"
                    android:gravity="center_vertical"
                    android:text="力调电费"
@@ -262,6 +265,7 @@
                         android:textSize="11sp"
                         android:text="原始"/>
                     <TextView
+                        android:paddingTop="@dimen/y12"
                         android:textColor="#C8C8C8"
                         android:id="@+id/data_forces_charge"
                         android:layout_below="@+id/tv7"

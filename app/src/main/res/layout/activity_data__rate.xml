@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="cn.tties.energy.view.activity.DataActivity">
     <LinearLayout
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -197,12 +198,12 @@
                 <cn.tties.energy.chart.LineDataTwoChart
                     android:id="@+id/havakw_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y390">
+                    android:layout_height="@dimen/y428">
                 </cn.tties.energy.chart.LineDataTwoChart>
                 <View
                     android:layout_below="@+id/data_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/y20"/>
+                    style="@style/cut_off_line_5dp"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y122"
@@ -219,7 +220,7 @@
                 <cn.tties.energy.chart.LineDataChart
                     android:id="@+id/nokvar_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y390">
+                    android:layout_height="@dimen/y428">
                 </cn.tties.energy.chart.LineDataChart>
             </LinearLayout>
             <View

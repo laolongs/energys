@@ -96,7 +96,7 @@ public class LineDataFourChart extends  LineChart {
         set.setCircleHoleRadius(8f);
         set.enableDashedHighlightLine(10f, 5f, 0f);//点击后的高亮线的显示样式
         set.setHighlightLineWidth(2f);//设置点击交点后显示高亮线宽
-        set.setHighlightEnabled(true);//是否禁用点击高亮线
+        set.setHighlightEnabled(false);//是否禁用点击高亮线
         set.setHighLightColor(HighLightcolor);//设置点击交点后显示交高亮线的颜色
         set.setValueTextSize(0f);//设置显示值的文字大小
         set.setDrawFilled(true);//设置禁用范围背景填充 设置包括的范围区域填充颜色
@@ -246,7 +246,8 @@ public class LineDataFourChart extends  LineChart {
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+//        设置Y轴文字显示位置
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         //最大值，最小值
         leftAxis.setMaxWidth(100f);
         leftAxis.setMinWidth(0f);
@@ -259,7 +260,9 @@ public class LineDataFourChart extends  LineChart {
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
         leftAxis.setDrawAxisLine(false); //无轴线
-        leftAxis.setDrawGridLines(false);
+        leftAxis.setDrawGridLines(true);
+        //        Y轴总会高出X轴一点，并没有从0点开始，因此需要对Y轴进行设置
+        leftAxis.setAxisMinimum(0f);
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(5,true);
         leftAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -269,15 +272,15 @@ public class LineDataFourChart extends  LineChart {
             }
         });
 //        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
-        setTouchEnabled(true); // 设置是否可以触摸
-        setDragEnabled(true);// 是否可以拖拽
+        setTouchEnabled(false); // 设置是否可以触摸
+        setDragEnabled(false);// 是否可以拖拽
         setScaleEnabled(false);// 是否可以缩放 x和y轴, 默认是true
-        setScaleXEnabled(true); //是否可以缩放 仅x轴
-        setScaleYEnabled(true); //是否可以缩放 仅y轴
-        setPinchZoom(true);  //设置x轴和y轴能否同时缩放。默认是否
-        setDoubleTapToZoomEnabled(true);//设置是否可以通过双击屏幕放大图表。默认是true
-        setHighlightPerDragEnabled(true);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
-        setDragDecelerationEnabled(true);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
+        setScaleXEnabled(false); //是否可以缩放 仅x轴
+        setScaleYEnabled(false); //是否可以缩放 仅y轴
+        setPinchZoom(false);  //设置x轴和y轴能否同时缩放。默认是否
+        setDoubleTapToZoomEnabled(false);//设置是否可以通过双击屏幕放大图表。默认是true
+        setHighlightPerDragEnabled(false);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
+        setDragDecelerationEnabled(false);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
         setDragDecelerationFrictionCoef(0.99f);//与上面那个属性配合，持续滚动时的速度快慢，[0,1) 0代表立即停止。
         //设置图列文字颜色
 
@@ -289,8 +292,8 @@ public class LineDataFourChart extends  LineChart {
         l.setForm(Legend.LegendForm.LINE);//正方形，圆形或线
         l.setFormSize(10f); // 设置Form的大小
         l.setWordWrapEnabled(true);//是否支持自动换行 目前只支持BelowChartLeft, BelowChartRight, BelowChartCenter
-        l.setFormLineWidth(3f);//设置Form的宽度
-        l.setTextColor(Color.WHITE);
+        l.setFormLineWidth(5f);//设置Form的宽度
+        l.setTextColor(Color.BLACK);
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);

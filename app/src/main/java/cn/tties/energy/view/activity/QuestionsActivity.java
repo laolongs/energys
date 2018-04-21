@@ -170,7 +170,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 Button confirm = inflate.findViewById(R.id.question_btn_confirm);
                 Button cancel = inflate.findViewById(R.id.question_btn_cancel);
                 Loginbean userInfo = MyApplication.getUserInfo();
-               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,200,inflate,R.style.myCorDialog);
+               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,100,inflate,R.style.myCorDialog);
 //                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this,R.style.myCorDialog);
                 builder.show();
                 if (!name.equals("暂无")) {
@@ -199,7 +199,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                     }
                 });
 //                Log.i(TAG, "onClick: "+userInfo.g);
-                ToastUtil.showShort(QuestionsActivity.this, "回复");
+//                ToastUtil.showShort(QuestionsActivity.this, "回复");
 
             }
         });
@@ -259,9 +259,10 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         if (discussbean.getErrorCode() == 0) {
             //这里调用fragment里的刷新方法
             discussFragment.initData();
-            ToastUtil.showShort(QuestionsActivity.this, "回复成功");
+//            ToastUtil.showShort(QuestionsActivity.this, "回复成功");
         } else {
-            ToastUtil.showShort(QuestionsActivity.this, "回复失败");
+            Log.i(TAG, "setQuestionDiscussData: 回复失败");
+//            ToastUtil.showShort(QuestionsActivity.this, "回复失败");
         }
     }
 

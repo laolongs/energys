@@ -162,6 +162,7 @@ public class BarDataCharttwo extends BarChart {
 //        leftAxis.setDrawGridLines(false);
         // 设置y轴的标签数量
         leftAxis.setLabelCount(5,true);
+        leftAxis.setAxisMaximum(0f);
 
 //        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
         setTouchEnabled(true); // 设置是否可以触摸

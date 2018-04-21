@@ -28,8 +28,9 @@ import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.presenter.Energy_ForcePresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
+
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_ForceView;
 
@@ -117,11 +118,11 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-01");
             mPresenter.getEnergy_ForcechartData();
             //有功功率
-            energyForceHavekw.setText(bean.getDataList().get(0).getAp() + "kW");
+            energyForceHavekw.setText( DoubleUtils.getNum(bean.getDataList().get(0).getAp()) + "kW");
             //无功
-            energyForceNokvar.setText(bean.getDataList().get(0).getRp() + "kVar");
+            energyForceNokvar.setText(DoubleUtils.getNegative(bean.getDataList().get(0).getRp()) + "kVar");
             //因数
-            energyForceNum.setText(bean.getDataList().get(0).getRate() + "");
+            energyForceNum.setText(DoubleUtils.getRate(bean.getDataList().get(0).getRate()) + "");
         }
 
     }

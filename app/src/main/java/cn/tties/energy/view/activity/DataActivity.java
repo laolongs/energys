@@ -30,11 +30,11 @@ import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.presenter.DataPresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
-import cn.tties.energy.view.dialog.MyTimePickerDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IDataView;
 
@@ -163,7 +163,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 popupWindow.showTipPopupWindow(dataChargeImg1, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -172,7 +172,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 popupWindow.showTipPopupWindow(dataChargeImg2, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -180,7 +180,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 popupWindow.showTipPopupWindow(dataChargeImg3, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -188,7 +188,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 popupWindow.showTipPopupWindow(dataChargeImg4, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -199,13 +199,13 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     public void setDataData(Databean bean) {
         if(bean.getDataList().size()>0){
             //总电费
-            dataAllCharge.setText(bean.getDataList().get(0).getTotalSum() + "");
+            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
             //基本电费
-            dataBaseCharge.setText(bean.getDataList().get(0).getBaseSum() + "");
+            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
             //年度电费
-            dataYearCharge.setText(bean.getDataList().get(0).getFeeSum() + "");
+            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
             //力调电费
-            dataForcesCharge.setText(bean.getDataList().get(0).getFouceSum() + "");
+            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
         }
 
 

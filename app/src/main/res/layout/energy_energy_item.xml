@@ -50,8 +50,11 @@
                 android:id="@+id/energy_monthly_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="南洋印染2017年6月月度能效报告"
+                android:text=""
                 android:textColor="@color/black"
+                android:lines="2"
+                android:maxEms="8"
+                android:ellipsize="end"
                 android:textSize="16sp"/>
             <TextView
                 android:textColor="#717171"
@@ -60,7 +63,7 @@
                 android:layout_marginTop="@dimen/y14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2017-07-04  18:05"
+                android:text=""
                 />
         </LinearLayout>
         <ImageView

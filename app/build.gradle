@@ -62,7 +62,7 @@ dependencies {
     //图片加载
     compile 'com.lzy.widget:imagepicker:0.6.1'
     //图片放大显示
-    compile 'com.bm.photoview:library:1.4.1'
+//    compile 'com.bm.photoview:library:1.4.1'
     //qq
     implementation files('libs/SocialSDK_QQ_Simplify.jar')
     //新浪

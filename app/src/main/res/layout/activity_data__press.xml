@@ -7,6 +7,7 @@
     tools:context="cn.tties.energy.view.activity.Data_PressActivity">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -30,8 +31,8 @@
             android:layout_height="@dimen/y520">
         </cn.tties.energy.chart.LineDataChart>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x20"/>
+            style="@style/cut_off_line_5dp"
+            />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -51,8 +52,8 @@
             android:layout_height="@dimen/y520">
         </cn.tties.energy.chart.LineDataChart>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x20"/>
+            style="@style/cut_off_line_5dp"
+            />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

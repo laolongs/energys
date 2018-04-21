@@ -22,4 +22,41 @@ public class DoubleUtils {
     public static Double sub(Double dou1, Double dou2) {
         return  new BigDecimal(dou1 - dou2).setScale(ROUND_HALF_UP_COUNT, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
+    public static String getNum(double d){
+        double n=0;
+        if(d!=0){
+           if(d<10000){
+               return String.format("%.1f", d)+"";
+           }else{
+               n = (double)d/10000;
+           }
+        }
+        return String.format("%.2f", n)+"万";
+    }
+    //负数
+    public static String getNegative(double d){
+        double n=0;
+        if(d!=0){
+            if(d>-10000){
+                return String.format("%.1f", d)+"";
+            }else{
+                n = (double)d/10000;
+            }
+        }
+        return String.format("%.2f", n)+"万";
+    }
+    //因数
+    public static String getRate(double d){
+        double n=0;
+        if(d!=0){
+            return String.format("%.2f", d)+"";
+        }
+        return "0";
+    }
+    //保留精度值
+    public static double getBigDecimal(double num,int size){
+        BigDecimal b = new BigDecimal(num / size);
+        double df = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return df;
+    }
 }

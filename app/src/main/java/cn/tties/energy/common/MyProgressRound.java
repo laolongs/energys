@@ -42,7 +42,8 @@ public class MyProgressRound extends View{
     private float mRingSize = 0;
     private float mTextSize = 0;
     private int mProgressColor = 0;
-
+    private float mNumdistance = 0;
+    private float mScoredistance = 0;
 
     public MyProgressRound(Context context) {
         super(context);
@@ -68,6 +69,10 @@ public class MyProgressRound extends View{
         mRingSize = array.getDimension(R.styleable.MyProgressRound_ringSize, 15);
         mTextSize = array.getDimension(R.styleable.MyProgressRound_textSize, 10);
         mProgressColor = array.getColor(R.styleable.MyProgressRound_progressColor, Color.BLACK);
+        //中间圆距最大圆的距离
+        mNumdistance = array.getDimension(R.styleable.MyProgressRound_numdistance, 10);
+        //最小圆距最大圆的距离
+        mScoredistance = array.getDimension(R.styleable.MyProgressRound_scoredistance, 10);
 
     }
 
@@ -142,41 +147,100 @@ public class MyProgressRound extends View{
         paintMin.setStrokeWidth(mRingSize);
         paintMin.setColor(paintMincolor);
         paintMin.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
-        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-60, paintCenter);
-        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-120, paintMin);
-
-//        paint.setTextSize(mTextSize);
-//        String text = mCountProgress + "%";
-//        float textWidth = paint.measureText(text);
-//        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2 , getMeasuredWidth()/2 + mTextSize/2, paint);
-//        RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize + mRingSize-30/2,getMeasuredHeight()/2 - mRadiuSize + mRingSize-30/2,getMeasuredWidth()/2 + mRadiuSize - mRingSize+30/2,getMeasuredHeight()/2 + mRadiuSize - mRingSize+30/2);
+//        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
+//        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mNumdistance, paintCenter);
+//        canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mScoredistance, paintMin);
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
         paint.setStrokeWidth(mRingSize);
-        paint.setColor(paintMaxRadiucolor);
-        canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
-        RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +60,getMeasuredHeight()/2 - mRadiuSize +60,getMeasuredWidth()/2 + mRadiuSize - 60,getMeasuredHeight()/2 + mRadiuSize - 60);
+//        paint.setColor(paintMaxRadiucolor);
+//        canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
+        RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +mNumdistance,getMeasuredHeight()/2 - mRadiuSize +mNumdistance,getMeasuredWidth()/2 + mRadiuSize - mNumdistance,getMeasuredHeight()/2 + mRadiuSize - mNumdistance);
         paintCenter.setStrokeWidth(mRingSize);
-        paintCenter.setColor(paintCenterRadiucolor);
-        canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
-        RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +120,getMeasuredHeight()/2 - mRadiuSize +120,getMeasuredWidth()/2 + mRadiuSize - 120,getMeasuredHeight()/2 + mRadiuSize - 120);
+//        paintCenter.setColor(paintCenterRadiucolor);
+//        canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
+        RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +mScoredistance,getMeasuredHeight()/2 - mRadiuSize +mScoredistance,getMeasuredWidth()/2 + mRadiuSize - mScoredistance,getMeasuredHeight()/2 + mRadiuSize - mScoredistance);
         paintMin.setStrokeWidth(mRingSize);
-        paintMin.setColor(paintMinRadiucolor);
-        canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);
+//        paintMin.setColor(paintMinRadiucolor);
+//        canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);
+//        确定最大 最小
+        if(mProgressMax>mProgressCenter&&mProgressMax>mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
+            paint.setColor(paintMaxRadiucolor);
+            canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
+        }
+        if(mProgressMax<mProgressCenter&&mProgressMax<mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mScoredistance, paint);
+            paint.setColor(paintMaxRadiucolor);
+            canvas.drawArc(rectF3, -90,  mProgressMax, false, paint);
+        }
+        if(mProgressCenter>mProgressMax&&mProgressCenter>mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paintCenter);
+            paintCenter.setColor(paintCenterRadiucolor);
+            canvas.drawArc(rectF, -90,  mProgressCenter, false, paintCenter);
+        }
+        if(mProgressCenter<mProgressMax&&mProgressCenter<mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mScoredistance, paintCenter);
+            paintCenter.setColor(paintCenterRadiucolor);
+            canvas.drawArc(rectF3, -90,  mProgressCenter, false, paintCenter);
+        }
+        if(mProgressMin>mProgressMax&&mProgressMin>mProgressCenter){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paintMin);
+            paintMin.setColor(paintMinRadiucolor);
+            canvas.drawArc(rectF, -90,  mProgressMin, false, paintMin);
+        }
+        if(mProgressMin<mProgressMax&&mProgressMin<mProgressCenter){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mScoredistance, paintMin);
+            paintMin.setColor(paintMinRadiucolor);
+            canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);
+        }
+        //确定中间
+        if(mProgressMax>mProgressCenter&&mProgressMax<mProgressMin||mProgressMax<mProgressCenter&&mProgressMax>mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mNumdistance, paint);
+            paint.setColor(paintMaxRadiucolor);
+            canvas.drawArc(rectF2, -90,  mProgressMax, false, paint);
+        }
+        if(mProgressCenter>mProgressMax&&mProgressCenter<mProgressMin||mProgressCenter<mProgressMax&&mProgressCenter>mProgressMin){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mNumdistance, paintCenter);
+            paintCenter.setColor(paintCenterRadiucolor);
+            canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
+        }
+        if(mProgressMin>mProgressMax&&mProgressMin<mProgressCenter||mProgressMin<mProgressMax&&mProgressMin>mProgressCenter){
+            canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize-mNumdistance, paintMin);
+            paintMin.setColor(paintMinRadiucolor);
+            canvas.drawArc(rectF2, -90,  mProgressMin, false, paintMin);
+        }
+//        RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
+//        paint.setStrokeWidth(mRingSize);
+//        paint.setColor(paintMaxRadiucolor);
+//        canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
+//        RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +mNumdistance,getMeasuredHeight()/2 - mRadiuSize +mNumdistance,getMeasuredWidth()/2 + mRadiuSize - mNumdistance,getMeasuredHeight()/2 + mRadiuSize - mNumdistance);
+//        paintCenter.setStrokeWidth(mRingSize);
+//        paintCenter.setColor(paintCenterRadiucolor);
+//        canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
+//        RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +mScoredistance,getMeasuredHeight()/2 - mRadiuSize +mScoredistance,getMeasuredWidth()/2 + mRadiuSize - mScoredistance,getMeasuredHeight()/2 + mRadiuSize - mScoredistance);
+//        paintMin.setStrokeWidth(mRingSize);
+//        paintMin.setColor(paintMinRadiucolor);
+//        canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);
     }
-    public void setProgressMax(int progress,double num){
-        mProgressMax = (float) ((360/num)*progress);
-        mCountProgress = progress*100/360;
+    public void setAllPregerssData(int progress1,int progress2,int progress3,double num){
+        mProgressMax = (float) ((360/num)*progress1);
+        mProgressCenter = (float) ((360/num)*progress2);
+        mProgressMin = (float) ((360/num)*progress3);
         invalidate();
     }
-    public void setProgressCenter(int progress,double num){
-        mProgressCenter =(float) ((360/num)*progress);
-        mCountProgress = progress*100/360;
-        invalidate();
-    }
-    public void setProgressMin(int progress,double num){
-        mProgressMin = (float) ((360/num)*progress);
-        mCountProgress = progress*100/360;
-        invalidate();
-    }
+//    public void setProgressMax(int progress,double num){
+//        mProgressMax = (float) ((360/num)*progress);
+//        mCountProgress = progress*100/360;
+//        invalidate();
+//    }
+//    public void setProgressCenter(int progress,double num){
+//        mProgressCenter =(float) ((360/num)*progress);
+//        mCountProgress = progress*100/360;
+//        invalidate();
+//    }
+//    public void setProgressMin(int progress,double num){
+//        mProgressMin = (float) ((360/num)*progress);
+//        mCountProgress = progress*100/360;
+//        invalidate();
+//    }
 }

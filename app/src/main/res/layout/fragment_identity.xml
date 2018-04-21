@@ -65,14 +65,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="22sp"
-                                android:text="张丰富"/>
+                                android:text=""/>
                             <TextView
                                 android:id="@+id/identity_company"
                                 android:layout_marginTop="@dimen/y10"
                                 android:textSize="13sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="绍兴市科普织造有限公司"/>
+                                android:text=""/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -121,7 +121,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="26sp"
-                                android:text="9824234234234"/>
+                                android:text=""/>
                             <LinearLayout
                                 android:layout_marginBottom="@dimen/y10"
                                 android:layout_marginTop="@dimen/y8"

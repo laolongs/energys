@@ -69,10 +69,5 @@ public class StringUtil {
         String split = sub.substring(start,end);
         return split;
     }
-    //保留精度值
-    public static double getBigDecimal(double num,int size){
-        BigDecimal b = new BigDecimal(num / size);
-        double df = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-        return df;
-    }
+
 }
