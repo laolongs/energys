@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.tties.energy.R;
 import cn.tties.energy.model.result.Opsbean;
+import cn.tties.energy.utils.StringUtil;
 
 
 /**
@@ -70,7 +71,8 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof MyViewHoder) {
             ((MyViewHoder) holder).opsItemTitle.setText(listbean.get(position).getTitle());
             ((MyViewHoder) holder).opsItemTime.setText(listbean.get(position).getCreateTime());
-            ((MyViewHoder) holder).opsItemAddress.setText(listbean.get(position).getDescription());
+            String substring = StringUtil.substring(listbean.get(position).getDescription(), 1, listbean.get(position).getDescription().length() - 1);
+            ((MyViewHoder) holder).opsItemAddress.setText(substring);
             ((MyViewHoder) holder).opsItemLl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

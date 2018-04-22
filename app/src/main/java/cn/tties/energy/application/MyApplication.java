@@ -2,21 +2,17 @@ package cn.tties.energy.application;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
+
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +44,16 @@ public class MyApplication extends Application {
     {
         //微信
         PlatformConfig.setWeixin("wx373d9c107c84ae60", "d5b070aef80059f95f8b0321dc46fb99");
-        //新浪微博(第三个参数为回调地址)
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com/sina2/callback");
-        //QQ
-        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+//        //新浪微博(第三个参数为回调地址)
+//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com/sina2/callback");
+//        //QQ
+//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
+//    @Override
+//    protected void attachBaseContext(Context base) {
+//        super.attachBaseContext(base);
+//        MultiDex.install(this);
+//    }
 
     public static Loginbean getUserInfo() {
         Loginbean userInfo = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
@@ -104,18 +105,7 @@ public class MyApplication extends Application {
             @Override
             public void displayImage(Activity activity, String path, ImageView imageView, int width, int height) {
                 Glide.with(activity).load(path).into(imageView);
-//                .load(Uri.fromFile(new File(path)))//
-//                        .placeholder(R.mipmap.default_image)//
-//                        .error(R.mipmap.default_image)//
-//                        .resize(width, height)//
-//                        .centerInside()//
-//                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)//
-//                        .into(imageView);
-//                Glide.with(activity)                             //配置上下文
-//                        .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
-//                        //设置错误图片
-//                        //设置占位图片
-//                        .into(imageView);
+
         }
 
             @Override

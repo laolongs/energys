@@ -83,7 +83,6 @@ public class DescriptionListViewAdapter extends BaseAdapter {
 //                    item.path = path;
 //                    ArrayList<ImageItem> list = new ArrayList<>();
 //                    list.add(item);
-//                    Log.i(TAG, "bind: "+item.path);
 //                    intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) list);
                     intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
                     intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, pos);
@@ -161,6 +160,7 @@ public class DescriptionListViewAdapter extends BaseAdapter {
                 itemView.setOnClickListener(this);
                 //根据条目位置设置图片
                 ImageItem item = mData.get(position);
+                Log.i(TAG, "bind: "+item.path);
                 ImagePicker.getInstance().getImageLoader().displayImage((Activity) context, item.path, iv_img, 0, 0);
                 clickPosition = position;
             }

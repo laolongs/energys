@@ -40,6 +40,7 @@ import cn.tties.energy.model.result.Loginbean;
 import cn.tties.energy.model.result.Opsbean;
 import cn.tties.energy.presenter.QuestionsPresenter;
 import cn.tties.energy.utils.AppUtils;
+import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.adapter.DescriptionListViewAdapter;
 import cn.tties.energy.view.adapter.ImagePickerAdapter;
@@ -170,7 +171,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 Button confirm = inflate.findViewById(R.id.question_btn_confirm);
                 Button cancel = inflate.findViewById(R.id.question_btn_cancel);
                 Loginbean userInfo = MyApplication.getUserInfo();
-               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,100,inflate,R.style.myCorDialog);
+               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,130,inflate,R.style.myCorDialog);
 //                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this,R.style.myCorDialog);
                 builder.show();
                 if (!name.equals("暂无")) {
@@ -236,7 +237,8 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
             staffTel = listbean.getMaintUser().getStaffTel();
             quesIndex.setText(listbean.getQuestionIndex());
             quesCreatetime.setText(listbean.getCreateTime());
-            quesAddress.setText(listbean.getDescription());
+            String substring = StringUtil.substring(listbean.getDescription(), 1, listbean.getDescription().length() - 1);
+            quesAddress.setText(substring);
             quesRank.setText(FaultType.getInfo(listbean.getFaultType()) + "");
             initRecycleView(listbean);
             discussFragment.setQuestionId(questionId);

@@ -165,15 +165,15 @@ public class BarDataCharttwo extends BarChart {
         leftAxis.setAxisMaximum(0f);
 
 //        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
-        setTouchEnabled(true); // 设置是否可以触摸
-        setDragEnabled(true);// 是否可以拖拽
+        setTouchEnabled(false); // 设置是否可以触摸
+        setDragEnabled(false);// 是否可以拖拽
         setScaleEnabled(false);// 是否可以缩放 x和y轴, 默认是true
-        setScaleXEnabled(true); //是否可以缩放 仅x轴
-        setScaleYEnabled(true); //是否可以缩放 仅y轴
-        setPinchZoom(true);  //设置x轴和y轴能否同时缩放。默认是否
-        setDoubleTapToZoomEnabled(true);//设置是否可以通过双击屏幕放大图表。默认是true
-        setHighlightPerDragEnabled(true);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
-        setDragDecelerationEnabled(true);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
+        setScaleXEnabled(false); //是否可以缩放 仅x轴
+        setScaleYEnabled(false); //是否可以缩放 仅y轴
+        setPinchZoom(false);  //设置x轴和y轴能否同时缩放。默认是否
+        setDoubleTapToZoomEnabled(false);//设置是否可以通过双击屏幕放大图表。默认是true
+        setHighlightPerDragEnabled(false);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
+        setDragDecelerationEnabled(false);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
         setDragDecelerationFrictionCoef(0.99f);//与上面那个属性配合，持续滚动时的速度快慢，[0,1) 0代表立即停止。
         //设置图列文字颜色
 

@@ -398,6 +398,8 @@
     </style>
     <!--dialog弹出框设置圆角-->
     <style name="myCorDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item> <!-- 没有标题 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 背景模糊 -->
         <item name="android:windowBackground">@drawable/press_bg</item>
     </style>
     <!-- CustomCheckBox theme -->

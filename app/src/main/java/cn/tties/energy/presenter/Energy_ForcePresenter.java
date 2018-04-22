@@ -123,7 +123,7 @@ public class Energy_ForcePresenter extends BasePresenter<IEnergy_ForceView> {
         map.put("objType",1);
         map.put("baseDate",baseDate);
         map.put("eleAccountId",dataAllbean.getEleAccountId());
-        map.put("count",12);
+        map.put("count",DateUtil.getCurrentMonth()-1);
         Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
         Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
         Log.i(TAG, "onErrordata: "+dataAllbean.getEnergyledgerId());

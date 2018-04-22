@@ -197,41 +197,41 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setDataData(Databean bean) {
-        if(bean.getDataList().size()>0){
-            //总电费
-            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
-            //基本电费
-            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
-            //年度电费
-            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
-            //力调电费
-            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
-        }
+//        if(bean.getDataList().size()>0){
+//            //总电费
+//            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
+//            //基本电费
+//            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
+//            //年度电费
+//            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
+//            //力调电费
+//            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
+//        }
 
 
     }
 
     @Override
     public void setDataChartData(Databean bean) {
-        if(bean.getDataList().size()>0){
-            dataChart.clearData();
-            ArrayList<Entry> values = new ArrayList<>();
-            List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getDataList().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getDataList().get(i).getCost());
-                values.add(entry);
-                if(bean.getDataList().get(i).getBaseDate()!=null||bean.getDataList().get(i).getBaseDate().equals("")){
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
-                }
-
-            }
-            getChartXCount(dataChart);
-            dataChart.setDataSet(values, "");
-            dataChart.setDayXAxis(listDate);
-            dataChart.loadChart();
-        }
+//        if(bean.getDataList().size()>0){
+//            dataChart.clearData();
+//            ArrayList<Entry> values = new ArrayList<>();
+//            List<String> listDate = new ArrayList<String>();
+//            for (int i = 0; i < bean.getDataList().size(); i++) {
+//                Entry entry = new Entry(i, 0f);
+//                entry.setY((float) bean.getDataList().get(i).getCost());
+//                values.add(entry);
+//                if(bean.getDataList().get(i).getBaseDate()!=null||bean.getDataList().get(i).getBaseDate().equals("")){
+//                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+//                    listDate.add(split[1]);
+//                }
+//
+//            }
+//            getChartXCount(dataChart);
+//            dataChart.setDataSet(values, "");
+//            dataChart.setDayXAxis(listDate);
+//            dataChart.loadChart();
+//        }
 
     }
 

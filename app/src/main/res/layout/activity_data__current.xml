@@ -44,6 +44,12 @@
             </LinearLayout>
             <View
                 android:layout_below="@+id/data_current_ll"
+                android:id="@+id/data_currentpress_vvvv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y60">
+            </View>
+            <View
+                android:layout_below="@+id/data_currentpress_vvvv"
                 android:id="@+id/data_currentpress_vvv"
                 style="@style/cut_off_line_5dp"
                 />

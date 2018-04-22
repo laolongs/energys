@@ -155,32 +155,46 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     public void setEnergy_ForceCharge(DataFragmentbean bean) {
         if (bean.getDataList().size() > 0) {
             energyForceChart2.clearData();
-//            double num;
             ArrayList<BarEntry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getDataList().size(); i++) {
-//                Log.i(TAG, "setEnergy_ForceCharge111: "+bean.getDataList().get(i).getFouceSum());
-//                Log.i(TAG, "setEnergy_ForceCharge222: "+bean.getDataList().get(i+1).getFouceSum());
-//                num = bean.getDataList().get(i).getFouceSum() - bean.getDataList().get(i++).getFouceSum();
-//                i--;
+            for (int i = 1; i <=bean.getDataList().size(); i++) {
+                double j=bean.getDataList().get(bean.getDataList().size()-i).getFouceSum();
+
                 BarEntry entry = new BarEntry(i, 0f);
 //                Log.i(TAG, "setEnergy_ForceCharge: "+num);
-                entry.setY((float) bean.getDataList().get(i).getFouceSum()*-1);
+                entry.setY((float)j*-1);
                 values.add(entry);
-                if(bean.getDataList().get(i).getBaseDate()!=null||!bean.getDataList().get(i).getBaseDate().equals("")){
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]+"月");
+                String month=bean.getDataList().get(bean.getDataList().size()-i).getBaseDate();
+                String[] split = StringUtil.split(month, "-");
+                listDate.add(split[1]+"月");
                 }
-
-            }
+            getBarChartXCount(energyForceChart2);
             energyForceChart2.setDataSet(values, "");
             energyForceChart2.setDayXAxis(listDate);
             energyForceChart2.loadChart();
-        }
-
+            }
     }
     //计算x数量
     public void getChartXCount(LineDataChart lineDataChart){
+        //得到当前年月 确定chart表x轴加载的数量
+        currentYear = DateUtil.getCurrentYear();
+        currentMonth= DateUtil.getCurrentMonth()-1 ;
+        XAxis xAxis = lineDataChart.getXAxis();
+//        xAxis.setLabelRotationAngle(0);
+        String baseData = dataAllbean.getBaseData();
+        String[] split = StringUtil.split(baseData, "-");
+        if(split[0].equals(currentYear+"")){
+//            if(currentMonth>8){
+//                xAxis.setLabelRotationAngle(-50);
+//            }
+            xAxis.setLabelCount(currentMonth,true);
+        }else{
+            xAxis.setLabelCount(12,true);
+//            xAxis.setLabelRotationAngle(-50);
+        }
+    }
+    //计算x数量
+    public void getBarChartXCount(BarDataCharttwo lineDataChart){
         //得到当前年月 确定chart表x轴加载的数量
         currentYear = DateUtil.getCurrentYear();
         currentMonth= DateUtil.getCurrentMonth();

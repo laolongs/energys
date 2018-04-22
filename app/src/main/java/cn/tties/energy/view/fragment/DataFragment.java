@@ -94,7 +94,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     }
 
     private void initView() {
-        datafragmentTimeTv.setText(DateUtil.getCurrentMonth()+"月");
+        datafragmentTimeTv.setText((DateUtil.getCurrentMonth()-1)+"月");
         toolbarText.setText("电力数据");
         mPresenter.getDataFragment();
     }
@@ -159,11 +159,12 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
         if(bean.getDataList().size()>0){
             datafragmentChart.clearData();
             ArrayList<BarEntry> values = new ArrayList<>();
-            for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
-//        for (int i =0 ; i <bean.getDataList().size(); i++) {
+//            for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
+        for (int i =1 ; i <=bean.getDataList().size(); i++) {
+            double j=bean.getDataList().get(bean.getDataList().size()-i).getCost();
                 BarEntry entry = new BarEntry(i, 0f);
-                Log.i(TAG, "setDataFragmentData: "+(float)bean.getDataList().get(i).getCost());
-                entry.setY((float) bean.getDataList().get(i).getCost());
+                Log.i(TAG, "setDataFragmentData: "+j);
+                entry.setY((float) j);
                 values.add(entry);
             }
             datafragmentChart.setDataSet(values, "");

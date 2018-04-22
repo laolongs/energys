@@ -133,6 +133,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
             energyLedgerId=energyLedgerList.get(0).getEnergyLedgerId();
             EleAccountId=energyLedgerList.get(0).getEleAccountId();
             companyId=energyLedgerList.get(0).getCompanyId();
+            Log.i(TAG, "getOpsLoginData: "+companyId);
             ACache.getInstance().put(Constants.CACHE_OPS_COMPANDID,companyId+"");
             ACache.getInstance().put(Constants.CACHE_OPSLOGIN_USERINFO,opsLoginbean);
             ACache.getInstance().put(Constants.CACHE_OPS_ENERGYLEDGERID,energyLedgerId);

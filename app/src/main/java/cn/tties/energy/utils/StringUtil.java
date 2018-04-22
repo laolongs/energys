@@ -60,9 +60,13 @@ public class StringUtil {
         System.out.println(getChineseStr("æµç§°"));
     }
     public static String[] split(String value,String value2){
-        String sub=new String(value);
-        String[] split = sub.split(value2);
-        return split;
+        String[] values={"null",value};
+        if(value!=null&&!value.equals("")){
+            String sub=new String(value);
+            String[] split = sub.split(value2);
+            return split;
+        }
+        return values;
     }
     public static String substring(String value,int start,int end){
         String sub=new String(value);

@@ -6,8 +6,9 @@ package cn.tties.energy.common;
 public class Constants {
 //    energyHost: 'https://app.tties.cn/',
 //    maintHost: 'https://maint.tties.cn'
-//    public static final String OpsBASE_RUL = "https://maint.tties.cn/api/";//正式环境运维
-//    public static final String BASE_RUL = "https://app.tties.cn/phoneInterface/";//正式环境能效
+//      public static final String OpsBASE_RUL = "https://maint.tties.cn/api/";//正式环境运维
+//      public static final String BASE_RUL = "https://app.tties.cn/phoneInterface/";//正式环境能效
+//      public static final String OpsBASE_RULIMG = "http://192.168.2.220:8683/";//正式环境运维img
       public static final String OpsBASE_RUL = "http://192.168.2.220:8683/api/";//测试环境运维
       public static final String OpsBASE_RULIMG = "http://192.168.2.220:8683/";//测试环境运维img
       public static final String BASE_RUL = "http://192.168.2.220:8089/Energy/phoneInterface/";//测试环境能效
