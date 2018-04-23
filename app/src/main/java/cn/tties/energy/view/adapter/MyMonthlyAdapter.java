@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.common.Constants;
 import cn.tties.energy.model.result.Energy_Monthlybean;
 import cn.tties.energy.utils.ShareUtils;
 import cn.tties.energy.utils.ToastUtil;
@@ -36,6 +40,7 @@ import cn.tties.energy.wxapi.Defaultcontent;
  */
 
 public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.ViewHolder> {
+    private static final String TAG = "MyMonthlyAdapter";
     public Context context;
     public Energy_Monthlybean bean;
     public LayoutInflater inflater;
@@ -56,7 +61,7 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.energyMonthlyTv.setText(bean.getResult().get(position).getReportName());
         holder.energyMonthlyTime.setText(bean.getResult().get(position).getCreateTime());
         holder.energyMonthlyPdfimg.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +75,13 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
             @Override
             public void onClick(View view) {
                 holder.monthProbar.setVisibility(View.VISIBLE);
-                String savePAth = Environment.getExternalStorageDirectory() + "/DownFile";
+                String savePAth = Environment.getExternalStorageDirectory() +"/DownFile/";
                 File file1 = new File(savePAth);
                 if (!file1.exists()) {
                     file1.mkdir();
                 }
                 //确定下来改后缀
-                String savePathString = Environment.getExternalStorageDirectory() + "/DownFile/" + "DJ.doc";
+                String savePathString = Environment.getExternalStorageDirectory() + "/DownFile/" +  bean.getResult().get(position).getReportName();
                 final File file = new File(savePathString);
                 if (!file.exists()) {
                     try {
@@ -92,16 +97,22 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
                     @Override
                     public void run() {
                         try {
+                            //替换反斜杠
+                            String reportPath=bean.getResult().get(position).getReportPath();
+                            reportPath = reportPath.replaceAll("\\\\", "/");
+                            Log.i(TAG, "run: "+reportPath);
+                            String encodepath = URLEncoder.encode(reportPath);
+                            String encodeName = URLEncoder.encode(bean.getResult().get(position).getReportName());
+                            final String httpurl=Constants.OpsBASE_RUL+"downfile.do?filePath="+encodepath+"&fileName="+encodeName;
                             // 打开 URL 必须在子线程
-                            URL url = new URL(
-                                    "http://b.zol-img.com.cn/sjbizhi/images/9/540x960/1472549276394.jpg");
+                            final URL url = new URL(httpurl);
+                            Log.i(TAG, "run: "+url);
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("GET");
                             conn.setReadTimeout(5000);
                             conn.setConnectTimeout(5000);
 
                             int contentLength = conn.getContentLength();
-
                             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                                 InputStream is = conn.getInputStream();
                                 outputStream = new FileOutputStream(file);
@@ -129,8 +140,11 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
                                                 holder.energyMonthlyImgshare.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
-                                                        ShareUtils.shareWeb((Activity) context, Defaultcontent.url, Defaultcontent.title
-                                                                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
+//                                                        ShareUtils.shareWeb((Activity) context, Defaultcontent.url, Defaultcontent.title
+//                                                                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
+//                                                        );
+                                                        ShareUtils.shareWeb((Activity) context, httpurl, "天天智电智慧能效管理平台"
+                                                                , bean.getResult().get(position).getReportName(),"", R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN
                                                         );
                                                     }
                                                 });

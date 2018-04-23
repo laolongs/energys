@@ -139,11 +139,17 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
 
     @Override
     public void setEnergy_BaseenergyYearData(Databean bean) {
+
         if(bean.getDataList().size()>0){
+            int allnum=0;
             energyBaseChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getDataList().size(); i++) {
+            if(bean.getDataList().size()!=12){
+                int i = 12 - bean.getDataList().size();
+                allnum = bean.getDataList().size() + i;
+            }
+            for (int i = 0; i < allnum; i++) {
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getDataList().get(i).getBaseSum());
                 values.add(entry);
@@ -154,7 +160,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                 }
 
             }
-            getChartXCount(energyBaseChart);
+//            getChartXCount(energyBaseChart);
             energyBaseChart.setDataSet(values, "");
             energyBaseChart.setDayXAxis(listDate);
             energyBaseChart.loadChart();

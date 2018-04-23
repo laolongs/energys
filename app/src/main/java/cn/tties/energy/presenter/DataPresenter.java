@@ -53,7 +53,7 @@ public class DataPresenter extends BasePresenter<IDataView> {
         map.put("objType",dataAllbean.getObjType());
         map.put("baseDate",dataAllbean.getBaseData());
         map.put("eleAccountId",dataAllbean.getEleAccountId());
-        map.put("dateType",2);
+        map.put("dateType",1);
         model.getDataData().getData(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Databean>() {

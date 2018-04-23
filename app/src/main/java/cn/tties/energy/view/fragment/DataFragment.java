@@ -1,6 +1,7 @@
 package cn.tties.energy.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +31,7 @@ import cn.tties.energy.chart.BarDataChart;
 import cn.tties.energy.chart.BarDataCharttwo;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.model.result.DataFragmentbean;
+import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.presenter.DataFragmentPresenter;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.StringUtil;
@@ -38,6 +43,8 @@ import cn.tties.energy.view.activity.Data_NoActivity;
 import cn.tties.energy.view.activity.Data_PressActivity;
 import cn.tties.energy.view.activity.Data_RateActivity;
 import cn.tties.energy.view.iview.IDataFragmentView;
+
+import static cn.tties.energy.R.drawable.month_load_bg;
 
 /**
  * Created by li on 2018/3/21
@@ -157,20 +164,49 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     @Override
     public void setDataFragmentData(DataFragmentbean bean) {
         if(bean.getDataList().size()>0){
+            Double max = getMax(bean);
             datafragmentChart.clearData();
             ArrayList<BarEntry> values = new ArrayList<>();
 //            for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
-        for (int i =1 ; i <=bean.getDataList().size(); i++) {
-            double j=bean.getDataList().get(bean.getDataList().size()-i).getCost();
-                BarEntry entry = new BarEntry(i, 0f);
-                Log.i(TAG, "setDataFragmentData: "+j);
-                entry.setY((float) j);
-                values.add(entry);
+            for (int i =1 ; i <=bean.getDataList().size(); i++) {
+                double j=bean.getDataList().get(bean.getDataList().size()-i).getCost();
+                if(bean.getDataList().get(bean.getDataList().size()-i).getCost()==-1){
+                    j=max+1;
+                }
+                    BarEntry entry = new BarEntry(i, 0f);
+                    Log.i(TAG, "setDataFragmentData: "+j);
+                    entry.setY((float) j);
+                    values.add(entry);
             }
-            datafragmentChart.setDataSet(values, "");
-            datafragmentChart.loadChart();
-            datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
-        }
 
+            BarDataSet barDataSet = datafragmentChart.setDataSet(values, "");
+            float yMax = barDataSet.getYMax();
+            int entryCount = barDataSet.getEntryCount();
+
+            int color = Color.parseColor("#FFD6C9");
+            int color2 = Color.parseColor("#ffffff");
+            double v = max + 1;
+            for (int i = 0; i < barDataSet.getEntryCount(); i++) {
+
+                if((barDataSet.getEntryForIndex(i).getY()+"").equals(v+"")){
+                    Log.i(TAG, "setDataFragmentData11111111: "+barDataSet.getEntryForIndex(i).getY());
+//                    barDataSet.setColor();
+                }
+                Log.i(TAG, "setDataFragmentData777777777: "+barDataSet.getEntryForIndex(i).getY());
+            }
+
+            datafragmentChart.loadChart();
+                datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
+            }
+
+    }
+    //取最大值
+    public Double getMax(DataFragmentbean bean){
+        List<Databean.DataListBean> dataList = bean.getDataList();
+        List<Double> listMax=new ArrayList<>();
+        for (int i = 0; i < bean.getDataList().size(); i++) {
+            listMax.add(bean.getDataList().get(i).getCost());
+        }
+        return Collections.max(listMax);
     }
 }

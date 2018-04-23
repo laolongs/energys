@@ -118,7 +118,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                     public void OnCliekTimeListener(int poaiton) {
                         int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
                         dataTimeTv.setText(tiemBase+"年");
-                        mPresenter.getData();
                         mPresenter.getchartData();
 
                     }
@@ -197,41 +196,39 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setDataData(Databean bean) {
-//        if(bean.getDataList().size()>0){
-//            //总电费
-//            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
-//            //基本电费
-//            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
-//            //年度电费
-//            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
-//            //力调电费
-//            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
-//        }
+        if(bean.getDataList().size()>0){
+            //总电费
+            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
+            //基本电费
+            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
+            //年度电费
+            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
+            //力调电费
+            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
+        }
 
 
     }
 
     @Override
     public void setDataChartData(Databean bean) {
-//        if(bean.getDataList().size()>0){
-//            dataChart.clearData();
-//            ArrayList<Entry> values = new ArrayList<>();
-//            List<String> listDate = new ArrayList<String>();
-//            for (int i = 0; i < bean.getDataList().size(); i++) {
-//                Entry entry = new Entry(i, 0f);
-//                entry.setY((float) bean.getDataList().get(i).getCost());
-//                values.add(entry);
-//                if(bean.getDataList().get(i).getBaseDate()!=null||bean.getDataList().get(i).getBaseDate().equals("")){
-//                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-//                    listDate.add(split[1]);
-//                }
-//
-//            }
-//            getChartXCount(dataChart);
-//            dataChart.setDataSet(values, "");
-//            dataChart.setDayXAxis(listDate);
-//            dataChart.loadChart();
-//        }
+        if(bean.getDataList().size()>0){
+            dataChart.clearData();
+            ArrayList<Entry> values = new ArrayList<>();
+            List<String> listDate = new ArrayList<String>();
+            for (int i = 0; i < bean.getDataList().size(); i++) {
+                bean.getDataList().get(i).getCost();
+                Entry entry = new Entry(i, 0f);
+                entry.setY((float) bean.getDataList().get(i).getCost());
+                values.add(entry);
+                String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+                listDate.add(split[1]);
+            }
+            getChartXCount(dataChart);
+            dataChart.setDataSet(values, "");
+            dataChart.setDayXAxis(listDate);
+            dataChart.loadChart();
+        }
 
     }
 
@@ -240,7 +237,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
         if(allElectricitybean.getMeterList().size()>0){
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID,allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
-            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1));
             mPresenter.getData();
             mPresenter.getchartData();
             dataElectricityTv.setText("总电量");
@@ -263,7 +260,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                         ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,2);
 
                     }
-                    mPresenter.getData();
                     mPresenter.getchartData();
                 }
             });
