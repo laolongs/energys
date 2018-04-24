@@ -40,8 +40,10 @@ public class Constants {
     public static final String CACHE_OPS_ELEACCOUNTID = "CACHE_OPS_ELEACCOUNTID";
     // 对应的能效 时间 baseDate
     public static final String CACHE_OPS_BASEDATE = "CACHE_OPS_BASEDATE";
-    //变压器使用容量比例（同页面有两个时间选择，所以单开一个） TransformerVolume
+    //变压器使用容量比例（同页面有两个时间选择，所以单开一个） TransformerVolume  Temperature
     public static final String CACHE_OPS_TRANSFORMERVOLUMEBASEDATE = "CACHE_OPS_TRANSFORMERVOLUMEBASEDATE";
+    //变压器温度（同页面有两个时间选择，所以单开一个）   Temperature
+    public static final String CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE = "CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE";
     //   objType 对象类型（1、分户；2、计量点）
     public static final String CACHE_OPS_OBJTYPE = "CACHE_OPS_OBJTYPE";
     //   切换电表 记录状态

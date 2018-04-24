@@ -6,8 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.model.result.Energy_BasePlanbean;
@@ -27,6 +31,7 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
+import cn.tties.energy.view.dialog.CriHintDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
 
@@ -99,6 +104,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                     public void OnCliekTimeListener(int poaiton) {
                         int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
                         energyBaseYear.setText(tiemBase+"年");
+
                         mPresenter.getEnergy_BaseenergyYear();
                     }
 
@@ -145,29 +151,57 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
             energyBaseChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
+            //判断数据是否全年，否则动态添加数据
             if(bean.getDataList().size()!=12){
-                int i = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + i;
-            }
-            for (int i = 0; i < allnum; i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getDataList().get(i).getBaseSum());
-                values.add(entry);
-                if(bean.getDataList().get(i).getBaseDate()!=null||!bean.getDataList().get(i).getBaseDate().equals("")){
+                int num = 12 - bean.getDataList().size();
+                allnum = bean.getDataList().size() + num;
+                for (int i = 0; i < allnum; i++) {
+                    Entry entry = new Entry(i, 0f);
+                    if(i>=bean.getDataList().size()){
+                        int monthNum=i+1;
+                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+                        if(positionNum==1){
+                            listDate.add("0"+monthNum);
+                        }else{
+                            listDate.add(monthNum+"");
+                        }
+                        entry.setY((float)0);
+
+                    }else{
+                        entry.setY((float) bean.getDataList().get(i).getBaseSum());
+                        Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
+                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+                        listDate.add(split[1]);
+                    }
+                    values.add(entry);
+                }
+            }else{
+                for (int i = 0; i <bean.getDataList().size(); i++) {
+                    Entry entry = new Entry(i, 0f);
+                    entry.setY((float) bean.getDataList().get(i).getBaseSum());
+                    values.add(entry);
                     Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
                     String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
-                }
-
+                    }
             }
-//            getChartXCount(energyBaseChart);
-            energyBaseChart.setDataSet(values, "");
-            energyBaseChart.setDayXAxis(listDate);
-            energyBaseChart.loadChart();
+                energyBaseChart.setDataSet(values, "");
+                energyBaseChart.setDayXAxis(listDate);
+                energyBaseChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, AxisBase axis) {
+                        int i = (int) value;
+                        String str = DoubleUtils.getThousandNum(i)+ "KW";
+                        return str;
+                    }
+                });
+                energyBaseChart.loadChart();
+
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }
-
     @Override
     public void setEnergy_BasePlanData(Energy_BasePlanbean bean) {
         if (bean.getBestType() == 1) {
@@ -181,27 +215,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBasePlanAllprice1.setText( DoubleUtils.getNum(bean.getBestFee())+"元");
         energyBasePlanAllprice2.setText(DoubleUtils.getNum(bean.getVolumeFee())+"元");
         energyBasePlanAllprice3.setText(DoubleUtils.getNum(bean.getDemandFee())+"元");
-//        energyBasePlanAllprice1.setText(bean.getBestFee() + "元");
-//        energyBasePlanAllprice2.setText(bean.getVolumeFee() + "元");
-//        energyBasePlanAllprice3.setText(bean.getDemandFee() + "元");
+
     }
-    //计算x数量
-    public void getChartXCount(LineDataChart lineDataChart){
-        //得到当前年月 确定chart表x轴加载的数量
-        int currentYear = DateUtil.getCurrentYear();
-        int currentMonth= DateUtil.getCurrentMonth();
-        XAxis xAxis = lineDataChart.getXAxis();
-        xAxis.setLabelRotationAngle(0);
-        String baseData = allbean.getBaseData();
-        String[] split = StringUtil.split(baseData, "-");
-        if(split[0].equals(currentYear+"")){
-//            if(currentMonth>8){
-//                xAxis.setLabelRotationAngle(-50);
-//            }
-            xAxis.setLabelCount(currentMonth,true);
-        }else{
-            xAxis.setLabelCount(12,false);
-            xAxis.setLabelRotationAngle(-50);
-        }
-    }
+
 }

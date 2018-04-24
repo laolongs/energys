@@ -69,9 +69,12 @@ public class StringUtil {
         return values;
     }
     public static String substring(String value,int start,int end){
-        String sub=new String(value);
-        String split = sub.substring(start,end);
-        return split;
+        if(value!=null&&!value.equals("")){
+            String sub=new String(value);
+            String split = sub.substring(start,end);
+            return split;
+        }
+       return "";
     }
 
 }

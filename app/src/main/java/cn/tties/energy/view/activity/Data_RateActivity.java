@@ -24,6 +24,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_HaveKwbean;
@@ -151,6 +152,8 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
             havakwChart.setDayXAxis(listDate);
             havakwChart.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
 
     }
@@ -177,6 +180,8 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             nokvarChart.setDataSet(values, "");
             nokvarChart.setDayXAxis(listDate);
             nokvarChart.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
 
     }

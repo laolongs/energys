@@ -20,6 +20,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Factorbean;
 import cn.tties.energy.presenter.Data_FactorPresenter;
@@ -158,6 +159,8 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             dataFactorChart.setDataSet(values, "");
             dataFactorChart.setDayXAxis(listDate);
             dataFactorChart.loadChart();
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }

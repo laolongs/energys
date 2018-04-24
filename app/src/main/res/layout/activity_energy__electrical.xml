@@ -198,7 +198,7 @@
                 android:layout_weight="6"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/x2"
-               android:background="@color/gray"
+               android:background="#F2F2F2"
                 />
             <TextView
                 android:layout_weight="1"
@@ -208,7 +208,7 @@
                 android:layout_weight="6"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/x2"
-                android:background="@color/gray"/>
+                android:background="#F2F2F2"/>
             <TextView
                 android:layout_weight="3"
                 android:layout_width="0dp"

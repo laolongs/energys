@@ -14,5 +14,5 @@ import cn.tties.energy.model.result.Databean;
 public interface IEnergy_ForceView extends BaseView {
     public void setEnergy_ForceData(Databean bean);
     public void setEnergy_ForceChartData(Databean bean);
-    public void setEnergy_ForceCharge(DataFragmentbean bean);
+    public void setEnergy_ForceCharge(Databean bean);
 }

@@ -80,6 +80,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
 //    @BindView(R.id.datafragment_price)
     TextView datafragmentPrice;
     BarDataChart datafragmentChart;
+    private List<Integer> listColor;
 
     @Nullable
     @Override
@@ -163,15 +164,20 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
 
     @Override
     public void setDataFragmentData(DataFragmentbean bean) {
+        int color = Color.parseColor("#FFD6C9");
+        int color2 = Color.parseColor("#FF7247");
         if(bean.getDataList().size()>0){
             Double max = getMax(bean);
             datafragmentChart.clearData();
             ArrayList<BarEntry> values = new ArrayList<>();
-//            for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
+            listColor = new ArrayList<>();
             for (int i =1 ; i <=bean.getDataList().size(); i++) {
                 double j=bean.getDataList().get(bean.getDataList().size()-i).getCost();
                 if(bean.getDataList().get(bean.getDataList().size()-i).getCost()==-1){
                     j=max+1;
+                    listColor.add(color2);
+                }else{
+                    listColor.add(color);
                 }
                     BarEntry entry = new BarEntry(i, 0f);
                     Log.i(TAG, "setDataFragmentData: "+j);
@@ -180,29 +186,14 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
             }
 
             BarDataSet barDataSet = datafragmentChart.setDataSet(values, "");
-            float yMax = barDataSet.getYMax();
-            int entryCount = barDataSet.getEntryCount();
-
-            int color = Color.parseColor("#FFD6C9");
-            int color2 = Color.parseColor("#ffffff");
-            double v = max + 1;
-            for (int i = 0; i < barDataSet.getEntryCount(); i++) {
-
-                if((barDataSet.getEntryForIndex(i).getY()+"").equals(v+"")){
-                    Log.i(TAG, "setDataFragmentData11111111: "+barDataSet.getEntryForIndex(i).getY());
-//                    barDataSet.setColor();
-                }
-                Log.i(TAG, "setDataFragmentData777777777: "+barDataSet.getEntryForIndex(i).getY());
-            }
-
+            barDataSet.setColors(listColor);
             datafragmentChart.loadChart();
-                datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
+            datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
             }
 
     }
     //取最大值
     public Double getMax(DataFragmentbean bean){
-        List<Databean.DataListBean> dataList = bean.getDataList();
         List<Double> listMax=new ArrayList<>();
         for (int i = 0; i < bean.getDataList().size(); i++) {
             listMax.add(bean.getDataList().get(i).getCost());

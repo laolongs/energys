@@ -91,6 +91,12 @@ public class DataPresenter extends BasePresenter<IDataView> {
         map.put("baseDate",dataAllbean.getBaseData());
         map.put("eleAccountId",dataAllbean.getEleAccountId());
         map.put("dateType",2);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjType());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEleAccountId());
         model.getDataData().getData(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Databean>() {

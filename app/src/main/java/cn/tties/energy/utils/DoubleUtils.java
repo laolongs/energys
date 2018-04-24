@@ -22,6 +22,24 @@ public class DoubleUtils {
     public static Double sub(Double dou1, Double dou2) {
         return  new BigDecimal(dou1 - dou2).setScale(ROUND_HALF_UP_COUNT, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
+    //判断几位数
+    public static int getPositionNum(int d){
+        String b=String.valueOf(d);
+        return b.length();
+    }
+    //换算千
+    public static int getThousandNum(int d){
+        int n=0;
+        if(d!=0){
+            if(d<1000){
+                return d;
+            }else{
+                n = (int)d/1000;
+            }
+        }
+        return n;
+    }
+    //换算万
     public static String getNum(double d){
         double n=0;
         if(d!=0){

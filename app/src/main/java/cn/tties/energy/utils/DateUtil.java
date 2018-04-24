@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -184,5 +185,78 @@ public class DateUtil {
                 return time.substring(yearIndex, time.length()).substring(0, index);
             }
         }
+    }
+
+    //判断闰年
+    public static boolean isLeap(int year)
+    {
+        if (((year % 100 == 0) && year % 400 == 0) || ((year % 100 != 0) && year % 4 == 0))
+            return true;
+        else
+            return false;
+    }
+
+    //返回当月天数
+    int getDays(int year, int month)
+    {
+        int days;
+        int FebDay = 28;
+        if (isLeap(year))
+            FebDay = 29;
+        switch (month)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                days = 31;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                days = 30;
+                break;
+            case 2:
+                days = FebDay;
+                break;
+            default:
+                days = 0;
+                break;
+        }
+        return days;
+    }
+
+    //返回当月天数
+    public static HashMap<String,Integer> getDayssss(int year, int month)
+    {
+        int length=31;
+        switch (month){
+            case 3:
+                length=28;
+                if(((year % 100 == 0) && year % 400 == 0) || ((year % 100 != 0) && year % 4 == 0)){
+                    length=29;
+                }
+                break;
+            case 5:
+            case 7:
+            case 8:
+            case 12:
+                length=30;
+                break;
+        }
+        String[] x = new String[0];
+        HashMap<String,Integer> map=new HashMap<>();
+        for (int i = 20, j=0;j <length; i++,j++) {
+            int day=i>length?i-length:i;
+            int mon=i>length?month:(month==1?12:month-1);
+            String value=(mon<10 ? "0" : "")+mon+"-"+(day<10 ? "0" : "")+day;
+            x[j]=value;
+           map.put(value,j);
+        }
+        return map;
     }
 }

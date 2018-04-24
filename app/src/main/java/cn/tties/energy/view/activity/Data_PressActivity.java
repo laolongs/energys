@@ -25,6 +25,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Pressbean;
 import cn.tties.energy.presenter.Data_PressPresenter;
@@ -156,6 +157,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                 }
             });
             dataPressChart2.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
         if(bean.getMaxData().size()>0) {
             dataPressChart1.clearData();
@@ -178,6 +181,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             dataPressChart1.setDataSet(values2, "");
             dataPressChart1.setDayXAxis(listDate2);
             dataPressChart1.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
         if(bean.getLimitData().size()>0){
             dataPressChart3.clearData();
@@ -200,6 +205,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             dataPressChart3.setDataSet(values3, "");
             dataPressChart3.setDayXAxis(listDate3);
             dataPressChart3.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
 
     }

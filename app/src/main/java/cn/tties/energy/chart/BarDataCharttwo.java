@@ -103,6 +103,7 @@ public class BarDataCharttwo extends BarChart {
         setNoDataTextColor(R.color.greenyellow);
         //获取此图表的x轴
         XAxis xAxis = getXAxis();
+
         xAxis.setEnabled(true);//设置轴启用或禁用 如果禁用以下的设置全部不生效
         xAxis.setDrawAxisLine(true);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
@@ -119,7 +120,7 @@ public class BarDataCharttwo extends BarChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-        xAxis.setLabelCount(12);
+        xAxis.setLabelCount(12,true);
 //        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
         xAxis.setTextColor(color);//设置轴标签的颜色
@@ -161,9 +162,11 @@ public class BarDataCharttwo extends BarChart {
         leftAxis.setDrawAxisLine(false); //无轴线
 //        leftAxis.setDrawGridLines(false);
         // 设置y轴的标签数量
-        leftAxis.setLabelCount(5,true);
-        leftAxis.setAxisMaximum(0f);
-
+//        leftAxis.setLabelCount(5,true);
+//        设置y轴最大值
+//        leftAxis.setAxisMaximum(0f);
+//        Y轴总会高出X轴一点，并没有从0点开始，因此需要对Y轴进行设置
+        leftAxis.setAxisMinimum(0f);
 //        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
         setTouchEnabled(false); // 设置是否可以触摸
         setDragEnabled(false);// 是否可以拖拽

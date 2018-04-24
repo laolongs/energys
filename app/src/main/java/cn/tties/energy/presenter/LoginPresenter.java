@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.R;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

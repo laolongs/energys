@@ -1,6 +1,7 @@
 package cn.tties.energy.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_Electricbean;
@@ -29,6 +31,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
+import cn.tties.energy.view.dialog.CriHintDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
@@ -37,7 +40,7 @@ import cn.tties.energy.view.iview.IData_ElectricView;
  * 电量数据
  */
 public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> implements IData_ElectricView {
-
+    private static final String TAG = "Data_ElectricActivity";
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.electrical_num)
@@ -63,6 +66,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +136,10 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 
     @Override
     public void setData_ElectricData(Data_Electricbean bean) {
+
         if (bean.getDataList().size() > 0) {
             electricalChart.clearData();
+            Log.i(TAG, "setData_ElectricData: "+"zzzzzzzzz");
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             for (int i = 0; i < bean.getDataList().size(); i++) {
@@ -154,6 +160,8 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
             electricalChart.setDataSet(values, "");
             electricalChart.setDayXAxis(listDate);
             electricalChart.loadChart();
+        }else{
+            MyHint.myHintDialog(this);
         }
 
 

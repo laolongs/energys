@@ -115,9 +115,9 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     public void getEnergy_TransformerTemperature(int transformerId){
         Map<String,Object> map=new HashMap<>();
         map.put("transformerId",transformerId);
-        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("baseDate",dataAllbean.getTransformerTemperatureBaseData());
         Log.i(TAG, "onErrordata: "+transformerId);
-        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getTransformerTemperatureBaseData());
         model.getEnergy_TransformerTemperatureData().getEnergy_TransformerTemperature(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_TransformerTemperaturebean>() {

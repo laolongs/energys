@@ -68,10 +68,9 @@ public class BarDataChart extends BarChart {
     }
     public  BarDataSet setDataSet(List<BarEntry> list, String title) {
         int color = Color.parseColor("#FF7247");
-        int color2 = Color.parseColor("#ffffff");
         //创建BarDateSet对象，其实就是一组柱形数据
          BarDataSet barSet = new BarDataSet(list,title);
-        barSet.setColor(color); //设置是否显示柱子上面的数值
+//        barSet.setColor(color); //设置是否显示柱子上面的数值
 //         barSet.setColor(color); //设置是否显示柱子上面的数值
          barSet.setDrawValues(false); //设置柱子阴影颜色
          barSet.setBarShadowColor(Color.GRAY); //创建集合，存放所有组的柱形数据

@@ -84,7 +84,7 @@ public class LineDataFourChart extends  LineChart {
 
     public LineDataSet setDataSet1(ArrayList<Entry> values, String label) {
         LineDataSet set = new LineDataSet(values, label);
-        int color = Color.parseColor("#A7F1A6");
+        int color = Color.parseColor("#6CE96A");
         //设置点击交点后显示交高亮线的颜色
         int HighLightcolor = Color.parseColor("#F8A45E");
 //        int Fillcolor = Color.parseColor("#FEE8D6");
@@ -115,7 +115,7 @@ public class LineDataFourChart extends  LineChart {
     public LineDataSet setDataSet2(ArrayList<Entry> values, String label) {
         LineDataSet set = new LineDataSet(values, label);
         set.setLabel(label);
-        int color = Color.parseColor("#ABDDEE");
+        int color = Color.parseColor("#75BEFF");
         //设置点击交点后显示交高亮线的颜色
         int HighLightcolor = Color.parseColor("#F8A45E");
 //        int Fillcolor = Color.parseColor("#FEE8D6");
@@ -145,7 +145,7 @@ public class LineDataFourChart extends  LineChart {
     }
     public LineDataSet setDataSet3(ArrayList<Entry> values, String label) {
         LineDataSet set = new LineDataSet(values, label);
-        int color = Color.parseColor("#F1DEAA");
+        int color = Color.parseColor("#FFCA58");
         //设置点击交点后显示交高亮线的颜色
         int HighLightcolor = Color.parseColor("#F8A45E");
 //        int Fillcolor = Color.parseColor("#FEE8D6");
@@ -219,7 +219,7 @@ public class LineDataFourChart extends  LineChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-//        xAxis.setLabelCount(12);
+        xAxis.setLabelCount(12,true);
 //        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
         xAxis.setTextColor(color);//设置轴标签的颜色

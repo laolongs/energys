@@ -212,19 +212,45 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setDataChartData(Databean bean) {
+        int allnum;
         if(bean.getDataList().size()>0){
             dataChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getDataList().size(); i++) {
-                bean.getDataList().get(i).getCost();
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getDataList().get(i).getCost());
-                values.add(entry);
-                String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                listDate.add(split[1]);
+            //判断数据是否全年，否则动态添加数据
+            if(bean.getDataList().size()!=12){
+                int num = 12 - bean.getDataList().size();
+                allnum = bean.getDataList().size() + num;
+                for (int i = 0; i < allnum; i++) {
+                    Entry entry = new Entry(i, 0f);
+                    if(i>=bean.getDataList().size()){
+                        int monthNum=i+1;
+                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+                        if(positionNum==1){
+                            listDate.add("0"+monthNum);
+                        }else{
+                            listDate.add(monthNum+"");
+                        }
+                        entry.setY((float)0);
+
+                    }else{
+                        entry.setY((float) bean.getDataList().get(i).getCost());
+                        Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
+                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+                        listDate.add(split[1]);
+                    }
+                    values.add(entry);
+                }
+            }else{
+                for (int i = 0; i < bean.getDataList().size(); i++) {
+                    bean.getDataList().get(i).getCost();
+                    Entry entry = new Entry(i, 0f);
+                    entry.setY((float) bean.getDataList().get(i).getCost());
+                    values.add(entry);
+                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+                    listDate.add(split[1]);
+                }
             }
-            getChartXCount(dataChart);
             dataChart.setDataSet(values, "");
             dataChart.setDayXAxis(listDate);
             dataChart.loadChart();
@@ -265,24 +291,5 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
             });
         }
 
-    }
-    //计算x数量
-    public void getChartXCount(LineDataChart lineDataChart){
-        //得到当前年月 确定chart表x轴加载的数量
-        int currentYear = DateUtil.getCurrentYear();
-        int currentMonth= DateUtil.getCurrentMonth();
-        XAxis xAxis = lineDataChart.getXAxis();
-//        xAxis.setLabelRotationAngle(0);
-        String baseData = allbean.getBaseData();
-        String[] split = StringUtil.split(baseData, "-");
-        if(split[0].equals(currentYear+"")){
-//            if(currentMonth>8){
-//                xAxis.setLabelRotationAngle(-50);
-//            }
-            xAxis.setLabelCount(currentMonth,true);
-        }else{
-            xAxis.setLabelCount(12,true);
-//            xAxis.setLabelRotationAngle(-50);
-        }
     }
 }

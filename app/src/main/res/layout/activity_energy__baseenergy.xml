@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/x15"
-                        android:text="678kw"/>
+                        android:text="0kw"/>
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
@@ -140,7 +140,7 @@
                         android:id="@+id/energy_base_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017-11-01  12：07"/>
+                        android:text="0000-00-00  00：00"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

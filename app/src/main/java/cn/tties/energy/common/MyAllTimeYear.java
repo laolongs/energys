@@ -1,5 +1,7 @@
 package cn.tties.energy.common;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.components.YAxis;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import cn.tties.energy.utils.DateUtil;
 
 public class MyAllTimeYear {
     ArrayList<String> list = new ArrayList<String>();
+    ArrayList<String> liststr = new ArrayList<String>();
     int year = DateUtil.getCurrentYear();
     int month = DateUtil.getCurrentMonth();
     private  ArrayList<String> createArrays() {
@@ -33,13 +36,13 @@ public class MyAllTimeYear {
         for (int i = 0; i < 13; i++){
             if (month - i < 1) {
                 String mon = month - i + 12 < 10 ? "0" + (month - i + 12) : month - i + 12+"";
-                list.add((year - 1) + "年" + mon + "月");
+                liststr.add((year - 1) + "年" + mon + "月");
             } else {
                 String mon = month - i < 10 ? "0" + (month - i) : month - i+"";
-                list.add((year + "年" + mon + "月"));
+                liststr.add((year + "年" + mon + "月"));
             }
         }
-        return list;
+        return liststr;
     }
     public static int getTiemBase(int position){
         int year=0;
@@ -133,6 +136,7 @@ public class MyAllTimeYear {
             default:
                 break;
         }
+        Log.i("----year-----------", "getTiemMonthBase: "+year);
         return year;
     }
 }

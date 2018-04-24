@@ -241,7 +241,7 @@ public class LineDataThreeChart extends  LineChart {
         //是否绘制0所在的网格线
         rightAxis.setDrawZeroLine(false);
         rightAxis.setAxisLineWidth(0f);
-        rightAxis.setDrawAxisLine(true); //无轴线
+        rightAxis.setDrawAxisLine(false); //无轴线
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();

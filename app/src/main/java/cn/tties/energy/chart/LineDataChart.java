@@ -179,7 +179,7 @@ public class LineDataChart extends  LineChart {
         //是否绘制0所在的网格线
         rightAxis.setDrawZeroLine(false);
         rightAxis.setAxisLineWidth(0f);
-        rightAxis.setDrawAxisLine(true); //无轴线
+        rightAxis.setDrawAxisLine(false); //无轴线
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
@@ -192,7 +192,7 @@ public class LineDataChart extends  LineChart {
         //是否绘制0所在的网格线
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
-        leftAxis.setDrawAxisLine(true); //无轴线
+        leftAxis.setDrawAxisLine(false); //无轴线
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
 //        Y轴总会高出X轴一点，并没有从0点开始，因此需要对Y轴进行设置

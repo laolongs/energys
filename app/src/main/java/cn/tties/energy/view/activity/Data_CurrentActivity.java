@@ -23,6 +23,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataThreeChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_CurrentPressbean;
 import cn.tties.energy.model.result.Data_Currentbean;
@@ -158,6 +159,8 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             dataCurrentChart.setDataSet3(values3, "C相电流");
             dataCurrentChart.setDayXAxis(listDate);
             dataCurrentChart.loadChart();
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }
@@ -194,6 +197,8 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             dataCurrentpressChart.setDataSet3(values3, "C相电流");
             dataCurrentpressChart.setDayXAxis(listDate);
             dataCurrentpressChart.loadChart();
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }

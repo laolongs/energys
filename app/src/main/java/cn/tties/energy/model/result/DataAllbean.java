@@ -77,11 +77,19 @@ public class DataAllbean {
         }
         return baseDataDegault;
     }
+    //变压器温度比例（同页面有两个时间选择，所以单开一个）
+    public String getTransformerTemperatureBaseData() {
+        String baseDataDegault=ACache.getInstance().getAsString(Constants.CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE);
+        if(baseDataDegault==null){
+            return DateUtil.getCurrentYear()+"";
+        }
+        return baseDataDegault;
+    }
     //变压器使用容量比例（同页面有两个时间选择，所以单开一个）
     public String getTransformerVolumeBaseData() {
-        String baseDataDegault=ACache.getInstance().getAsString(Constants.CACHE_OPS_BASEDATE);
+        String baseDataDegault=ACache.getInstance().getAsString(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE);
         if(baseDataDegault==null){
-            return DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth();
+            return DateUtil.getCurrentYear()+"";
         }
         return baseDataDegault;
     }

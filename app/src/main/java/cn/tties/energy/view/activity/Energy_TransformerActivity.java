@@ -2,6 +2,7 @@ package cn.tties.energy.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Energy_TransformerDamgebean;
 import cn.tties.energy.model.result.Energy_TransformerListbean;
@@ -29,6 +31,7 @@ import cn.tties.energy.model.result.Energy_TransformerVolumebean;
 import cn.tties.energy.presenter.Energy_TransformerPresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
@@ -91,10 +94,9 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                     public void OnCliekTimeListener(int poaiton) {
                         int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
                         energyTransformerYear1.setText(tiemBase + "年");
+                        ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE, tiemBase+"");
                         mPresenter.getEnergy_TransformerTemperature(transformerId);
                     }
-
-
                 });
             }
         });
@@ -109,10 +111,9 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                     public void OnCliekTimeListener(int poaiton) {
                         int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
                         energyTransformerYear2.setText(tiemBase + "年");
+                        ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE, tiemBase+"");
                         mPresenter.getEnergy_TransformerVolume(transformerId);
                     }
-
-
                 });
             }
         });
@@ -137,7 +138,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                 energyTransformerTab.addTab(energyTransformerTab.newTab().setText(bean.getResult().get(i).getName()));
             }
             transformerId = bean.getResult().get(0).getCompanyEquipmentId();
-            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"");
+            ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE, DateUtil.getCurrentYear()+"");
             ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE, DateUtil.getCurrentYear()+"");
             mPresenter.getEnergy_TransformerDamge(transformerId);
             mPresenter.getEnergy_TransformerTemperature(transformerId);
@@ -183,88 +184,102 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     }
     @Override
     public void setEnergy_TransformerTemperaturebeanData(Energy_TransformerTemperaturebean bean) {
+        int allnum;
         if(bean.getResult().size()>0){
             energyTransformerChart1.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getResult().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getResult().get(i).getData());
-                values.add(entry);
-                if(bean.getResult().get(i).getTime()!=null||!bean.getResult().get(i).getTime().equals("")){
-                    String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
-                    listDate.add(split[1]);
-                }
+            //判断数据是否全年，否则动态添加数据
+            if(bean.getResult().size()!=12){
+                int num = 12 - bean.getResult().size();
+                allnum = bean.getResult().size() + num;
+                for (int i = 0; i < allnum; i++) {
+                    Entry entry = new Entry(i, 0f);
+                    if(i>=bean.getResult().size()){
+                        int monthNum=i+1;
+                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+                        if(positionNum==1){
+                            listDate.add("0"+monthNum);
+                        }else{
+                            listDate.add(monthNum+"");
+                        }
+                        entry.setY((float)0);
 
+                    }else{
+                        entry.setY((float) bean.getResult().get(i).getData());
+                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
+                        listDate.add(split[1]);
+                    }
+                    values.add(entry);
+                }
+            }else{
+                for (int i = 0; i < bean.getResult().size(); i++) {
+                    Entry entry = new Entry(i, 0f);
+                    entry.setY((float) bean.getResult().get(i).getData());
+                    values.add(entry);
+                    if(bean.getResult().get(i).getTime()!=null||!bean.getResult().get(i).getTime().equals("")){
+                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
+                        listDate.add(split[1]);
+                    }
+                }
             }
-            getChartXCount(energyTransformerChart1);
             energyTransformerChart1.setDataSet(values, "");
             energyTransformerChart1.setDayXAxis(listDate);
             energyTransformerChart1.loadChart();
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }
 
-
+//变压器容量
     @Override
     public void setEnergy_TransformerVolumebeanData(Energy_TransformerVolumebean bean) {
+        int allnum;
         //实体bean暂无数据
         if(bean.getResult().size()>0){
             energyTransformerChart2.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getResult().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getResult().get(i).getData());
-                values.add(entry);
-                if(bean.getResult().get(i).getBaseDate()!=null||!bean.getResult().get(i).getBaseDate().equals("")){
+            //判断数据是否全年，否则动态添加数据
+            if(bean.getResult().size()!=12){
+                int num = 12 - bean.getResult().size();
+                allnum = bean.getResult().size() + num;
+                for (int i = 0; i < allnum; i++) {
+                    Entry entry = new Entry(i, 0f);
+                    if(i>=bean.getResult().size()){
+                        int monthNum=i+1;
+                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+                        if(positionNum==1){
+                            listDate.add("0"+monthNum);
+                        }else{
+                            listDate.add(monthNum+"");
+                        }
+                        entry.setY((float)0);
+
+                    }else{
+                        entry.setY((float) bean.getResult().get(i).getData());
+                        String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
+                        listDate.add(split[1]);
+                    }
+                    values.add(entry);
+                }
+            }else{
+                for (int i = 0; i < bean.getResult().size(); i++) {
+                    Entry entry = new Entry(i, 0f);
+                    entry.setY((float) bean.getResult().get(i).getData());
+                    values.add(entry);
                     String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
                 }
-
             }
-            getChartTwoXCount(energyTransformerChart2);
+
             energyTransformerChart2.setDataSet(values, "");
             energyTransformerChart2.setDayXAxis(listDate);
             energyTransformerChart2.loadChart();
-        }
-    }
-    //计算x数量
-    public void getChartXCount(LineDataChart lineDataChart){
-        //得到当前年月 确定chart表x轴加载的数量
-        int currentYear = DateUtil.getCurrentYear();
-        int currentMonth= DateUtil.getCurrentMonth();
-        XAxis xAxis = lineDataChart.getXAxis();
-//        xAxis.setLabelRotationAngle(0);
-        String baseData = dataAllbean.getBaseData();
-        String[] split = StringUtil.split(baseData, "-");
-        if(split[0].equals(currentYear+"")){
-//            if(currentMonth>8){
-//                xAxis.setLabelRotationAngle(-50);
-//            }
-            xAxis.setLabelCount(currentMonth,true);
         }else{
-            xAxis.setLabelCount(12,true);
-//            xAxis.setLabelRotationAngle(-50);
+            MyHint.myHintDialog(this);
         }
     }
-    //计算x数量
-    public void getChartTwoXCount(LineDataTwoChart lineDataChart){
-        //得到当前年月 确定chart表x轴加载的数量
-        int currentYear = DateUtil.getCurrentYear();
-        int currentMonth= DateUtil.getCurrentMonth();
-        XAxis xAxis = lineDataChart.getXAxis();
-//        xAxis.setLabelRotationAngle(0);
-        String baseData = dataAllbean.getBaseData();
-        String[] split = StringUtil.split(baseData, "-");
-        if(split[0].equals(currentYear+"")){
-//            if(currentMonth>8){
-//                xAxis.setLabelRotationAngle(-50);
-//            }
-            xAxis.setLabelCount(currentMonth,true);
-        }else{
-            xAxis.setLabelCount(12,true);
-//            xAxis.setLabelRotationAngle(-50);
-        }
-    }
+
 }

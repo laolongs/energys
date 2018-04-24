@@ -25,6 +25,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Nobean;
 import cn.tties.energy.presenter.Data_NoPresenter;
@@ -160,6 +161,8 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                 }
             });
             dataNoChart2.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
         if(bean.getMaxData().size()>0){
             dataNoChart1.clearData();
@@ -182,6 +185,8 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart1.setDataSet(values2, "");
             dataNoChart1.setDayXAxis(listDate2);
             dataNoChart1.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
         if(bean.getLimitData().size()>0){
             dataNoChart3.clearData();
@@ -204,6 +209,8 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart3.setDataSet(values3, "");
             dataNoChart3.setDayXAxis(listDate3);
             dataNoChart3.loadChart();
+        }else {
+            MyHint.myHintDialog(this);
         }
     }
 
