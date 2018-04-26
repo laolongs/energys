@@ -13,13 +13,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/y80"
-            android:background="@drawable/popup_window_arrow_up" />
+             />
+        <!--android:background="@drawable/popup_window_arrow_up"-->
         <ImageView
             android:id="@+id/down_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/y80"
-            android:background="@drawable/down_arrow_drawable" />
+            />
+        <!--android:background="@drawable/down_arrow_drawable"-->
         <ImageView
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/x34"

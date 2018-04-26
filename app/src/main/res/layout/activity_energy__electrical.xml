@@ -13,12 +13,13 @@
         <include
             layout="@layout/toobar"/>
         <RelativeLayout
-            android:layout_marginLeft="@dimen/x13"
-            android:layout_marginRight="@dimen/x13"
+            android:background="#F2F2F2"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/y650"
             >
             <RelativeLayout
+                android:layout_marginLeft="@dimen/x13"
+                android:layout_marginRight="@dimen/x13"
                 android:id="@+id/electrical_Rl"
                 android:background="@drawable/electrical_item_bg"
                 android:layout_width="match_parent"
@@ -150,7 +151,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
-
         </RelativeLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -197,7 +197,7 @@
             <TextView
                 android:layout_weight="6"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/x2"
+                android:layout_height="@dimen/y3"
                android:background="#F2F2F2"
                 />
             <TextView
@@ -207,7 +207,7 @@
             <TextView
                 android:layout_weight="6"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/x2"
+                android:layout_height="@dimen/y3"
                 android:background="#F2F2F2"/>
             <TextView
                 android:layout_weight="3"

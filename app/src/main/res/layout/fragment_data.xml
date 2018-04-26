@@ -40,7 +40,7 @@
                    >
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="@dimen/y428">
                          <TextView
                              android:id="@+id/datafragment_time_tv"
                              android:layout_marginTop="@dimen/y40"
@@ -50,21 +50,21 @@
                              android:layout_marginRight="@dimen/x38"
                              android:layout_alignParentRight="true"
                              android:textSize="12sp"
-                             android:text=""
+                             android:text="ss"
                              />
                          <cn.tties.energy.chart.BarDataChart
-                             android:layout_marginTop="@dimen/y10"
                              android:id="@+id/datafragment_chart"
                              android:layout_below="@+id/datafragment_time_tv"
                              android:layout_width="match_parent"
-                             android:layout_height="@dimen/y185"
+                             android:layout_height="@dimen/y200"
                              android:background="#FF602F">
+                              <!--android:background="#FF602F"-->
                          </cn.tties.energy.chart.BarDataChart>
                          <RelativeLayout
                              android:layout_below="@+id/datafragment_chart"
                              android:orientation="horizontal"
                              android:layout_width="match_parent"
-                             android:layout_height="match_parent">
+                             android:layout_height="wrap_content">
                               <RelativeLayout
                                   android:layout_alignParentBottom="true"
                                   android:layout_width="wrap_content"
@@ -83,7 +83,6 @@
                                   android:layout_alignParentRight="true"
                                   android:layout_width="wrap_content"
                                   android:layout_height="match_parent"
-                                  android:gravity="center"
                                   android:paddingBottom="@dimen/y30"
                                   android:layout_marginRight="@dimen/x45"
                                   android:orientation="vertical"

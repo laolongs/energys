@@ -6,22 +6,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_Electricbean;
@@ -31,7 +34,6 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
-import cn.tties.energy.view.dialog.CriHintDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
@@ -39,8 +41,10 @@ import cn.tties.energy.view.iview.IData_ElectricView;
 /**
  * 电量数据
  */
-public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> implements IData_ElectricView {
+public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> implements IData_ElectricView, View.OnClickListener {
     private static final String TAG = "Data_ElectricActivity";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.electrical_num)
@@ -60,27 +64,32 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     TextView dataElectricalTimeTv;
     @BindView(R.id.electrical_verify)
     ImageView electricalVerify;
+    @BindView(R.id.electrical_tv)
+    TextView electricalTv;
     private BottomStyleDialog dialog;
     double num = 0;
     DataAllbean allbean = new DataAllbean();
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
         popupWindow = new MyPopupWindow();
+        electricalVerify.setOnClickListener(this);
+        electricalTv.setOnClickListener(this);
         mPresenter.getAllElectricityData();
         dataElectricalTv.setText(DateUtil.getCurrentYear() + "年" + DateUtil.getCurrentMonth() + "月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_ElectricActivity.this);
         toolbarText.setText("电量数据");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -93,9 +102,11 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                 dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
                     public void OnCliekTimeListener(int poaiton) {
-                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
-                        dataElectricalTv.setText(tiemMonthBase);
-                        mPresenter.getData_Electric();
+                        if (MyNoDoubleClickListener.isFastClick()) {
+                            String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                            dataElectricalTv.setText(tiemMonthBase);
+                            mPresenter.getData_Electric();
+                        }
                     }
                 });
             }
@@ -103,26 +114,35 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         dataAllelectricElectrical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
-
-//                ToastUtil.showShort(Data_NoActivity.this,"");
             }
         });
-        electricalVerify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.electrical_verify:
                 popupWindow.showTipPopupWindow(electricalVerify, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-        });
+                break;
+            case R.id.electrical_tv:
+                popupWindow.showTipPopupWindow(electricalTv, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+        }
     }
-
     @Override
     protected void createPresenter() {
         mPresenter = new Data_ElectricPresenter(this);
@@ -139,7 +159,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 
         if (bean.getDataList().size() > 0) {
             electricalChart.clearData();
-            Log.i(TAG, "setData_ElectricData: "+"zzzzzzzzz");
+            Log.i(TAG, "setData_ElectricData: " + "zzzzzzzzz");
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             for (int i = 0; i < bean.getDataList().size(); i++) {
@@ -159,8 +179,15 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
             electricalNum.setText("￥" + DoubleUtils.getNum(num));
             electricalChart.setDataSet(values, "");
             electricalChart.setDayXAxis(listDate);
+            electricalChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    String num = DoubleUtils.getNum((double) value);
+                    return num;
+                }
+            });
             electricalChart.loadChart();
-        }else{
+        } else {
             MyHint.myHintDialog(this);
         }
 
@@ -199,5 +226,12 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         }
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+    }
+
 
 }

@@ -102,12 +102,13 @@ public class LineDataChart extends  LineChart {
         set.setCubicIntensity(500);
 //        set.setDrawValues(true);
         set.setDrawCircles(false);  //设置有圆点
-        set.setCircleColor(color);
+//        set.setCircleColor(color);
         set.setFillColor(Fillcolor);
         //设置曲线值的圆点是实心还是空心
 //        set.setDrawCircleHole(false);
         //线模式为圆滑曲线（默认折线）
-        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        set.setMode(LineDataSet.Mode.LINEAR);
 
         setList.add(set);
         return set;
@@ -196,7 +197,7 @@ public class LineDataChart extends  LineChart {
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
 //        Y轴总会高出X轴一点，并没有从0点开始，因此需要对Y轴进行设置
-        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMinimum(0f);
 
         setTouchEnabled(false); // 设置是否可以触摸
         setDragEnabled(false);// 是否可以拖拽

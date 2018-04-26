@@ -88,6 +88,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener,Eas
             isMminVersion = true;
             btnCancel.setVisibility(View.GONE);
         }
+        if(AppUtils.getVersionCode() == mVersion.getMinVersionCode()){
+            title.setText("已是最新版,无需更新!");
+            btnConfirm.setVisibility(View.GONE);
+            btnCancel.setText("知道了");
+        }
+
         btnCancel.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
     }

@@ -37,7 +37,6 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-
     // login请求方法
     @POST("login.htm")
     @FormUrlEncoded
@@ -136,17 +135,4 @@ public interface Api {
     //运维信息登录
     @POST("queryMaintStaff.do")
     Observable<OpsLoginbean> getOpsLogin(@Query("accountId") String id);
-//    //获取订单计划详情
-//    @POST(Content.PAGE_DETAILS)
-//    Observable<ConfirmBean> getDetatlsData(@Query("id") int id);
-//    //获取用户地址
-//    @POST(Content.USER_ADDRESS)
-//    Observable<ReceiptInformationBean> getAdderssData();
-//    //登录
-//    @POST(Content.LANDING)
-//    Observable<LandingBean> getLandData(@Query("username") String username,
-//                                        @Query("password") String password);
-
-
-
 }

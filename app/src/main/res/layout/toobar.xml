@@ -6,14 +6,20 @@
     android:id="@+id/data_toolbar"
     style="@style/toolbar"
     app:layout_scrollFlags="scroll|enterAlways">
-    <ImageView
-        android:layout_marginTop="@dimen/y90"
+    <LinearLayout
+        android:id="@+id/toolbar_ll"
+        android:paddingTop="@dimen/y90"
         android:layout_marginLeft="@dimen/x40"
-        android:id="@+id/toolbar_left"
-        android:layout_width="@dimen/x25"
-        android:layout_height="@dimen/y40"
-        android:src="@mipmap/head_left"
-        />
+        android:layout_width="@dimen/x100"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/toolbar_left"
+            android:layout_width="@dimen/x25"
+            android:layout_height="@dimen/y40"
+            android:src="@mipmap/head_left"
+            />
+    </LinearLayout>
+
     <TextView android:id="@+id/toolbar_text"
         android:layout_marginTop="@dimen/y90"
         style="@style/toolbar_center"/>

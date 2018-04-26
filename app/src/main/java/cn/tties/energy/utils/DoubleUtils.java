@@ -48,6 +48,8 @@ public class DoubleUtils {
            }else{
                n = (double)d/10000;
            }
+        }else{
+            return 0+"";
         }
         return String.format("%.2f", n)+"万";
     }
@@ -60,6 +62,8 @@ public class DoubleUtils {
             }else{
                 n = (double)d/10000;
             }
+        }else{
+            return 0+"";
         }
         return String.format("%.2f", n)+"万";
     }

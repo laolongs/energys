@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.BarDataChart;
@@ -23,6 +24,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.DataFragmentbean;
 import cn.tties.energy.model.result.Databean;
@@ -64,10 +66,12 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     int currentYear;
     int currentMonth;
     DataAllbean dataAllbean=new DataAllbean();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
 
     }
@@ -88,16 +92,19 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
         energyForceYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        energyForceYear.setText(tiemBase+"年");
-                        mPresenter.getEnergy_ForcechartData();
-                        mPresenter.getEnergy_Forcecharge();
-                    }
-                });
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            energyForceYear.setText(tiemBase+"年");
+                            mPresenter.getEnergy_ForcechartData();
+                            mPresenter.getEnergy_Forcecharge();
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -274,6 +281,11 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
 //            energyForceChart2.setDayXAxis(listDate);
 //            energyForceChart2.loadChart();
 //            }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 
 }

@@ -10,11 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include layout="@layout/toobar"/>
-        <Button
-            android:onClick="start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="分享"/>
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/enerey_ops_ll"

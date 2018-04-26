@@ -78,7 +78,7 @@
             <TextView
                 android:layout_weight="6"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/x2"
+                android:layout_height="@dimen/y3"
                 android:background="#F2F2F2"
                 />
             <TextView
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_weight="6"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/x2"
+                android:layout_height="@dimen/y3"
                 android:background="#F2F2F2"/>
             <TextView
                 android:layout_weight="3"

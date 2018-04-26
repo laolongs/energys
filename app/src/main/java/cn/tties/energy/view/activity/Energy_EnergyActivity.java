@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.model.result.Energy_Monthlybean;
@@ -22,7 +23,8 @@ import cn.tties.energy.view.iview.IEnergy_MonthlyView;
  * 能效月报
  */
 public class Energy_EnergyActivity extends BaseActivity<Energy_MonthlyPresenter> implements IEnergy_MonthlyView {
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -33,18 +35,19 @@ public class Energy_EnergyActivity extends BaseActivity<Energy_MonthlyPresenter>
     RecyclerView energyEnergyRecy;
     @BindView(R.id.enerey_energy_ll)
     LinearLayout enereyEnergyLl;
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
         mPresenter.getEnergy_Monthly(3);//能效pdf格式
         toolbarText.setText("能效月报");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -73,5 +76,10 @@ public class Energy_EnergyActivity extends BaseActivity<Energy_MonthlyPresenter>
 
         MyMonthlyAdapter adapter = new MyMonthlyAdapter(this, bean);
         energyEnergyRecy.setAdapter(adapter);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

@@ -25,11 +25,17 @@
                 android:textSize="14sp"
                 android:text="不平衡度最大值"/>
         </LinearLayout>
-        <cn.tties.energy.chart.LineDataChart
-            android:id="@+id/data_no_chart1"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y520">
-        </cn.tties.energy.chart.LineDataChart>
+            android:layout_height="@dimen/y540">
+            <cn.tties.energy.chart.LineDataChart
+                android:id="@+id/data_no_chart1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y520">
+            </cn.tties.energy.chart.LineDataChart>
+        </LinearLayout>
+
         <View
             style="@style/cut_off_line_5dp">
         </View>
@@ -46,11 +52,17 @@
                 android:textSize="14sp"
                 android:text="不平衡度最大值发生时间"/>
         </LinearLayout>
-        <cn.tties.energy.chart.LineDataChart
-            android:id="@+id/data_no_chart2"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y520">
-        </cn.tties.energy.chart.LineDataChart>
+            android:layout_height="@dimen/y540">
+            <cn.tties.energy.chart.LineDataChart
+                android:id="@+id/data_no_chart2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y520">
+            </cn.tties.energy.chart.LineDataChart>
+        </LinearLayout>
+
         <View
             style="@style/cut_off_line_5dp">
         </View>
@@ -67,11 +79,17 @@
                 android:textSize="14sp"
                 android:text="不平衡度越限日累计时间"/>
         </LinearLayout>
-        <cn.tties.energy.chart.LineDataChart
-            android:id="@+id/data_no_chart3"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y520">
-        </cn.tties.energy.chart.LineDataChart>
+            android:layout_height="@dimen/y540">
+            <cn.tties.energy.chart.BarDataThreeChart
+                android:id="@+id/data_no_chart3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y520">
+            </cn.tties.energy.chart.BarDataThreeChart>
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/y20"/>

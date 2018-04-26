@@ -78,6 +78,7 @@ public class BarDataChart extends BarChart {
          barSet.setValueTextSize(9f);
          barSet.setFormLineWidth(1f);
          barSet.setFormSize(15.f);
+         barSet.setHighlightEnabled(false);
          setList.add(barSet);
          return barSet;
     }
@@ -114,7 +115,7 @@ public class BarDataChart extends BarChart {
         xAxis.setDrawAxisLine(true);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
+        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);//设置x轴的显示位置
         //xAxis.setTextSize(20f);//设置字体
         //xAxis.setTextColor(Color.BLACK);//设置字体颜色
         //设置竖线的显示样式为虚线
@@ -136,7 +137,6 @@ public class BarDataChart extends BarChart {
 //        xAxis.setAxisLineColor(Color.GREEN);//设置x轴线颜色
 //        xAxis.setAxisLineWidth(5f);//设置x轴线宽度
 //        xAxis.setValueFormatter();//格式化x轴标签显示字符
-
         /**
          * Y轴默认显示左右两个轴线
          */
@@ -153,7 +153,7 @@ public class BarDataChart extends BarChart {
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         //最大值，最小值
 //        leftAxis.setMaxWidth(0f);
 //        leftAxis.setMinWidth(-20000f);
@@ -166,10 +166,12 @@ public class BarDataChart extends BarChart {
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
         leftAxis.setDrawAxisLine(false); //无轴线
+        //设置据上面距离
+        leftAxis.setSpaceTop(0f);
+        leftAxis.setSpaceBottom(1f);
 //        leftAxis.setDrawGridLines(false);
         // 设置y轴的标签数量
-        leftAxis.setLabelCount(5,true);
-
+//        leftAxis.setLabelCount(5,true);
 //        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
         setTouchEnabled(false); // 设置是否可以触摸
         setDragEnabled(false);// 是否可以拖拽

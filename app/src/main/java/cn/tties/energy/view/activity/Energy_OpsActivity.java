@@ -13,6 +13,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.model.result.Energy_Monthlybean;
@@ -20,6 +21,7 @@ import cn.tties.energy.presenter.Energy_MonthlyPresenter;
 import cn.tties.energy.utils.ShareUtils;
 import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.adapter.MyMonthlyAdapter;
+import cn.tties.energy.view.adapter.MyOpsMonthlyAdapter;
 import cn.tties.energy.view.iview.IEnergy_MonthlyView;
 import cn.tties.energy.wxapi.Defaultcontent;
 
@@ -29,6 +31,8 @@ import cn.tties.energy.wxapi.Defaultcontent;
  */
 public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> implements IEnergy_MonthlyView {
     private static final String TAG = "Energy_OpsActivity";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -37,18 +41,19 @@ public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> im
     RecyclerView enereyOpsRec;
     @BindView(R.id.enerey_ops_ll)
     LinearLayout enereyOpsLl;
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
         mPresenter.getEnergy_Monthly(1);
         toolbarText.setText("运维月报");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -74,16 +79,12 @@ public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> im
         }else{
             enereyOpsLl.setVisibility(View.GONE);
         }
-        MyMonthlyAdapter adapter = new MyMonthlyAdapter(this, bean);
+        MyOpsMonthlyAdapter adapter = new MyOpsMonthlyAdapter(this, bean);
         enereyOpsRec.setAdapter(adapter);
     }
-    public void start(View view){
-        ToastUtil.showShort(this,"ok");
-        ShareUtils.shareWeb(this, Defaultcontent.url, Defaultcontent.title
-                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
-        );
-//        ShareUtils.shareWeb(this, Defaultcontent.url, Defaultcontent.title
-//                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.QQ
-//        );
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

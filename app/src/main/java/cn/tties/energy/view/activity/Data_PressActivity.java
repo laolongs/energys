@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.text.ParseException;
@@ -20,12 +21,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
+import cn.tties.energy.chart.BarDataThreeChart;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Pressbean;
 import cn.tties.energy.presenter.Data_PressPresenter;
@@ -43,7 +47,8 @@ import cn.tties.energy.view.iview.IData_PressView;
  * 电压不平衡
  */
 public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implements IData_PressView {
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -53,7 +58,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     @BindView(R.id.data_press_chart2)
     LineDataChart dataPressChart2;
     @BindView(R.id.data_press_chart3)
-    LineDataChart dataPressChart3;
+    BarDataThreeChart dataPressChart3;
     @BindView(R.id.data_press_time_tv)
     TextView dataTimeTv;
     @BindView(R.id.data_press_time)
@@ -65,11 +70,12 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         mPresenter.getAllElectricityData();
         initView();
     }
@@ -77,7 +83,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     private void initView() {
         dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_PressActivity.this);
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -87,24 +93,30 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         dataPressTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
-                        dataTimeTv.setText(tiemMonthBase);
-                        mPresenter.getData_PressData();
-                    }
-                });
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                            dataTimeTv.setText(tiemMonthBase);
+                            mPresenter.getData_PressData();
+                        }
+                    });
+                }
+
             }
         });
         dataPressAllelectric.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
+                if(MyNoDoubleClickListener.isFastClick()){
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
+
             }
         });
     }
@@ -187,10 +199,10 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         if(bean.getLimitData().size()>0){
             dataPressChart3.clearData();
             //不平衡度越限日累计时间
-            ArrayList<Entry> values3 = new ArrayList<>();
+            ArrayList<BarEntry> values3 = new ArrayList<>();
             List<String> listDate3 = new ArrayList<String>();
             for (int i = 0; i < bean.getLimitData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
+                BarEntry entry = new BarEntry(i, 0f);
                 entry.setY((float) bean.getLimitData().get(i).getVULIMIT());
                 values3.add(entry);
                 if(bean.getLimitData().get(i).getFREEZETIME()!=null||bean.getLimitData().get(i).getFREEZETIME().equals("")){
@@ -239,22 +251,10 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         return minute;
     }
 
-    public int getTime(String str) {
-//        String str="1640";
-        int hour = 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("hhmm");
-        long time = 0;
-        try {
-            time = sdf.parse(str).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date newTime = new Date(time); //就得到普通的时间了
-        hour = newTime.getHours();//就得到了小时
-        Log.i("-------ss----", "onCreate: " + time);
-        Log.i("-------sxxxs----", "onCreate: " + hour);
-        return hour;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
-
 
 }

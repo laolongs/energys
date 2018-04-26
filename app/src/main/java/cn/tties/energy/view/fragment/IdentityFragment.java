@@ -23,6 +23,7 @@ import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.Loginbean;
 import cn.tties.energy.model.result.OpsLoginbean;
 import cn.tties.energy.presenter.IdentityFragmentPresenter;
@@ -176,9 +177,12 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                 identitySwitchElectricity.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent1 = new Intent(getActivity(), ChangeTableActivity.class);
-                        intent1.putExtra("bean", opsLoginbean);
-                        startActivity(intent1);
+                        if(MyNoDoubleClickListener.isFastClick()){
+                            Intent intent1 = new Intent(getActivity(), ChangeTableActivity.class);
+                            intent1.putExtra("bean", opsLoginbean);
+                            startActivity(intent1);
+                        }
+
                     }
                 });
 

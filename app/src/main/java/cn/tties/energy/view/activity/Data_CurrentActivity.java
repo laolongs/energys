@@ -17,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -24,6 +25,7 @@ import cn.tties.energy.chart.LineDataThreeChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_CurrentPressbean;
 import cn.tties.energy.model.result.Data_Currentbean;
@@ -41,7 +43,8 @@ import cn.tties.energy.view.iview.IData_CurrentView;
  * 电流电压
  */
 public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> implements IData_CurrentView {
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -61,10 +64,12 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
         mPresenter.getAllElectricityData();
     }
@@ -73,7 +78,7 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
         dataCurrentTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_CurrentActivity.this);
         toolbarText.setText("电流电压");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -82,24 +87,17 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
         dataCurrentTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                dialogtime.getTimePickerDialog(Data_CurrentActivity.this);
-//                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
-//                    @Override
-//                    public void OnTimeClickListener(String text) {
-//                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
-//                        dataCurrentTimeTv.setText(text);
-//                        mPresenter.getData_CurrentData();
-//                        mPresenter.getData_CurrentPressKwData();
-//                    }
-//                });
                 dialogtime.show();
                 dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
                     public void OnCliekTimeListener(int poaiton) {
-                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
-                        dataCurrentTimeTv.setText(tiemMonthBase);
-                        mPresenter.getData_CurrentData();
-                        mPresenter.getData_CurrentPressKwData();
+                        if(MyNoDoubleClickListener.isFastClick()){
+                            String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                            dataCurrentTimeTv.setText(tiemMonthBase);
+                            mPresenter.getData_CurrentData();
+                            mPresenter.getData_CurrentPressKwData();
+                        }
+
                     }
                 });
                 
@@ -236,5 +234,11 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             });
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

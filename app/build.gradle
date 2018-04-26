@@ -20,17 +20,17 @@ android {
     buildTypes {
         release {
             // 移除无用的resource文件
-            shrinkResources false
+            shrinkResources true
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            minifyEnabled false//开启混淆
+            minifyEnabled true//开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'//指定混淆配置
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -65,14 +65,14 @@ dependencies {
     //图片加载
     implementation 'com.lzy.widget:imagepicker:0.6.1'
     //微信
-    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/wechat-sdk-android-without-mta-5.1.4.jar')
+    implementation files('libs/umeng-share-wechat-full-6.9.1.jar')
     //友盟
     implementation files('libs/umeng_social_api.jar')
     implementation files('libs/umeng_social_net.jar')
     implementation files('libs/umeng_social_shareview.jar')
     implementation files('libs/umeng_social_tool.jar')
-    //在线pdf
-    implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.5'
     //轮子
     implementation project(':wheelview')
+
 }

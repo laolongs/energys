@@ -31,9 +31,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.base.BaseActivity;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.enums.FaultType;
 import cn.tties.energy.model.result.Discussbean;
 import cn.tties.energy.model.result.Loginbean;
@@ -55,7 +57,8 @@ import cn.tties.energy.view.iview.IQuestionsView;
  */
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implements IQuestionsView {
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -121,11 +124,12 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
@@ -134,7 +138,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         adapter = new ImagePickerAdapter(this, selImageList, maxImgCount);
 
         toolbarText.setText("问题详情");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -164,44 +168,45 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         quReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mPresenter.getDiscuss(questionId,"");
-                View inflate = View.inflate(QuestionsActivity.this, R.layout.dialog_schedule, null);
-                final EditText editText = inflate.findViewById(R.id.message);
-                TextView staffname = inflate.findViewById(R.id.question_dialog_name);
-                Button confirm = inflate.findViewById(R.id.question_btn_confirm);
-                Button cancel = inflate.findViewById(R.id.question_btn_cancel);
-                Loginbean userInfo = MyApplication.getUserInfo();
-               final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,130,inflate,R.style.myCorDialog);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    mPresenter.getDiscuss(questionId,"");
+                    View inflate = View.inflate(QuestionsActivity.this, R.layout.dialog_schedule, null);
+                    final EditText editText = inflate.findViewById(R.id.message);
+                    TextView staffname = inflate.findViewById(R.id.question_dialog_name);
+                    Button confirm = inflate.findViewById(R.id.question_btn_confirm);
+                    Button cancel = inflate.findViewById(R.id.question_btn_cancel);
+                    Loginbean userInfo = MyApplication.getUserInfo();
+                    final MyPressDialog builder = new MyPressDialog(QuestionsActivity.this,0,130,inflate,R.style.myCorDialog);
 //                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this,R.style.myCorDialog);
-                builder.show();
-                if (!name.equals("暂无")) {
-                    staffname.setText(name);
-                } else {
-                    ToastUtil.showShort(QuestionsActivity.this, "暂无运维负责人信息");
-                    return;
-                }
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String s = editText.getText().toString();
-                        if (!s.isEmpty()) {
-                            mPresenter.getDiscuss(questionId, s);
-                            builder.dismiss();
-                        } else {
-                            ToastUtil.showShort(QuestionsActivity.this, "回复信息不能为空！");
-                        }
+                    builder.show();
+                    if (!name.equals("暂无")) {
+                        staffname.setText(name);
+                    } else {
+                        ToastUtil.showShort(QuestionsActivity.this, "暂无运维负责人信息");
+                        return;
+                    }
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String s = editText.getText().toString();
+                            if (!s.isEmpty()) {
+                                mPresenter.getDiscuss(questionId, s);
+                                builder.dismiss();
+                            } else {
+                                ToastUtil.showShort(QuestionsActivity.this, "回复信息不能为空！");
+                            }
 
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        builder.dismiss();
-                    }
-                });
+                        }
+                    });
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            builder.dismiss();
+                        }
+                    });
 //                Log.i(TAG, "onClick: "+userInfo.g);
 //                ToastUtil.showShort(QuestionsActivity.this, "回复");
-
+                }
             }
         });
     }
@@ -366,6 +371,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     }
 
     public void getValueType(Opsbean opsbean) {
+
         switch (opsbean.getResult().getQuestionList().get(0).getStatus()) {
             case 0:
                 quesValueTv1.setVisibility(View.GONE);
@@ -433,5 +439,10 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 break;
 
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

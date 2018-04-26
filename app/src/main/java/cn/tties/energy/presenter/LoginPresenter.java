@@ -50,7 +50,6 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
         dialog = new CriProgressDialog(context);
     }
     public void showloginData(){
-        dialog.loadDialog("登录中..");
         loginName = view.getLoginName();
         loginPass = view.getLoginPass();
         setPassword(loginPass);
@@ -62,6 +61,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
             ToastUtil.showShort(context,"密码不能为空");
             return;
         }
+        dialog.loadDialog("登录中..");
         Map<String,Object> map=new HashMap<>();
         Log.i(TAG, "showloginData: "+getPassword());
         Log.i(TAG, "------------showloginData: "+loginPass);

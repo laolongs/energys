@@ -22,12 +22,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.OpsLoginbean;
 import cn.tties.energy.presenter.LoginPresenter;
 import cn.tties.energy.utils.ACache;
+import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.MainActivity;
 import cn.tties.energy.view.iview.ILoginView;
 
@@ -56,10 +59,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     //打电话
     private String[] perms = {Manifest.permission.CALL_PHONE};
     private final int PERMS_REQUEST_CODE = 200;
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
     private void initView() {
@@ -88,9 +93,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
         btnIntoMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.showloginData();
+                if(MyNoDoubleClickListener.isFastClick()){
+                    mPresenter.showloginData();
+                }
             }
         });
+
         loginCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,5 +177,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
             intent.setData(Uri.parse("tel:" +"4006682879"));
             startActivity(intent);
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

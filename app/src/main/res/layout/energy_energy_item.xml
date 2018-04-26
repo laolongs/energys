@@ -75,13 +75,13 @@
                 android:visibility="gone"
                 android:id="@+id/energy_monthly_imgshare"
                 android:src="@mipmap/energy_energy_transmit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="@dimen/x89"
+                android:layout_height="@dimen/y80" />
             <ImageView
                 android:id="@+id/energy_monthly_loadimg"
                 android:src="@mipmap/energy_energy_download"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="@dimen/x89"
+                android:layout_height="@dimen/y80" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -254,7 +254,7 @@ public class LineDataThreeChart extends  LineChart {
         //是否绘制0所在的网格线
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
-        leftAxis.setDrawAxisLine(true); //无轴线
+        leftAxis.setDrawAxisLine(false); //无轴线
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
         leftAxis.setAxisMinimum(0f);

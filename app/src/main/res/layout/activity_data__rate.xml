@@ -195,11 +195,17 @@
                         android:textSize="14sp"
                         android:textColor="@color/datatextcolor"/>
                 </LinearLayout>
-                <cn.tties.energy.chart.LineDataTwoChart
-                    android:id="@+id/havakw_chart"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y428">
-                </cn.tties.energy.chart.LineDataTwoChart>
+                    android:layout_height="@dimen/y450">
+                    <cn.tties.energy.chart.LineDataTwoChart
+                        android:id="@+id/havakw_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y428">
+                    </cn.tties.energy.chart.LineDataTwoChart>
+                </LinearLayout>
+
                 <View
                     android:layout_below="@+id/data_ll"
                     style="@style/cut_off_line_5dp"
@@ -217,11 +223,17 @@
                         android:textSize="14sp"
                         android:textColor="@color/datatextcolor"/>
                 </LinearLayout>
-                <cn.tties.energy.chart.LineDataChart
-                    android:id="@+id/nokvar_chart"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y428">
-                </cn.tties.energy.chart.LineDataChart>
+                    android:layout_height="@dimen/y450">
+                    <cn.tties.energy.chart.LineDataChart
+                        android:id="@+id/nokvar_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y428">
+                    </cn.tties.energy.chart.LineDataChart>
+                </LinearLayout>
+
             </LinearLayout>
             <View
                 android:layout_below="@+id/data_rate_ll"

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
@@ -17,12 +18,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.model.result.Energy_BasePlanbean;
@@ -40,6 +43,8 @@ import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
  */
 public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPresenter> implements IEnergy_BaseenergyView {
     private static final String TAG = "Energy_BaseenergyActivi";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -76,10 +81,12 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     TextView energyBaseYear;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
@@ -88,7 +95,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         mPresenter.getEnergy_Baseenergy();
         mPresenter.getEnergy_BasePlan();
         toolbarText.setText("基本电费优化");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -98,17 +105,20 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBaseYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        energyBaseYear.setText(tiemBase+"年");
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            energyBaseYear.setText(tiemBase+"年");
 
-                        mPresenter.getEnergy_BaseenergyYear();
-                    }
+                            mPresenter.getEnergy_BaseenergyYear();
+                        }
 
-                });
+                    });
+                }
+
             }
         });
     }
@@ -216,6 +226,11 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBasePlanAllprice2.setText(DoubleUtils.getNum(bean.getVolumeFee())+"元");
         energyBasePlanAllprice3.setText(DoubleUtils.getNum(bean.getDemandFee())+"元");
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 
 }

@@ -66,6 +66,7 @@
                 <!--android:paddingTop="5dp"-->
                 <!--android:text="校验后"/>-->
                 <TextView
+                    android:id="@+id/data_factor_text"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

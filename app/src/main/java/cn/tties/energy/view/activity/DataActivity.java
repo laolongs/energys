@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,23 +8,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import java.text.SimpleDateFormat;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Databean;
@@ -32,7 +35,6 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
-import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
@@ -43,6 +45,8 @@ import cn.tties.energy.view.iview.IDataView;
  */
 public class DataActivity extends BaseActivity<DataPresenter> implements View.OnClickListener, IDataView {
     private static final String TAG = "DataActivity";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -73,22 +77,36 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     LineDataChart dataChart;
     @BindView(R.id.data_electricity_tv)
     TextView dataElectricityTv;
+    @BindView(R.id.data_charge_tv1)
+    TextView dataChargeTv1;
+    @BindView(R.id.data_charge_tv2)
+    TextView dataChargeTv2;
+    @BindView(R.id.data_charge_tv3)
+    TextView dataChargeTv3;
+    @BindView(R.id.data_charge_tv4)
+    TextView dataChargeTv4;
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
     private BottomStyleDialog dialog;
-//    MyTimePickerDialog dialogtime;
+    //    MyTimePickerDialog dialogtime;
     MyTimePickerWheelDialog dialogtime;
-    DataAllbean allbean=new DataAllbean();
-    int year=0;
+    DataAllbean allbean = new DataAllbean();
+    int year = 0;
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         popupWindow = new MyPopupWindow();
         dataChargeImg1.setOnClickListener(this);
         dataChargeImg2.setOnClickListener(this);
         dataChargeImg3.setOnClickListener(this);
         dataChargeImg4.setOnClickListener(this);
+        dataChargeTv1.setOnClickListener(this);
+        dataChargeTv2.setOnClickListener(this);
+        dataChargeTv3.setOnClickListener(this);
+        dataChargeTv4.setOnClickListener(this);
         initView();
 
     }
@@ -96,45 +114,51 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     private void initView() {
         int currentYear = DateUtil.getCurrentYear();
         int currentMonth = DateUtil.getCurrentMonth();
-        Log.i(TAG, "createArrays: "+currentYear);
-        Log.i(TAG, "createArrays: "+currentMonth);
+        Log.i(TAG, "createArrays: " + currentYear);
+        Log.i(TAG, "createArrays: " + currentMonth);
 //        dialogtime=new MyTimePickerDialog();
-        dialogtime=new MyTimePickerWheelDialog(DataActivity.this);
+        dialogtime = new MyTimePickerWheelDialog(DataActivity.this);
         toolbarText.setText("电费数据");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        dataTimeTv.setText(DateUtil.getCurrentYear()+"年");
+        dataTimeTv.setText(DateUtil.getCurrentYear() + "年");
         mPresenter.getAllElectricityData();
         dataTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        dataTimeTv.setText(tiemBase+"年");
-                        mPresenter.getchartData();
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            dataTimeTv.setText(tiemBase + "年");
+                            mPresenter.getchartData();
 
-                    }
-                });
+                        }
+                    });
+                }
+
             }
         });
         //总电量
         dataAllelectric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
-
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
+
             }
         });
     }
+
     @Override
     protected void createPresenter() {
         mPresenter = new DataPresenter(this);
@@ -158,7 +182,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.data_charge_img1:
-
                 popupWindow.showTipPopupWindow(dataChargeImg1, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -191,20 +214,53 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                     }
                 });
                 break;
+            case R.id.data_charge_tv1:
+                popupWindow.showTipPopupWindow(dataChargeTv1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                break;
+            case R.id.data_charge_tv2:
+                popupWindow.showTipPopupWindow(dataChargeTv2, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.data_charge_tv3:
+                popupWindow.showTipPopupWindow(dataChargeTv3, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.data_charge_tv4:
+                popupWindow.showTipPopupWindow(dataChargeTv4, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
         }
     }
 
     @Override
     public void setDataData(Databean bean) {
-        if(bean.getDataList().size()>0){
+        if (bean.getDataList().size() > 0) {
             //总电费
-            dataAllCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
+            dataAllCharge.setText("￥" + DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
             //基本电费
-            dataBaseCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
+            dataBaseCharge.setText("￥" + DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum()));
             //年度电费
-            dataYearCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
+            dataYearCharge.setText("￥" + DoubleUtils.getNum(bean.getDataList().get(0).getFeeSum()));
             //力调电费
-            dataForcesCharge.setText("￥"+DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
+            dataForcesCharge.setText("￥" + DoubleUtils.getNum(bean.getDataList().get(0).getFouceSum()));
         }
 
 
@@ -213,45 +269,67 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     @Override
     public void setDataChartData(Databean bean) {
         int allnum;
-        if(bean.getDataList().size()>0){
+        if (bean.getDataList().size() > 0) {
+            int color = Color.parseColor("#38A6FE");
+            int color2 = Color.parseColor("#00000000");
+//            int color2 = Color.parseColor("#ff00ff");
             dataChart.clearData();
+            ArrayList<Integer> listcolor=new ArrayList<>();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if(bean.getDataList().size()!=12){
+            if (bean.getDataList().size() != 12) {
                 int num = 12 - bean.getDataList().size();
                 allnum = bean.getDataList().size() + num;
                 for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i, 0f);
-                    if(i>=bean.getDataList().size()){
-                        int monthNum=i+1;
+                    Entry entry = new Entry(i,0f);
+                    if (i >= bean.getDataList().size()) {
+                        int monthNum = i + 1;
                         int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if(positionNum==1){
-                            listDate.add("0"+monthNum);
-                        }else{
-                            listDate.add(monthNum+"");
+                        if (positionNum == 1) {
+                            listDate.add("0" + monthNum);
+                        } else {
+                            listDate.add(monthNum + "");
                         }
-                        entry.setY((float)0);
-
-                    }else{
-                        entry.setY((float) bean.getDataList().get(i).getCost());
-                        Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
+                        entry.setY((float) 0);
+                        listcolor.add(color2);
+                    } else {
+                        entry.setY((float) bean.getDataList().get(i).getTotalSum());
+                        Log.i(TAG, "setEnergy_BaseenergyYearData: " + bean.getDataList().get(i).getBaseDate());
                         String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                         listDate.add(split[1]);
+                        listcolor.add(color);
                     }
                     values.add(entry);
+
                 }
-            }else{
+            } else {
                 for (int i = 0; i < bean.getDataList().size(); i++) {
                     bean.getDataList().get(i).getCost();
                     Entry entry = new Entry(i, 0f);
-                    entry.setY((float) bean.getDataList().get(i).getCost());
+                    entry.setY((float) bean.getDataList().get(i).getTotalSum());
                     values.add(entry);
                     String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
+                    listcolor.add(color);
                 }
             }
-            dataChart.setDataSet(values, "");
+            LineDataSet dataSet = dataChart.setDataSet(values, "");
+            dataSet.setColors(listcolor);
+//            int childCount = dataChart.getChildCount();
+//            for (int i = 0; i <childCount ; i++) {
+//                if(dataChart.getChildAt(i).getY()==0){
+//                    YAxis axisLeft = dataChart.getAxisLeft();
+//                    axisLeft.set
+//                }
+//            }
+            dataChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    String num = DoubleUtils.getNum((double) value);
+                    return num;
+                }
+            });
             dataChart.setDayXAxis(listDate);
             dataChart.loadChart();
         }
@@ -260,10 +338,10 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        if(allElectricitybean.getMeterList().size()>0){
-            ACache.getInstance().put(Constants.CACHE_OPS_OBJID,allElectricitybean.getLedgerId());
-            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
-            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1));
+        if (allElectricitybean.getMeterList().size() > 0) {
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + (DateUtil.getCurrentMonth() - 1));
             mPresenter.getData();
             mPresenter.getchartData();
             dataElectricityTv.setText("总电量");
@@ -275,15 +353,15 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                     if (poaiton == 0) {
                         long ledgerId = allElectricitybean.getLedgerId();
                         dataElectricityTv.setText("总电量");
-                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID,ledgerId);
-                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
 
                     }
                     if (poaiton > 0) {
                         long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
                         dataElectricityTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
-                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID,meterId);
-                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,2);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
 
                     }
                     mPresenter.getchartData();
@@ -291,5 +369,11 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
             });
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

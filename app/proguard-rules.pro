@@ -20,6 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 #指定代码的压缩级别
+-dontwarn
 -optimizationpasses 5
 #包明不混合大小写
 -dontusemixedcaseclassnames
@@ -70,12 +71,6 @@
 -keepclassmembers class * extends android.app.Activity {
 	public void *(android.view.View);
 }
--keep public class * extends android.view.View {
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public void set*(...);
-}
 #保持 Parcelable 不被混淆
 -keep class * implements android.os.Parcelable {
 	public static final android.os.Parcelable$Creator *;
@@ -83,18 +78,14 @@
 #保持 Serializable 不被混淆
 -keepnames class * implements java.io.Serializable
 
-#保持 Serializable 不被混淆并且enum 类也不被混淆
--keepclassmembers class * implements java.io.Serializable {
-    static final long serialVersionUID;
-    private static final java.io.ObjectStreamField[] serialPersistentFields;
-    !static !transient <fields>;
-    !private <fields>;
-    !private <methods>;
-    private void writeObject(java.io.ObjectOutputStream);
-    private void readObject(java.io.ObjectInputStream);
-    java.lang.Object writeReplace();
-    java.lang.Object readResolve();
-}
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-keep public class * extends android.app.Service
+-keep public class * extends android.app.IntentService
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
 
 #保持枚举 enum 类不被混淆
 -keepclassmembers enum * {
@@ -105,7 +96,10 @@
 -keepclassmembers class * {
     public void *ButtonClicked(android.view.View);
 }
-
+#这是你定义的实体类
+-keep class cn.tties.energy.model.result.**{*;}
+#设置画的圆不被混淆
+-keep public class * extends android.view.View
 
 #Rxjava
 -dontwarn javax.annotation.**
@@ -133,8 +127,7 @@
 -keep class in.srain.cube.** { *; }
 -keep interface in.srain.cube.** { *; }
 -dontwarn in.srain.cube.**
-#//这是你定义的实体类
--keep class org.xz_sale.entity.**{*;}
+
 #EventBus
 -keepattributes *Annotation*
 -keepclassmembers class ** {
@@ -164,6 +157,7 @@
 }
 #图表mpandroidchart
 -keep class com.github.mikephil.charting.** { *; }
+
 #友盟分享
 -dontshrink
 -dontoptimize
@@ -197,8 +191,10 @@
 -keep class com.umeng.qq.handler.**
 -keep class com.umeng.qq.handler.*
 -keep class UMMoreHandler{*;}
--keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
--keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
+#-keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
+#-keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
+-dontwarn com.tencent.mm.**
+-keep class com.tencent.mm.**{*;}
 -keep class im.yixin.sdk.api.YXMessage {*;}
 -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 -keep class com.tencent.mm.sdk.** {
@@ -247,5 +243,6 @@
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
+-ignorewarnings # 抑制警告
 
 

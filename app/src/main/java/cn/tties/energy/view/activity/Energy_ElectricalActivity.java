@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.XAxis;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -21,6 +23,7 @@ import cn.tties.energy.chart.LineDataFourChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.common.MyProgressRound;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
@@ -39,6 +42,8 @@ import cn.tties.energy.view.iview.IDataView;
  */
 public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPersenter> implements IDataView {
     private static final String TAG = "Energy_ElectricalActivi";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.electrical_myview)
     MyProgressRound electricalMyview;
     @BindView(R.id.toolbar_left)
@@ -68,11 +73,12 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     private float cusp2;
     private float hight2;
     private float low2;
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
 
     }
@@ -81,7 +87,7 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
         dialogtime=new MyTimePickerWheelDialog(Energy_ElectricalActivity.this);
         mPresenter.getEnergy_Electrical();
         toolbarText.setText("电度电费优化");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -91,17 +97,20 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
         enereyElectricalYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        enereyElectricalYear.setText(tiemBase+"年");
-                        mPresenter.getEnergy_ElectricalChart();
-                    }
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            enereyElectricalYear.setText(tiemBase+"年");
+                            mPresenter.getEnergy_ElectricalChart();
+                        }
 
 
-                });
+                    });
+                }
+
             }
         });
     }
@@ -243,6 +252,11 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     @Override
     public void setAllElectricity(AllElectricitybean allElectricitybean) {
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 
 }

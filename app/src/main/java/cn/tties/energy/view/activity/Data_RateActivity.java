@@ -7,9 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.base.BaseActivity;
@@ -25,6 +29,7 @@ import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_HaveKwbean;
@@ -32,6 +37,7 @@ import cn.tties.energy.model.result.Data_NoKvarbean;
 import cn.tties.energy.presenter.Data_RatePresenter;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
+import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
@@ -41,7 +47,8 @@ import cn.tties.energy.view.iview.IData_RateView;
  * 功率数据
  */
 public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implements IData_RateView {
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -74,10 +81,12 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     DataAllbean allbean=new DataAllbean();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
         mPresenter.getAllElectricityData();
 
@@ -87,7 +96,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         dialogtime = new MyTimePickerWheelTwoDialog(Data_RateActivity.this);
         dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         toolbarText.setText("功率数据");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -96,25 +105,31 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         dataRateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
-                        dataRateTv.setText(tiemMonthBase);
-                        mPresenter.getData_HaveKwData();
-                        mPresenter.getData_NoKvarKwData();
-                    }
-                });
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                            dataRateTv.setText(tiemMonthBase);
+                            mPresenter.getData_HaveKwData();
+                            mPresenter.getData_NoKvarKwData();
+                        }
+                    });
+                }
+
             }
         });
         dataRateElectrical.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
+                if(MyNoDoubleClickListener.isFastClick()){
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
+
 //                ToastUtil.showShort(Data_PressActivity.this,""+dialog.getOnclickItem());
             }
         });
@@ -151,6 +166,13 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             xAxis.setLabelRotationAngle(-50);
             LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
             havakwChart.setDayXAxis(listDate);
+            havakwChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    String num = DoubleUtils.getNum((double) value);
+                    return num;
+                }
+            });
             havakwChart.loadChart();
         }else {
             MyHint.myHintDialog(this);
@@ -179,6 +201,13 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             xAxis.setLabelRotationAngle(-50);
             nokvarChart.setDataSet(values, "");
             nokvarChart.setDayXAxis(listDate);
+            nokvarChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    String num = DoubleUtils.getNum((double) value);
+                    return num;
+                }
+            });
             nokvarChart.loadChart();
         }else {
             MyHint.myHintDialog(this);
@@ -220,6 +249,11 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             });
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 
 }

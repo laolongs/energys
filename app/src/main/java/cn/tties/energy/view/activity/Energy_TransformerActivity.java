@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.XAxis;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -23,6 +25,7 @@ import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Energy_TransformerDamgebean;
 import cn.tties.energy.model.result.Energy_TransformerListbean;
@@ -42,6 +45,8 @@ import cn.tties.energy.view.iview.IEnergy_TransformerView;
  */
 public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerPresenter> implements IEnergy_TransformerView {
     private static final String TAG = "Energy_TransformerActiv";
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -68,16 +73,18 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     @BindView(R.id.energy_transformer_year2)
     TextView energyTransformerYear2;
     DataAllbean dataAllbean=new DataAllbean();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
     private void initView() {
         mPresenter.getEnergy_TransformerList();
         toolbarText.setText("变压器优化");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -88,33 +95,40 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         energyTransformerYear1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        energyTransformerYear1.setText(tiemBase + "年");
-                        ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE, tiemBase+"");
-                        mPresenter.getEnergy_TransformerTemperature(transformerId);
-                    }
-                });
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            energyTransformerYear1.setText(tiemBase + "年");
+                            ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERTEMPERATUREBASEDATE, tiemBase+"");
+                            mPresenter.getEnergy_TransformerTemperature(transformerId);
+                        }
+                    });
+                }
+
             }
         });
 
         energyTransformerYear2.setText(DateUtil.getCurrentYear()+"年");
         energyTransformerYear2.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
-                        energyTransformerYear2.setText(tiemBase + "年");
-                        ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE, tiemBase+"");
-                        mPresenter.getEnergy_TransformerVolume(transformerId);
-                    }
-                });
+                if(MyNoDoubleClickListener.isFastClick()){
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            int tiemBase = MyAllTimeYear.getTiemBase(poaiton);
+                            energyTransformerYear2.setText(tiemBase + "年");
+                            ACache.getInstance().put(Constants.CACHE_OPS_TRANSFORMERVOLUMEBASEDATE, tiemBase+"");
+                            mPresenter.getEnergy_TransformerVolume(transformerId);
+                        }
+                    });
+                }
+
             }
         });
     }
@@ -280,6 +294,11 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         }else{
             MyHint.myHintDialog(this);
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 
 }

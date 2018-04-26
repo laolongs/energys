@@ -5,22 +5,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Factorbean;
 import cn.tties.energy.presenter.Data_FactorPresenter;
@@ -36,8 +39,9 @@ import cn.tties.energy.view.iview.IData_FactorView;
 /**
  * 功率因素
  */
-public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> implements IData_FactorView {
-
+public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> implements IData_FactorView, View.OnClickListener {
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -56,26 +60,32 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     TextView dataFactorEleTv;
     @BindView(R.id.data_factor_verify)
     ImageView dataFactorVerify;
+    @BindView(R.id.data_factor_text)
+    TextView dataFactorText;
     private BottomStyleDialog dialog;
     double num = 0;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
 
     }
 
     private void initView() {
         popupWindow = new MyPopupWindow();
+        dataFactorVerify.setOnClickListener(this);
+        dataFactorText.setOnClickListener(this);
         mPresenter.getAllElectricityData();
         dataFactorTv.setText(DateUtil.getCurrentYear() + "年" + DateUtil.getCurrentMonth() + "月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_FactorActivity.this);
         toolbarText.setText("功率因数");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -84,42 +94,51 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         dataFactorTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
-                dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
-                    @Override
-                    public void OnCliekTimeListener(int poaiton) {
-                        String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
-                        dataFactorTv.setText(tiemMonthBase);
-                        mPresenter.getData_Electric();
-                    }
-                });
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    dialogtime.show();
+                    dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
+                        @Override
+                        public void OnCliekTimeListener(int poaiton) {
+                            String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
+                            dataFactorTv.setText(tiemMonthBase);
+                            mPresenter.getData_Electric();
+                        }
+                    });
+                }
             }
         });
         dataFactorElectrical.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
-
-//                ToastUtil.showShort(Data_NoActivity.this,"");
             }
         });
-        dataFactorVerify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.data_factor_verify:
                 popupWindow.showTipPopupWindow(dataFactorVerify, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-        });
+                break;
+            case R.id.data_factor_text:
+                popupWindow.showTipPopupWindow(dataFactorText, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(getBaseContext(), "点击到弹窗内容", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+        }
     }
-
     @Override
     protected void createPresenter() {
         mPresenter = new Data_FactorPresenter(this);
@@ -158,8 +177,15 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             xAxis.setLabelRotationAngle(-50);
             dataFactorChart.setDataSet(values, "");
             dataFactorChart.setDayXAxis(listDate);
+            dataFactorChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    String num = DoubleUtils.getRate((double) value);
+                    return num;
+                }
+            });
             dataFactorChart.loadChart();
-        }else{
+        } else {
             MyHint.myHintDialog(this);
         }
 
@@ -197,4 +223,12 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         }
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+    }
+
+
 }

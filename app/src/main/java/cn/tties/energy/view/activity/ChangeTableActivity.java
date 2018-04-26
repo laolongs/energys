@@ -14,8 +14,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.common.Constants;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.OpsLoginbean;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.view.adapter.MyElectricityAdapter;
@@ -35,23 +37,27 @@ public class ChangeTableActivity extends AppCompatActivity {
     LinearLayout electricalTableConfirm;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    int EleAccountId=0;
-    long energyLedgerId=0;
-    int companyId=0;
-    int staffid=0;
+    int EleAccountId = 0;
+    long energyLedgerId = 0;
+    int companyId = 0;
+    int staffid = 0;
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_table);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        sp=getSharedPreferences("check",MODE_PRIVATE);
-        editor=sp.edit();
+        sp = getSharedPreferences("check", MODE_PRIVATE);
+        editor = sp.edit();
         toolbarText.setText("切换电表");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -65,24 +71,32 @@ public class ChangeTableActivity extends AppCompatActivity {
         electricalTableConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = bean.getResult().getEnergyLedgerList();
-                String ischeck = ACache.getInstance().getAsString(Constants.CACHE_ISCHECK);
-                int postion = Integer.parseInt(ischeck);
-                for (int i = 0; i < bean.getResult().getEnergyLedgerList().size(); i++) {
-                    if(i==postion){
-                        staffid=bean.getResult().getMaintUser().getStaffId();
-                        ACache.getInstance().put(Constants.CACHE_OPS_STAFFID,staffid);
-                        energyLedgerId=energyLedgerList.get(postion).getEnergyLedgerId();
-                        EleAccountId=energyLedgerList.get(postion).getEleAccountId();
-                        companyId=energyLedgerList.get(postion).getCompanyId();
-                        ACache.getInstance().put(Constants.CACHE_OPS_COMPANDID,companyId+"");
-                        ACache.getInstance().put(Constants.CACHE_OPS_ENERGYLEDGERID,energyLedgerId);
-                        ACache.getInstance().put(Constants.CACHE_OPS_ELEACCOUNTID,EleAccountId);
-                        finish();
+                if (MyNoDoubleClickListener.isFastClick()) {
+                    List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = bean.getResult().getEnergyLedgerList();
+                    String ischeck = ACache.getInstance().getAsString(Constants.CACHE_ISCHECK);
+                    int postion = Integer.parseInt(ischeck);
+                    for (int i = 0; i < bean.getResult().getEnergyLedgerList().size(); i++) {
+                        if (i == postion) {
+                            staffid = bean.getResult().getMaintUser().getStaffId();
+                            ACache.getInstance().put(Constants.CACHE_OPS_STAFFID, staffid);
+                            energyLedgerId = energyLedgerList.get(postion).getEnergyLedgerId();
+                            EleAccountId = energyLedgerList.get(postion).getEleAccountId();
+                            companyId = energyLedgerList.get(postion).getCompanyId();
+                            ACache.getInstance().put(Constants.CACHE_OPS_COMPANDID, companyId + "");
+                            ACache.getInstance().put(Constants.CACHE_OPS_ENERGYLEDGERID, energyLedgerId);
+                            ACache.getInstance().put(Constants.CACHE_OPS_ELEACCOUNTID, EleAccountId);
+                            finish();
+                        }
                     }
                 }
             }
+
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
@@ -20,12 +21,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
+import cn.tties.energy.chart.BarDataThreeChart;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
 import cn.tties.energy.common.MyHint;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.Data_Nobean;
 import cn.tties.energy.presenter.Data_NoPresenter;
@@ -43,8 +47,8 @@ import cn.tties.energy.view.iview.IData_NoView;
  * 电流不平衡
  */
 public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements IData_NoView {
-
-
+    @BindView(R.id.toolbar_ll)
+    LinearLayout toolbarLl;
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
@@ -56,7 +60,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     @BindView(R.id.data_no_chart2)
     LineDataChart dataNoChart2;
     @BindView(R.id.data_no_chart3)
-    LineDataChart dataNoChart3;
+    BarDataThreeChart dataNoChart3;
     @BindView(R.id.data_no_time_tv)
     TextView dataNoTimeTv;
     @BindView(R.id.data_no_time)
@@ -68,10 +72,12 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
+    private Unbinder bind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         mPresenter.getAllElectricityData();
         initView();
     }
@@ -81,7 +87,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_NoActivity.this);
         toolbarText.setText("电流不平衡");
-        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+        toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -90,7 +96,9 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         dataNoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogtime.show();
+                if(MyNoDoubleClickListener.isFastClick()){
+
+                }dialogtime.show();
                 dialogtime.setOnCliekTime(new MyTimePickerWheelTwoDialog.OnCliekTime() {
                     @Override
                     public void OnCliekTimeListener(int poaiton) {
@@ -99,16 +107,17 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                         mPresenter.getData_NoData();
                     }
                 });
+
             }
         });
         dataNoAllelectric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dialog != null) {
-                    dialog.show();
+                if(MyNoDoubleClickListener.isFastClick()){
+                    if (dialog != null) {
+                        dialog.show();
+                    }
                 }
-
-//                ToastUtil.showShort(Data_NoActivity.this,"0000000");
             }
         });
 
@@ -191,10 +200,10 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         if(bean.getLimitData().size()>0){
             dataNoChart3.clearData();
             //不平衡度越限日累计时间
-            ArrayList<Entry> values3 = new ArrayList<>();
+            ArrayList<BarEntry> values3 = new ArrayList<>();
             List<String> listDate3 = new ArrayList<String>();
             for (int i = 0; i < bean.getLimitData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
+                BarEntry entry = new BarEntry(i, 0f);
                 entry.setY((float) bean.getLimitData().get(i).getIULIMIT());
                 values3.add(entry);
                 if(bean.getLimitData().get(i).getFREEZETIME()!=null||bean.getLimitData().get(i).getFREEZETIME().equals("")) {
@@ -233,5 +242,10 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             });
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

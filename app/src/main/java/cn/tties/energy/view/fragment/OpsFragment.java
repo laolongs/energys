@@ -1,5 +1,6 @@
 package cn.tties.energy.view.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
+import cn.tties.energy.common.MyHint;
 import cn.tties.energy.model.result.Opsbean;
 import cn.tties.energy.presenter.OpsPresenter;
 import cn.tties.energy.utils.PtrClassicFoot;
@@ -31,6 +33,8 @@ import cn.tties.energy.utils.PtrClassicHeader;
 import cn.tties.energy.view.activity.QuestionsActivity;
 import cn.tties.energy.view.adapter.MyOpsrightAdapter;
 import cn.tties.energy.view.adapter.MyOpsrightNoDataAdapter;
+import cn.tties.energy.view.dialog.CriHintDialog;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.iview.IOpsView;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -101,7 +105,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
     private int count;
     private ImageView ivCurrent;
     private TextView tvCurrent;
-
+    CriProgressDialog dialog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -116,6 +120,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
 
 
     private void initView() {
+        dialog=new CriProgressDialog(getActivity());
         llQues1.setOnClickListener(this);
         llQues2.setOnClickListener(this);
         llQues3.setOnClickListener(this);
@@ -154,11 +159,10 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-//                Log.i("-----------", "onLoadMoreBegin: "+"111111");
                 opsRefreshLayout.refreshComplete();
             }
+
         });
-//
     }
 
     @Override
@@ -176,6 +180,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
     @Override
     public void setOpsRightData(Opsbean opsbean) {
         if (opsbean.getResult().getQuestionList().size() > 0) {
+            dialog.removeDialog();
             count = opsbean.getResult().getQuestionList().size();
             Log.i(TAG, "setOpsRightData:countcountcount " + count);
             if (flag) {
@@ -196,6 +201,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
                 }
             });
         } else {
+            MyHint.myHintDialog(getActivity());
             Log.i(TAG, "setOpsRightData: " + "当前bean里无数据");
         }
         if (opsbean.getResult().getCount() == 0 && opsbean.getResult().getQuestionList().size() == 0) {
@@ -206,6 +212,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
     }
 
     public void setClickButton(int patrolType) {
+        dialog.loadDialog("加载中");
         flag = false;
         adapter = new MyOpsrightAdapter(getActivity());
         list.clear();
@@ -216,6 +223,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
         mPresenter.getOpsRightData();
         opsRcyRight.setAdapter(adapter);
     }
+
 
     @Override
     public void onClick(View view) {
