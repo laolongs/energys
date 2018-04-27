@@ -74,7 +74,7 @@ public class MyTimePickerWheelDialog  extends Dialog implements AdapterView.OnIt
 
     }
     private void initData() {
-        mWv.setWheelAdapter(new TimeWheelAdapter(getContext()));
+        mWv.setWheelAdapter(new TimeWheelAdapter());
         mWv.setWheelSize(5);
         mWv.setSkin(WheelView.Skin.Holo);
         mWv.setWheelData(createArrays());

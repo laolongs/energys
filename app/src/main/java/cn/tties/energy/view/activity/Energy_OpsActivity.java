@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.model.result.Energy_Monthlybean;
@@ -31,23 +28,24 @@ import cn.tties.energy.wxapi.Defaultcontent;
  */
 public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> implements IEnergy_MonthlyView {
     private static final String TAG = "Energy_OpsActivity";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.enerey_ops_rec)
     RecyclerView enereyOpsRec;
-    @BindView(R.id.enerey_ops_ll)
     LinearLayout enereyOpsLl;
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl = findViewById(R.id.toolbar_ll);
+        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarText = findViewById(R.id.toolbar_text);
+        enereyOpsRec = findViewById(R.id.enerey_ops_rec);
+        enereyOpsLl = findViewById(R.id.enerey_ops_ll);
     }
 
     private void initView() {
@@ -79,12 +77,7 @@ public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> im
         }else{
             enereyOpsLl.setVisibility(View.GONE);
         }
-        MyOpsMonthlyAdapter adapter = new MyOpsMonthlyAdapter(this, bean);
+        MyOpsMonthlyAdapter adapter = new MyOpsMonthlyAdapter(bean);
         enereyOpsRec.setAdapter(adapter);
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

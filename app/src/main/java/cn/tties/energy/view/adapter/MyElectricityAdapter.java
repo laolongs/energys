@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cn.tties.energy.application.MyApplication;
 import io.reactivex.functions.IntFunction;
 import cn.tties.energy.R;
 import cn.tties.energy.common.Constants;
@@ -25,8 +26,8 @@ import cn.tties.energy.utils.ACache;
 public class MyElectricityAdapter extends BaseAdapter {
     private Context mContext;
     OpsLoginbean bean;
-    public MyElectricityAdapter(Context context, OpsLoginbean bean) {
-        mContext = context;
+    public MyElectricityAdapter( OpsLoginbean bean) {
+        mContext = MyApplication.getInstance();
         this.bean=bean;
     }
     @Override

@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.view.fragment.Questions_discussFragment;

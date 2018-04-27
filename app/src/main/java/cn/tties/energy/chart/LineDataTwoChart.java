@@ -107,7 +107,7 @@ public class LineDataTwoChart extends  LineChart {
         set.setCircleColor(color);
         set.setFillColor(Fillcolor);
         //线模式为圆滑曲线（默认折线）
-        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        set.setMode(LineDataSet.Mode.LINEAR);
         setList.add(set);
         return set;
     }

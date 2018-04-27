@@ -50,7 +50,7 @@
                              android:layout_marginRight="@dimen/x38"
                              android:layout_alignParentRight="true"
                              android:textSize="12sp"
-                             android:text="ss"
+                             android:text=""
                              />
                          <cn.tties.energy.chart.BarDataChart
                              android:id="@+id/datafragment_chart"

@@ -73,7 +73,7 @@ private void initView() {
 //        mLv.setOnItemClickListener(this);
 }
     private void initData() {
-        mWv.setWheelAdapter(new StyleAdapter(getContext()));
+        mWv.setWheelAdapter(new StyleAdapter());
         mWv.setWheelSize(5);
         mWv.setSkin(WheelView.Skin.Holo);
         mWv.setWheelData(createArrays());

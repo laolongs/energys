@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.base.BaseActivity;
@@ -47,52 +44,48 @@ import cn.tties.energy.view.iview.IData_RateView;
  * 功率数据
  */
 public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implements IData_RateView {
-    @BindView(R.id.toolbar_ll)
+    private static final String TAG = "Data_RateActivity";
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-//    @BindView(R.id.havekw_tv)
 //    TextView havekwTv;
-//    @BindView(R.id.havakw_time)
 //    TextView havakwTime;
-//    @BindView(R.id.havakw_year)
 //    TextView havakwYear;
-//    @BindView(R.id.nokvar_tv)
 //    TextView nokvarTv;
-//    @BindView(R.id.nokvar_time)
 //    TextView nokvarTime;
-//    @BindView(R.id.nokvar_year)
 //    TextView nokvarYear;
-    @BindView(R.id.havakw_chart)
     LineDataTwoChart havakwChart;
-    @BindView(R.id.nokvar_chart)
     LineDataChart nokvarChart;
-    @BindView(R.id.data_rate_tv)
     TextView dataRateTv;
-    @BindView(R.id.data_rate_time)
     LinearLayout dataRateTime;
-    @BindView(R.id.data_rate_electrical)
     LinearLayout dataRateElectrical;
-    @BindView(R.id.data_rate_ele_tv)
     TextView dataRateEleTv;
     private BottomStyleDialog dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     DataAllbean allbean=new DataAllbean();
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
-        mPresenter.getAllElectricityData();
+    }
 
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        havakwChart= findViewById(R.id.havakw_chart);
+        nokvarChart= findViewById(R.id.nokvar_chart);
+        dataRateTv= findViewById(R.id.data_rate_tv);
+        dataRateTime= findViewById(R.id.data_rate_time);
+        dataRateElectrical= findViewById(R.id.data_rate_electrical);
+        dataRateEleTv= findViewById(R.id.data_rate_ele_tv);
     }
 
     private void initView() {
+        mPresenter.getAllElectricityData();
         dialogtime = new MyTimePickerWheelTwoDialog(Data_RateActivity.this);
         dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         toolbarText.setText("功率数据");
@@ -129,8 +122,6 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
                         dialog.show();
                     }
                 }
-
-//                ToastUtil.showShort(Data_PressActivity.this,""+dialog.getOnclickItem());
             }
         });
     }
@@ -250,10 +241,4 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         }
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
 }

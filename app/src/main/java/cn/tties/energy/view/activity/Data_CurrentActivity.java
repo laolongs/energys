@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -43,35 +41,37 @@ import cn.tties.energy.view.iview.IData_CurrentView;
  * 电流电压
  */
 public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> implements IData_CurrentView {
-    @BindView(R.id.toolbar_ll)
+    private static final String TAG = "Data_CurrentActivity";
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_current_chart)
     LineDataThreeChart dataCurrentChart;
-    @BindView(R.id.data_currentpress_chart)
     LineDataThreeChart dataCurrentpressChart;
-    @BindView(R.id.data_current_time_tv)
     TextView dataCurrentTimeTv;
-    @BindView(R.id.data_current_time)
     LinearLayout dataCurrentTime;
-    @BindView(R.id.data_current_allelectric)
     LinearLayout dataCurrentAllelectric;
-    @BindView(R.id.data_current_ele_tv)
     TextView dataCurrentEleTv;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
         mPresenter.getAllElectricityData();
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        dataCurrentChart= findViewById(R.id.data_current_chart);
+        dataCurrentpressChart= findViewById(R.id.data_currentpress_chart);
+        dataCurrentTimeTv= findViewById(R.id.data_current_time_tv);
+        dataCurrentTime= findViewById(R.id.data_current_time);
+        dataCurrentAllelectric= findViewById(R.id.data_current_allelectric);
+        dataCurrentEleTv= findViewById(R.id.data_current_ele_tv);
     }
 
     private void initView() {
@@ -234,11 +234,5 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             });
         }
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.view.MainActivity;
 
 /**
@@ -56,8 +57,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         else return mData;
     }
 
-    public ImagePickerAdapter(Context mContext, List<ImageItem> data, int maxImgCount) {
-        this.mContext = mContext;
+    public ImagePickerAdapter(List<ImageItem> data, int maxImgCount) {
+        this.mContext = MyApplication.getInstance();
         this.maxImgCount = maxImgCount;
         this.mInflater = LayoutInflater.from(mContext);
         setImages(data);

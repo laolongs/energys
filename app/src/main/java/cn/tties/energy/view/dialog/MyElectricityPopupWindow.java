@@ -52,7 +52,7 @@ public class MyElectricityPopupWindow {
 //                onClickListener.onClick(v);
             }
         });
-        MyElectricityAdapter adapter=new MyElectricityAdapter(context,opsLoginbean);
+        MyElectricityAdapter adapter=new MyElectricityAdapter(opsLoginbean);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

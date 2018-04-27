@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
@@ -11,13 +12,11 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -45,42 +44,44 @@ import cn.tties.energy.view.iview.IEnergy_TransformerView;
  */
 public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerPresenter> implements IEnergy_TransformerView {
     private static final String TAG = "Energy_TransformerActiv";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.energy_transformer_tab)
     TabLayout energyTransformerTab;
-    @BindView(R.id.energy_transformer_select1)
     ImageView energyTransformerSelect1;
-    @BindView(R.id.energy_transformer_chart1)
     LineDataChart energyTransformerChart1;
-    @BindView(R.id.energy_transformer_select2)
     ImageView energyTransformerSelect2;
-    @BindView(R.id.energy_transformer_chart2)
     LineDataTwoChart energyTransformerChart2;
-    @BindView(R.id.energy_transformer_damge)
     TextView energyTransformerDamge;
-    @BindView(R.id.energy_transformer_kwh)
     TextView energyTransformerKwh;
+    TextView energyTransformerYear1;
+    TextView energyTransformerYear2;
     int transformerId = 0;
     MyTimePickerWheelDialog dialogtime;
     int year=0;
-    @BindView(R.id.energy_transformer_year1)
-    TextView energyTransformerYear1;
-    @BindView(R.id.energy_transformer_year2)
-    TextView energyTransformerYear2;
     DataAllbean dataAllbean=new DataAllbean();
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
     }
+
+    private void initFindView() {
+        toolbarLl = findViewById(R.id.toolbar_ll);
+        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarText = findViewById(R.id.toolbar_text);
+        energyTransformerTab = findViewById(R.id.energy_transformer_tab);
+        energyTransformerSelect1 = findViewById(R.id.energy_transformer_select1);
+        energyTransformerChart1 = findViewById(R.id.energy_transformer_chart1);
+        energyTransformerSelect2 = findViewById(R.id.energy_transformer_select2);
+        energyTransformerChart2 = findViewById(R.id.energy_transformer_chart2);
+        energyTransformerDamge = findViewById(R.id.energy_transformer_damge);
+        energyTransformerKwh = findViewById(R.id.energy_transformer_kwh);
+        energyTransformerYear1 = findViewById(R.id.energy_transformer_year1);
+        energyTransformerYear2 = findViewById(R.id.energy_transformer_year2);
+    }
+
     private void initView() {
         mPresenter.getEnergy_TransformerList();
         toolbarText.setText("变压器优化");
@@ -200,6 +201,9 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     public void setEnergy_TransformerTemperaturebeanData(Energy_TransformerTemperaturebean bean) {
         int allnum;
         if(bean.getResult().size()>0){
+            int color = Color.parseColor("#38A6FE");
+            int color2 = Color.parseColor("#00000000");
+            ArrayList<Integer> listcolor=new ArrayList<>();
             energyTransformerChart1.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
@@ -218,11 +222,12 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                             listDate.add(monthNum+"");
                         }
                         entry.setY((float)0);
-
+                        listcolor.add(color2);
                     }else{
                         entry.setY((float) bean.getResult().get(i).getData());
                         String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
                         listDate.add(split[1]);
+                        listcolor.add(color);
                     }
                     values.add(entry);
                 }
@@ -234,10 +239,12 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                     if(bean.getResult().get(i).getTime()!=null||!bean.getResult().get(i).getTime().equals("")){
                         String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
                         listDate.add(split[1]);
+                        listcolor.add(color);
                     }
                 }
             }
-            energyTransformerChart1.setDataSet(values, "");
+            LineDataSet dataSet = energyTransformerChart1.setDataSet(values, "");
+            dataSet.setColors(listcolor);
             energyTransformerChart1.setDayXAxis(listDate);
             energyTransformerChart1.loadChart();
         }else{
@@ -252,6 +259,9 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         int allnum;
         //实体bean暂无数据
         if(bean.getResult().size()>0){
+            int color = Color.parseColor("#FF7B10");
+            int color2 = Color.parseColor("#00000000");
+            ArrayList<Integer> listcolor=new ArrayList<>();
             energyTransformerChart2.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
@@ -270,11 +280,12 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                             listDate.add(monthNum+"");
                         }
                         entry.setY((float)0);
-
+                        listcolor.add(color2);
                     }else{
                         entry.setY((float) bean.getResult().get(i).getData());
                         String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
                         listDate.add(split[1]);
+                        listcolor.add(color);
                     }
                     values.add(entry);
                 }
@@ -285,20 +296,15 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                     values.add(entry);
                     String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
+                    listcolor.add(color);
                 }
             }
-
-            energyTransformerChart2.setDataSet(values, "");
+            LineDataSet dataSet = energyTransformerChart2.setDataSet(values, "");
+            dataSet.setColors(listcolor);
             energyTransformerChart2.setDayXAxis(listDate);
             energyTransformerChart2.loadChart();
         }else{
             MyHint.myHintDialog(this);
         }
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
 }

@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.model.result.Opsbean;
 
 /**
@@ -25,8 +24,8 @@ public class Questions_progressAdapter extends RecyclerView.Adapter<Questions_pr
     List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> bean;
 
 
-    public Questions_progressAdapter(Context context, List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> bean) {
-        this.context = context;
+    public Questions_progressAdapter(List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> bean) {
+        this.context = MyApplication.getInstance();
         this.bean = bean;
     }
 
@@ -47,13 +46,12 @@ public class Questions_progressAdapter extends RecyclerView.Adapter<Questions_pr
     }
 
     public class MyprogressViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.progress_title)
         TextView progressTitle;
-        @BindView(R.id.progress_time)
         TextView progressTime;
         public MyprogressViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            progressTitle = (TextView) itemView.findViewById(R.id.progress_title);
+            progressTime = (TextView) itemView.findViewById(R.id.progress_time);
         }
     }
 }

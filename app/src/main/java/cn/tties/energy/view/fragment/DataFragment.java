@@ -23,14 +23,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
 import cn.tties.energy.chart.BarDataChart;
 import cn.tties.energy.chart.BarDataCharttwo;
 import cn.tties.energy.chart.LineDataChart;
+import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataFragmentbean;
 import cn.tties.energy.model.result.Databean;
 import cn.tties.energy.presenter.DataFragmentPresenter;
@@ -55,30 +53,16 @@ import static cn.tties.energy.R.drawable.month_load_bg;
 
 public class DataFragment extends BaseFragment<DataFragmentPresenter> implements View.OnClickListener, IDataFragmentView {
     private static final String TAG = "DataFragment";
-    @BindView(R.id.data_toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_toolbar)
     Toolbar dataToolbar;
-    @BindView(R.id.data_charge)
     LinearLayout dataCharge;
-    @BindView(R.id.data_amount)
     LinearLayout dataAmount;
-    @BindView(R.id.data_rate)
     LinearLayout dataRate;
-    @BindView(R.id.data_factor)
     LinearLayout dataFactor;
-    @BindView(R.id.data_flow)
     LinearLayout dataFlow;
-    @BindView(R.id.data_no)
     LinearLayout dataNo;
-    @BindView(R.id.data_press)
     LinearLayout dataPress;
-    Unbinder unbinder;
-    @BindView(R.id.datafragment_time_tv)
     TextView datafragmentTimeTv;
-//    @BindView(R.id.datafragment_chart)
-//    LineDataChart datafragmentChart;
-//    @BindView(R.id.datafragment_price)
     TextView datafragmentPrice;
     BarDataChart datafragmentChart;
     private List<Integer> listColor;
@@ -88,10 +72,24 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_data, null);
+        initFindView(inflate);
+        initView();
+        return inflate;
+    }
+
+    private void initFindView(View inflate) {
+        toolbarText = inflate.findViewById(R.id.data_toolbar_text);
+        dataToolbar = inflate.findViewById(R.id.data_toolbar);
+        dataCharge = inflate.findViewById(R.id.data_charge);
+        dataAmount = inflate.findViewById(R.id.data_amount);
+        dataRate = inflate.findViewById(R.id.data_rate);
+        dataFactor = inflate.findViewById(R.id.data_factor);
+        dataFlow = inflate.findViewById(R.id.data_flow);
+        dataNo = inflate.findViewById(R.id.data_no);
+        dataPress = inflate.findViewById(R.id.data_press);
+        datafragmentTimeTv = inflate.findViewById(R.id.datafragment_time_tv);
         datafragmentChart = inflate.findViewById(R.id.datafragment_chart);
         datafragmentPrice = inflate.findViewById(R.id.datafragment_price);
-        unbinder = ButterKnife.bind(this, inflate);
-        initView();
         dataCharge.setOnClickListener(this);
         dataAmount.setOnClickListener(this);
         dataRate.setOnClickListener(this);
@@ -99,7 +97,6 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
         dataFlow.setOnClickListener(this);
         dataNo.setOnClickListener(this);
         dataPress.setOnClickListener(this);
-        return inflate;
     }
 
     private void initView() {
@@ -114,49 +111,64 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
             //电费数据
             case R.id.data_charge:
-                intent = new Intent(getActivity(), DataActivity.class);
-                startActivity(intent);
+              if(MyNoDoubleClickListener.isFastClick()){
+                  intent = new Intent(getActivity(), DataActivity.class);
+                  startActivity(intent);
+              }
+
                 break;
             //电量数据
             case R.id.data_amount:
-                intent = new Intent(getActivity(), Data_ElectricActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_ElectricActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //功率数据
             case R.id.data_rate:
-                intent = new Intent(getActivity(), Data_RateActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_RateActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //功率因素
             case R.id.data_factor:
-                intent = new Intent(getActivity(), Data_FactorActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_FactorActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //电流电压
             case R.id.data_flow:
-                intent = new Intent(getActivity(), Data_CurrentActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_CurrentActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //电流不平衡
             case R.id.data_no:
-                intent = new Intent(getActivity(), Data_NoActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_NoActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //电压不平衡
             case R.id.data_press:
-                intent = new Intent(getActivity(), Data_PressActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), Data_PressActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
 
 

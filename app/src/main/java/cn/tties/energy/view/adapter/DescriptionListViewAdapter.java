@@ -39,8 +39,8 @@ public class DescriptionListViewAdapter extends BaseAdapter {
     private static final String TAG = "DescriptionListViewAdap";
     Context context;
     Opsbean.ResultBean.QuestionListBean bean;
-    public DescriptionListViewAdapter(Context context,Opsbean.ResultBean.QuestionListBean listbean){
-        this.context=context;
+    public DescriptionListViewAdapter(Opsbean.ResultBean.QuestionListBean listbean){
+        this.context=MyApplication.getInstance();
         this.bean=listbean;
     }
     @Override

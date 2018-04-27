@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyNoDoubleClickListener;
@@ -27,13 +24,10 @@ import cn.tties.energy.view.adapter.MyElectricityAdapter;
  */
 public class ChangeTableActivity extends AppCompatActivity {
     private static final String TAG = "ChangeTableActivity";
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.identity_change_lv)
     ListView lv;
-    @BindView(R.id.electrical_table_confirm)
+    LinearLayout toolbarLl;
     LinearLayout electricalTableConfirm;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -41,16 +35,20 @@ public class ChangeTableActivity extends AppCompatActivity {
     long energyLedgerId = 0;
     int companyId = 0;
     int staffid = 0;
-    @BindView(R.id.toolbar_ll)
-    LinearLayout toolbarLl;
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_table);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        lv= findViewById(R.id.identity_change_lv);
+        electricalTableConfirm= findViewById(R.id.electrical_table_confirm);
+        toolbarLl= findViewById(R.id.toolbar_ll);
     }
 
     private void initView() {
@@ -65,7 +63,7 @@ public class ChangeTableActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         final OpsLoginbean bean = (OpsLoginbean) intent.getSerializableExtra("bean");
-        final MyElectricityAdapter adapter = new MyElectricityAdapter(ChangeTableActivity.this, bean);
+        final MyElectricityAdapter adapter = new MyElectricityAdapter(bean);
         lv.setAdapter(adapter);
         //确认使用此电表
         electricalTableConfirm.setOnClickListener(new View.OnClickListener() {
@@ -92,11 +90,5 @@ public class ChangeTableActivity extends AppCompatActivity {
             }
 
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

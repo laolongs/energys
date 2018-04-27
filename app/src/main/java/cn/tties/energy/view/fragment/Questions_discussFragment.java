@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
 import cn.tties.energy.model.result.Opsbean;
@@ -30,19 +27,20 @@ import cn.tties.energy.view.iview.IQuestionDiscussVIew;
 
 public class Questions_discussFragment extends BaseFragment<QuestionsDiscussPresenter> implements IQuestionDiscussVIew {
     private static final String TAG = "Questions_discussFragme";
-//    @BindView(R.id.qu_tb_ds_rcy)
     RecyclerView quTbDsRcy;
-    Unbinder unbinder;
     private Questions_discussAdapter adapter;
     public String questionId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = View.inflate(getActivity(), R.layout.fragment_questions_discuss, null);
-        quTbDsRcy=inflate.findViewById(R.id.qu_tb_ds_rcy);
-        unbinder = ButterKnife.bind(this, inflate);
+        initFindView(inflate);
         initData();
         return inflate;
+    }
+
+    private void initFindView(View inflate) {
+        quTbDsRcy=inflate.findViewById(R.id.qu_tb_ds_rcy);
     }
 
     @Override
@@ -57,16 +55,11 @@ public class Questions_discussFragment extends BaseFragment<QuestionsDiscussPres
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-    @Override
     public void setQuestionRefreshData(Opsbean bean) {
         if(bean.getResult().getQuestionList().size()>0){
             Opsbean.ResultBean.QuestionListBean questionListBean = bean.getResult().getQuestionList().get(0);
             quTbDsRcy.setLayoutManager(new LinearLayoutManager(getActivity()));
-            adapter = new Questions_discussAdapter(getActivity(),questionListBean.getAdviceList());
+            adapter = new Questions_discussAdapter(questionListBean.getAdviceList());
             quTbDsRcy.setAdapter(adapter);
         }
 

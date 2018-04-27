@@ -68,7 +68,7 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
     }
 
     private void initData() {
-        mWv.setWheelAdapter(new StyleAdapter(getContext()));
+        mWv.setWheelAdapter(new StyleAdapter());
         mWv.setWheelSize(5);
         mWv.setSkin(WheelView.Skin.Holo);
         mWv.setWheelData(createArrays());

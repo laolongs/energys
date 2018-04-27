@@ -146,15 +146,15 @@
       public *;
     }
 #//butterknife
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewInjector{ *; }
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
+#-keep class butterknife.** { *; }
+#-dontwarn butterknife.internal.**
+#-keep class **$$ViewInjector{ *; }
+#-keepclasseswithmembernames class * {
+#    @butterknife.* <fields>;
+#}
+#-keepclasseswithmembernames class * {
+#    @butterknife.* <methods>;
+#}
 #图表mpandroidchart
 -keep class com.github.mikephil.charting.** { *; }
 

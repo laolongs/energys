@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.wx.wheelview.adapter.BaseWheelAdapter;
 
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 
 /**
  * Created by li on 2018/3/28
@@ -18,8 +19,8 @@ import cn.tties.energy.R;
 public class TimeWheelTwoAdapter extends BaseWheelAdapter<String> {
 
     private Context mContext;
-    public TimeWheelTwoAdapter(Context context) {
-        mContext = context;
+    public TimeWheelTwoAdapter() {
+        mContext = MyApplication.getInstance();
 
     }
     @Override

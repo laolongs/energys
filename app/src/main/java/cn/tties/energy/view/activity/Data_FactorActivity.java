@@ -14,9 +14,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -40,41 +37,44 @@ import cn.tties.energy.view.iview.IData_FactorView;
  * 功率因素
  */
 public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> implements IData_FactorView, View.OnClickListener {
-    @BindView(R.id.toolbar_ll)
+    private static final String TAG = "Data_FactorActivity";
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.factor_num)
     TextView factorNum;
-    @BindView(R.id.data_factor_chart)
     LineDataChart dataFactorChart;
-    @BindView(R.id.data_factor_tv)
     TextView dataFactorTv;
-    @BindView(R.id.data_factor_time)
     LinearLayout dataFactorTime;
-    @BindView(R.id.data_factor_electrical)
     LinearLayout dataFactorElectrical;
-    @BindView(R.id.data_factor_ele_tv)
     TextView dataFactorEleTv;
-    @BindView(R.id.data_factor_verify)
     ImageView dataFactorVerify;
-    @BindView(R.id.data_factor_text)
     TextView dataFactorText;
     private BottomStyleDialog dialog;
     double num = 0;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
 
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        factorNum= findViewById(R.id.factor_num);
+        dataFactorChart= findViewById(R.id.data_factor_chart);
+        dataFactorTv= findViewById(R.id.data_factor_tv);
+        dataFactorTime= findViewById(R.id.data_factor_time);
+        dataFactorElectrical= findViewById(R.id.data_factor_electrical);
+        dataFactorEleTv= findViewById(R.id.data_factor_ele_tv);
+        dataFactorVerify= findViewById(R.id.data_factor_verify);
+        dataFactorText= findViewById(R.id.data_factor_text);
     }
 
     private void initView() {
@@ -223,12 +223,4 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         }
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
-
 }

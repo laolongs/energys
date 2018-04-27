@@ -17,8 +17,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.common.Constants;
@@ -37,26 +35,19 @@ import cn.tties.energy.view.iview.IMainView;
  */
 public class AboutActivity extends AppCompatActivity{
 
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.logo)
     ImageView logo;
-    @BindView(R.id.textview_newversion)
     TextView textviewNewversion;
-    @BindView(R.id.layout_newversion)
     LinearLayout layoutNewversion;
-    @BindView(R.id.textview_curversion)
     TextView textviewCurversion;
-    @BindView(R.id.textview_about)
     TextView textviewAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
+        initFindView();
         initToolBar();
         initClick();
 //        Versionbean versionResult = ACache.getInstance().getAsObject(Constants.CACHEE_VERSION);
@@ -66,6 +57,15 @@ public class AboutActivity extends AppCompatActivity{
 
     }
 
+    private void initFindView() {
+        toolbarText=findViewById(R.id.toolbar_text);
+        toolbar=findViewById(R.id.toolbar);
+        logo=findViewById(R.id.logo);
+        textviewNewversion=findViewById(R.id.textview_newversion);
+        layoutNewversion=findViewById(R.id.layout_newversion);
+        textviewCurversion=findViewById(R.id.textview_curversion);
+        textviewAbout=findViewById(R.id.textview_about);
+    }
 
 
     private void initClick() {

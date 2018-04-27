@@ -13,9 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.model.result.Opsbean;
 import cn.tties.energy.utils.StringUtil;
 
@@ -34,7 +33,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     List<String> listhead = new ArrayList<>();
     onClickListener listener;
     Opsbean.ResultBean opsbean;
-
+    Context context;
 
     public void setonClickListener(onClickListener listener) {
         this.listener = listener;
@@ -48,7 +47,8 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.opsbean = opsbean;
     }
 
-    public MyOpsrightAdapter(Context context) {
+    public MyOpsrightAdapter() {
+        this.context=MyApplication.getInstance();
         listhead.add("1");
         inflater = LayoutInflater.from(context);
     }
@@ -162,29 +162,27 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     public class MyViewHoder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ops_item_title)
         TextView opsItemTitle;
-        @BindView(R.id.ops_item_time)
         TextView opsItemTime;
-        @BindView(R.id.ops_item_address)
         TextView opsItemAddress;
-        @BindView(R.id.ops_item_ll)
         LinearLayout opsItemLl;
-        @BindView(R.id.ops_item_img)
         ImageView opsItemImg;
         public MyViewHoder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            opsItemTitle = (TextView) itemView.findViewById(R.id.ops_item_title);
+            opsItemTime = (TextView) itemView.findViewById(R.id.ops_item_time);
+            opsItemAddress = (TextView) itemView.findViewById(R.id.ops_item_address);
+            opsItemLl = (LinearLayout) itemView.findViewById(R.id.ops_item_ll);
+            opsItemImg = (ImageView) itemView.findViewById(R.id.ops_item_img);
         }
     }
 
     public class MyNoQuestionViewHoder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ops_item_right_no_tv)
         TextView opsItemRightNoTv;
 
         public MyNoQuestionViewHoder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            opsItemRightNoTv = (TextView) itemView.findViewById(R.id.ops_item_right_no_tv);
         }
     }
 

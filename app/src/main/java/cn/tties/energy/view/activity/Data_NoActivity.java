@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.BarDataThreeChart;
@@ -47,43 +44,46 @@ import cn.tties.energy.view.iview.IData_NoView;
  * 电流不平衡
  */
 public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements IData_NoView {
-    @BindView(R.id.toolbar_ll)
+    private static final String TAG = "Data_NoActivity";
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_toolbar)
     Toolbar dataToolbar;
-    @BindView(R.id.data_no_chart1)
     LineDataChart dataNoChart1;
-    @BindView(R.id.data_no_chart2)
     LineDataChart dataNoChart2;
-    @BindView(R.id.data_no_chart3)
     BarDataThreeChart dataNoChart3;
-    @BindView(R.id.data_no_time_tv)
     TextView dataNoTimeTv;
-    @BindView(R.id.data_no_time)
     LinearLayout dataNoTime;
-    @BindView(R.id.data_no_allelectric)
     LinearLayout dataNoAllelectric;
-    @BindView(R.id.data_no_ele_tv)
     TextView dataNoEleTv;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
-        mPresenter.getAllElectricityData();
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        dataToolbar= findViewById(R.id.data_toolbar);
+        dataNoChart1= findViewById(R.id.data_no_chart1);
+        dataNoChart2= findViewById(R.id.data_no_chart2);
+        dataNoChart3= findViewById(R.id.data_no_chart3);
+        dataNoTimeTv= findViewById(R.id.data_no_time_tv);
+        dataNoTime= findViewById(R.id.data_no_time);
+        dataNoAllelectric= findViewById(R.id.data_no_allelectric);
+        dataNoEleTv= findViewById(R.id.data_no_ele_tv);
     }
 
 
     private void initView() {
+        mPresenter.getAllElectricityData();
         dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_NoActivity.this);
         toolbarText.setText("电流不平衡");
@@ -210,7 +210,6 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                     String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
                     listDate3.add(split);
                 }
-
             }
             XAxis xAxis = dataNoChart3.getXAxis();
             xAxis.setLabelCount(bean.getLimitData().size(),true);
@@ -242,10 +241,5 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             });
         }
 
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

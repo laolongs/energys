@@ -13,9 +13,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.base.BaseActivity;
@@ -33,15 +30,12 @@ public class SplashActivity extends BaseActivity<MainPresenter> implements IMain
     private static final int FAILURE = 0; // 失败
     private static final int SUCCESS = 1; // 成功
     private static final int SHOW_TIME_MIN = 2000; //最短显示时间
-    @BindView(R.id.splash_login)
     LinearLayout splashLogin;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
-
+        initFindView();
         new AsyncTask<Void, Void, Integer>() {
 
             @Override
@@ -82,6 +76,10 @@ public class SplashActivity extends BaseActivity<MainPresenter> implements IMain
 //                }
             }
         }.execute();
+    }
+
+    private void initFindView() {
+        splashLogin=findViewById(R.id.splash_login);
     }
 
     @Override

@@ -15,9 +15,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -43,28 +40,16 @@ import cn.tties.energy.view.iview.IData_ElectricView;
  */
 public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> implements IData_ElectricView, View.OnClickListener {
     private static final String TAG = "Data_ElectricActivity";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.electrical_num)
     TextView electricalNum;
-    @BindView(R.id.electrical_chart)
     LineDataChart electricalChart;
-
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_electrical_tv)
     TextView dataElectricalTv;
-    @BindView(R.id.data_electrical_time)
     LinearLayout dataElectricalTime;
-    @BindView(R.id.data_allelectric_electrical)
     LinearLayout dataAllelectricElectrical;
-    @BindView(R.id.data_electrical_time_tv)
     TextView dataElectricalTimeTv;
-    @BindView(R.id.electrical_verify)
     ImageView electricalVerify;
-    @BindView(R.id.electrical_tv)
     TextView electricalTv;
     private BottomStyleDialog dialog;
     double num = 0;
@@ -72,13 +57,26 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        electricalNum= findViewById(R.id.electrical_num);
+        electricalChart= findViewById(R.id.electrical_chart);
+        toolbarText= findViewById(R.id.toolbar_text);
+        dataElectricalTv= findViewById(R.id.data_electrical_tv);
+        dataElectricalTime= findViewById(R.id.data_electrical_time);
+        dataAllelectricElectrical= findViewById(R.id.data_allelectric_electrical);
+        dataElectricalTimeTv= findViewById(R.id.data_electrical_time_tv);
+        electricalVerify= findViewById(R.id.electrical_verify);
+        electricalTv= findViewById(R.id.electrical_tv);
     }
 
     private void initView() {
@@ -226,12 +224,4 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         }
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
-
 }

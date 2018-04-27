@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,15 +11,13 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -43,51 +42,52 @@ import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
  */
 public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPresenter> implements IEnergy_BaseenergyView {
     private static final String TAG = "Energy_BaseenergyActivi";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.energy_base_kva)
     TextView energyBaseKva;
-    @BindView(R.id.energy_base_price)
     TextView energyBasePrice;
-    @BindView(R.id.energy_base_select)
     ImageView energyBaseSelect;
-    @BindView(R.id.energy_base_monthmax)
     TextView energyBaseMonthmax;
-    @BindView(R.id.energy_base_time)
     TextView energyBaseTime;
-    @BindView(R.id.energy_base_chart)
     LineDataChart energyBaseChart;
-    @BindView(R.id.energy_base_plan_kw1)
     TextView energyBasePlanKw1;
-    @BindView(R.id.energy_base_plan_allprice1)
     TextView energyBasePlanAllprice1;
-    @BindView(R.id.energy_base_plan_kw2)
     TextView energyBasePlanKw2;
-    @BindView(R.id.energy_base_plan_allprice2)
     TextView energyBasePlanAllprice2;
-    @BindView(R.id.energy_base_plan_kw3)
     TextView energyBasePlanKw3;
-    @BindView(R.id.energy_base_plan_allprice3)
     TextView energyBasePlanAllprice3;
-    @BindView(R.id.energy_base_type)
     TextView energyBaseType;
-    @BindView(R.id.en_tv3)
     TextView enTv3;
-    @BindView(R.id.energy_base_year)
     TextView energyBaseYear;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        energyBaseKva= findViewById(R.id.energy_base_kva);
+        energyBasePrice= findViewById(R.id.energy_base_price);
+        energyBaseSelect= findViewById(R.id.energy_base_select);
+        energyBaseMonthmax= findViewById(R.id.energy_base_monthmax);
+        energyBaseTime= findViewById(R.id.energy_base_time);
+        energyBaseChart= findViewById(R.id.energy_base_chart);
+        energyBasePlanKw1= findViewById(R.id.energy_base_plan_kw1);
+        energyBasePlanAllprice1= findViewById(R.id.energy_base_plan_allprice1);
+        energyBasePlanKw2= findViewById(R.id.energy_base_plan_kw2);
+        energyBasePlanAllprice2= findViewById(R.id.energy_base_plan_allprice2);
+        energyBasePlanKw3= findViewById(R.id.energy_base_plan_kw3);
+        energyBasePlanAllprice3= findViewById(R.id.energy_base_plan_allprice3);
+        energyBaseType= findViewById(R.id.energy_base_type);
+        enTv3= findViewById(R.id.en_tv3);
+        energyBaseYear= findViewById(R.id.energy_base_year);
     }
 
     private void initView() {
@@ -157,6 +157,9 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     public void setEnergy_BaseenergyYearData(Databean bean) {
 
         if(bean.getDataList().size()>0){
+            int color = Color.parseColor("#38A6FE");
+            int color2 = Color.parseColor("#00000000");
+            ArrayList<Integer> listcolor=new ArrayList<>();
             int allnum=0;
             energyBaseChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
@@ -176,14 +179,16 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                             listDate.add(monthNum+"");
                         }
                         entry.setY((float)0);
-
+                        listcolor.add(color2);
                     }else{
                         entry.setY((float) bean.getDataList().get(i).getBaseSum());
                         Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
                         String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                         listDate.add(split[1]);
+                        listcolor.add(color);
                     }
                     values.add(entry);
+
                 }
             }else{
                 for (int i = 0; i <bean.getDataList().size(); i++) {
@@ -193,10 +198,12 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                     Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
                     String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
+                    listcolor.add(color);
                     }
             }
-                energyBaseChart.setDataSet(values, "");
-                energyBaseChart.setDayXAxis(listDate);
+            LineDataSet dataSet = energyBaseChart.setDataSet(values, "");
+            dataSet.setColors(listcolor);
+            energyBaseChart.setDayXAxis(listDate);
                 energyBaseChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                     @Override
                     public String getFormattedValue(float value, AxisBase axis) {
@@ -227,10 +234,4 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBasePlanAllprice3.setText(DoubleUtils.getNum(bean.getDemandFee())+"元");
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
 }

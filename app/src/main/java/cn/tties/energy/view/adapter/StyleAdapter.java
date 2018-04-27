@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.wx.wheelview.adapter.BaseWheelAdapter;
 
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.model.result.AllElectricitybean;
 
 /**
@@ -24,8 +25,8 @@ public class StyleAdapter extends BaseWheelAdapter<AllElectricitybean.MeterListB
 //        mContext = context;
 //        this.allElectricitybean=allElectricitybean;
 //    }
-    public StyleAdapter(Context context) {
-        mContext = context;
+    public StyleAdapter() {
+        mContext = MyApplication.getInstance();
 
     }
 

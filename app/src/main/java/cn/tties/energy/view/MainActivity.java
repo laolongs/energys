@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.common.Constants;
@@ -28,43 +25,43 @@ import cn.tties.energy.view.fragment.OpsFragment;
 import cn.tties.energy.view.iview.IMainView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView, View.OnClickListener {
-
-
-    @BindView(R.id.ivOps)
+    private static final String TAG = "MainActivity";
     ImageView ivOps;
-    @BindView(R.id.tvOps)
     TextView tvOps;
-    @BindView(R.id.llOps)
     LinearLayout llOps;
-    @BindView(R.id.ivEnergy)
     ImageView ivEnergy;
-    @BindView(R.id.tvEnergy)
     TextView tvEnergy;
-    @BindView(R.id.llEnergy)
     LinearLayout llEnergy;
-    @BindView(R.id.ivData)
     ImageView ivData;
-    @BindView(R.id.tvData)
     TextView tvData;
-    @BindView(R.id.llData)
     LinearLayout llData;
-    @BindView(R.id.ivIden)
     ImageView ivIden;
-    @BindView(R.id.tvIden)
     TextView tvIden;
-    @BindView(R.id.llIden)
     LinearLayout llIden;
     private ImageView ivCurrent;
     private TextView tvCurrent;
     private List<View> mViews;
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
-//        checkVersion();
+        checkVersion();
+    }
+
+    private void initFindView() {
+        ivOps=findViewById(R.id.ivOps);
+        tvOps=findViewById(R.id.tvOps);
+        llOps=findViewById(R.id.llOps);
+        ivEnergy=findViewById(R.id.ivEnergy);
+        tvEnergy=findViewById(R.id.tvEnergy);
+        llEnergy=findViewById(R.id.llEnergy);
+        ivData=findViewById(R.id.ivData);
+        tvData=findViewById(R.id.tvData);
+        llData=findViewById(R.id.llData);
+        ivIden=findViewById(R.id.ivIden);
+        tvIden=findViewById(R.id.tvIden);
+        llIden=findViewById(R.id.llIden);
     }
 
     private void initView() {
@@ -111,13 +108,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
             e.printStackTrace();
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
     @Override
     public void onClick(View view) {
         ivCurrent.setSelected(false);

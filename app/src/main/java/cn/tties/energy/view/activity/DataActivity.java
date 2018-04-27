@@ -18,9 +18,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -45,45 +42,25 @@ import cn.tties.energy.view.iview.IDataView;
  */
 public class DataActivity extends BaseActivity<DataPresenter> implements View.OnClickListener, IDataView {
     private static final String TAG = "DataActivity";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_time)
     LinearLayout dataTime;
-    @BindView(R.id.data_allelectric)
     LinearLayout dataAllelectric;
-    @BindView(R.id.data_time_tv)
     TextView dataTimeTv;
-    @BindView(R.id.data_charge_img1)
     ImageView dataChargeImg1;
-    @BindView(R.id.data_charge_img2)
     ImageView dataChargeImg2;
-    @BindView(R.id.data_charge_img3)
     ImageView dataChargeImg3;
-    @BindView(R.id.data_charge_img4)
     ImageView dataChargeImg4;
-    @BindView(R.id.data_all_charge)
     TextView dataAllCharge;
-    @BindView(R.id.data_base_charge)
     TextView dataBaseCharge;
-    @BindView(R.id.data_year_charge)
     TextView dataYearCharge;
-    @BindView(R.id.data_forces_charge)
     TextView dataForcesCharge;
-    @BindView(R.id.data_chart)
     LineDataChart dataChart;
-    @BindView(R.id.data_electricity_tv)
     TextView dataElectricityTv;
-    @BindView(R.id.data_charge_tv1)
     TextView dataChargeTv1;
-    @BindView(R.id.data_charge_tv2)
     TextView dataChargeTv2;
-    @BindView(R.id.data_charge_tv3)
     TextView dataChargeTv3;
-    @BindView(R.id.data_charge_tv4)
     TextView dataChargeTv4;
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
@@ -92,13 +69,37 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean = new DataAllbean();
     int year = 0;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
-        popupWindow = new MyPopupWindow();
+        initFindView();
+        initView();
+
+    }
+
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        dataTime= findViewById(R.id.data_time);
+        dataAllelectric= findViewById(R.id.data_allelectric);
+        dataTimeTv= findViewById(R.id.data_time_tv);
+        dataChargeImg1= findViewById(R.id.data_charge_img1);
+        dataChargeImg2= findViewById(R.id.data_charge_img2);
+        dataChargeImg3= findViewById(R.id.data_charge_img3);
+        dataChargeImg4= findViewById(R.id.data_charge_img4);
+        dataAllCharge= findViewById(R.id.data_all_charge);
+        dataBaseCharge= findViewById(R.id.data_base_charge);
+        dataYearCharge= findViewById(R.id.data_year_charge);
+        dataForcesCharge= findViewById(R.id.data_forces_charge);
+        dataChart= findViewById(R.id.data_chart);
+        dataElectricityTv= findViewById(R.id.data_electricity_tv);
+        dataChargeTv1= findViewById(R.id.data_charge_tv1);
+        dataChargeTv2= findViewById(R.id.data_charge_tv2);
+        dataChargeTv3= findViewById(R.id.data_charge_tv3);
+        dataChargeTv4= findViewById(R.id.data_charge_tv4);
+        toolbarText= findViewById(R.id.toolbar_text);
         dataChargeImg1.setOnClickListener(this);
         dataChargeImg2.setOnClickListener(this);
         dataChargeImg3.setOnClickListener(this);
@@ -107,11 +108,10 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
         dataChargeTv2.setOnClickListener(this);
         dataChargeTv3.setOnClickListener(this);
         dataChargeTv4.setOnClickListener(this);
-        initView();
-
     }
 
     private void initView() {
+        popupWindow = new MyPopupWindow();
         int currentYear = DateUtil.getCurrentYear();
         int currentMonth = DateUtil.getCurrentMonth();
         Log.i(TAG, "createArrays: " + currentYear);
@@ -272,7 +272,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
         if (bean.getDataList().size() > 0) {
             int color = Color.parseColor("#38A6FE");
             int color2 = Color.parseColor("#00000000");
-//            int color2 = Color.parseColor("#ff00ff");
             dataChart.clearData();
             ArrayList<Integer> listcolor=new ArrayList<>();
             ArrayList<Entry> values = new ArrayList<>();
@@ -299,6 +298,10 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                         String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                         listDate.add(split[1]);
                         listcolor.add(color);
+                        if(i==bean.getDataList().size()-1){
+                            listcolor.add(color2);
+                            Log.i(TAG, "setDataChartData: "+i);
+                        }
                     }
                     values.add(entry);
 
@@ -312,17 +315,11 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                     String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                     listDate.add(split[1]);
                     listcolor.add(color);
+
                 }
             }
             LineDataSet dataSet = dataChart.setDataSet(values, "");
             dataSet.setColors(listcolor);
-//            int childCount = dataChart.getChildCount();
-//            for (int i = 0; i <childCount ; i++) {
-//                if(dataChart.getChildAt(i).getY()==0){
-//                    YAxis axisLeft = dataChart.getAxisLeft();
-//                    axisLeft.set
-//                }
-//            }
             dataChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
@@ -368,12 +365,5 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 }
             });
         }
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

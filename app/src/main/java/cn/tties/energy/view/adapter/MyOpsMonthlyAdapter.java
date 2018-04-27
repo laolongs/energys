@@ -23,9 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.model.result.Energy_Monthlybean;
 import cn.tties.energy.utils.ShareUtils;
@@ -46,8 +45,8 @@ public class MyOpsMonthlyAdapter extends RecyclerView.Adapter<MyOpsMonthlyAdapte
     //------进度条
     private OutputStream outputStream;
 
-    public MyOpsMonthlyAdapter(Context context, Energy_Monthlybean bean) {
-        this.context = context;
+    public MyOpsMonthlyAdapter(Energy_Monthlybean bean) {
+        this.context = MyApplication.getInstance();
         this.bean = bean;
         inflater = LayoutInflater.from(context);
     }
@@ -186,23 +185,22 @@ public class MyOpsMonthlyAdapter extends RecyclerView.Adapter<MyOpsMonthlyAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.energy_opsmonthly_pdfimg)
         ImageView energyOpsmonthlyPdfimg;
-        @BindView(R.id.energy_opsmonthly_load)
         TextView energyOpsmonthlyLoad;
-        @BindView(R.id.energy_opsmonthly_tv)
         TextView energyOpsmonthlyTv;
-        @BindView(R.id.energy_opsmonthly_time)
         TextView energyOpsmonthlyTime;
-        @BindView(R.id.energy_opsmonthly_imgshare)
         ImageView energyOpsmonthlyImgshare;
-        @BindView(R.id.energy_opsmonthly_loadimg)
         ImageView energyOpsmonthlyLoadimg;
-        @BindView(R.id.month_opsprobar)
         ProgressBar monthOpsprobar;
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            energyOpsmonthlyPdfimg = (ImageView) itemView.findViewById(R.id.energy_opsmonthly_pdfimg);
+            energyOpsmonthlyLoad = (TextView) itemView.findViewById(R.id.energy_opsmonthly_load);
+            energyOpsmonthlyTv = (TextView) itemView.findViewById(R.id.energy_opsmonthly_tv);
+            energyOpsmonthlyTime = (TextView) itemView.findViewById(R.id.energy_opsmonthly_time);
+            energyOpsmonthlyImgshare = (ImageView) itemView.findViewById(R.id.energy_opsmonthly_imgshare);
+            energyOpsmonthlyLoadimg = (ImageView) itemView.findViewById(R.id.energy_opsmonthly_loadimg);
+            monthOpsprobar = (ProgressBar) itemView.findViewById(R.id.month_opsprobar);
         }
     }
 }

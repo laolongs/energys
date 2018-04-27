@@ -21,9 +21,8 @@ import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.model.result.Opsbean;
 import cn.tties.energy.utils.AppUtils;
 import cn.tties.energy.view.activity.QuestionsActivity;
@@ -43,8 +42,8 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     Context context;
 
 
-    public QuestionListAdapter(Context context, Opsbean.ResultBean.QuestionListBean listbean) {
-        this.context = context;
+    public QuestionListAdapter(Opsbean.ResultBean.QuestionListBean listbean) {
+        this.context = MyApplication.getInstance();
         this.listbean = listbean;
         inflater = LayoutInflater.from(context);
     }
@@ -123,16 +122,12 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.listview_title)
         TextView listviewTitle;
-        @BindView(R.id.recyclerView)
         RecyclerView recyclerView;
-
-        //        @BindView(R.id.listview_description)
-//        ListView listViewDescription;
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            listviewTitle = (TextView) itemView.findViewById(R.id.listview_title);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
         }
     }
     public interface OnRecyclerViewItemClickListener {

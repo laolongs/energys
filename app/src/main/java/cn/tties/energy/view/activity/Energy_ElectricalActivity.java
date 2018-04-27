@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +14,6 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
@@ -42,45 +40,46 @@ import cn.tties.energy.view.iview.IDataView;
  */
 public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPersenter> implements IDataView {
     private static final String TAG = "Energy_ElectricalActivi";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.electrical_myview)
     MyProgressRound electricalMyview;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.enerey_electrical_month)
     TextView enereyElectricalMonth;
-    @BindView(R.id.enerey_electrical_cusp)
     TextView enereyElectricalCusp;
-    @BindView(R.id.enerey_electrical_hight)
     TextView enereyElectricalHight;
-    @BindView(R.id.enerey_electrical_low)
     TextView enereyElectricalLow;
-    @BindView(R.id.enerey_electrical_kva)
     TextView enereyElectricalKva;
-    @BindView(R.id.enerey_electrical_price)
     TextView enereyElectricalPrice;
-    @BindView(R.id.enerey_electrical_select)
     ImageView enereyElectricalSelect;
-    @BindView(R.id.enerey_electrical_chart)
     LineDataFourChart enereyElectricalChart;
-    @BindView(R.id.enerey_electrical_year)
     TextView enereyElectricalYear;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean dataAllbean=new DataAllbean();
     private float cusp2;
     private float hight2;
     private float low2;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
 
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        electricalMyview= findViewById(R.id.electrical_myview);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        enereyElectricalMonth= findViewById(R.id.enerey_electrical_month);
+        enereyElectricalCusp= findViewById(R.id.enerey_electrical_cusp);
+        enereyElectricalHight= findViewById(R.id.enerey_electrical_hight);
+        enereyElectricalLow= findViewById(R.id.enerey_electrical_low);
+        enereyElectricalKva= findViewById(R.id.enerey_electrical_kva);
+        enereyElectricalPrice= findViewById(R.id.enerey_electrical_price);
+        enereyElectricalSelect= findViewById(R.id.enerey_electrical_select);
+        enereyElectricalChart= findViewById(R.id.enerey_electrical_chart);
+        enereyElectricalYear= findViewById(R.id.enerey_electrical_year);
     }
 
     private void initView() {
@@ -185,6 +184,7 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
                         entry1.setY(0);
                         entry2.setY(0);
                         entry3.setY(0);
+
                     }else{
                         int low = bean.getDataList().get(i).getSectorGuValue();
                         int cusp = bean.getDataList().get(i).getSectorJianValue();
@@ -253,10 +253,4 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     public void setAllElectricity(AllElectricitybean allElectricitybean) {
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
 }

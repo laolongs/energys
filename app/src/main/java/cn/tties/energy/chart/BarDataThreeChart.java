@@ -70,7 +70,7 @@ public class BarDataThreeChart extends BarChart {
          barSet.setBarBorderColor(color);
          barSet.setValueTextSize(9f);
          barSet.setFormLineWidth(1f);
-         barSet.setFormSize(3f);
+         barSet.setFormSize(1f);
          setList.add(barSet);
          return barSet;
     }
@@ -120,7 +120,7 @@ public class BarDataThreeChart extends BarChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-        xAxis.setLabelCount(12,false);
+//        xAxis.setLabelCount(12,false);
 //        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
         xAxis.setTextColor(color);//设置轴标签的颜色

@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
 import cn.tties.energy.model.result.Opsbean;
@@ -27,18 +24,19 @@ import cn.tties.energy.view.iview.IQuestionDiscussVIew;
  */
 
 public class Questions_progressFragment extends BaseFragment<QuestionsDiscussPresenter> implements IQuestionDiscussVIew {
-//    @BindView(R.id.qu_tb_pr_rcy)
     RecyclerView quTbPrRcy;
-    Unbinder unbinder;
     public String questionId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = View.inflate(getActivity(), R.layout.fragment_questions_progress, null);
-        quTbPrRcy=inflate.findViewById(R.id.qu_tb_pr_rcy);
-        unbinder = ButterKnife.bind(this, inflate);
+        initFindView(inflate);
         initView();
         return inflate;
+    }
+
+    private void initFindView(View inflate) {
+        quTbPrRcy=inflate.findViewById(R.id.qu_tb_pr_rcy);
     }
 
     @Override
@@ -51,17 +49,11 @@ public class Questions_progressFragment extends BaseFragment<QuestionsDiscussPre
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
     public void setQuestionRefreshData(Opsbean bean) {
         if(bean.getResult().getQuestionList().size()>0){
             List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> scheduleList = bean.getResult().getQuestionList().get(0).getScheduleList();
             quTbPrRcy.setLayoutManager(new LinearLayoutManager(getActivity()));
-            Questions_progressAdapter adapter=new Questions_progressAdapter(getActivity(),scheduleList);
+            Questions_progressAdapter adapter=new Questions_progressAdapter(scheduleList);
             quTbPrRcy.setAdapter(adapter);
         }
 

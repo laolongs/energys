@@ -29,9 +29,6 @@ import com.lzy.imagepicker.bean.ImageItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.base.BaseActivity;
@@ -57,57 +54,30 @@ import cn.tties.energy.view.iview.IQuestionsView;
  */
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implements IQuestionsView {
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.qu_tab)
     TabLayout quTab;
-    @BindView(R.id.qu_linkman)
     LinearLayout quLinkman;
-    @BindView(R.id.qu_reply)
     LinearLayout quReply;
-    @BindView(R.id.qu_vp)
     ViewPager quVp;
-    @BindView(R.id.ques_index_title)
     TextView quesIndexTitle;
-    @BindView(R.id.ques_index)
     TextView quesIndex;
-    @BindView(R.id.ques_rank)
     TextView quesRank;
-    @BindView(R.id.ques_createtime)
     TextView quesCreatetime;
-    @BindView(R.id.ques_address)
     TextView quesAddress;
-    @BindView(R.id.list_question_list)
     ListView listQuestionList;
-    //    @BindView(R.id.ptrlayout_question)
-//    FrameLayout ptrlayoutQuestion;
-    @BindView(R.id.data_time_tv)
     TextView dataTimeTv;
-    @BindView(R.id.qu_bt_ll)
     LinearLayout quBtLl;
-    @BindView(R.id.ques_img)
     ImageView quesImg;
-    @BindView(R.id.qu_ll_top)
     LinearLayout quLlTop;
-    @BindView(R.id.qu_ll_cneter)
     View quLlCneter;
-    @BindView(R.id.ques_value_tv1)
     TextView quesValueTv1;
-    @BindView(R.id.ques_value_title1)
     TextView quesValueTitle1;
-    @BindView(R.id.ques_value_tv2)
     TextView quesValueTv2;
-    @BindView(R.id.ques_value_title2)
     TextView quesValueTitle2;
-    @BindView(R.id.ques_value_tv3)
     TextView quesValueTv3;
-    @BindView(R.id.ques_value_title3)
     TextView quesValueTitle3;
-    @BindView(R.id.ques_title)
     TextView quesTitle;
     private String questionId;
     private static final String TAG = "QuestionsActivity";
@@ -124,18 +94,45 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl = findViewById(R.id.toolbar_ll);
+        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarText = findViewById(R.id.toolbar_text);
+        quTab = findViewById(R.id.qu_tab);
+        quLinkman = findViewById(R.id.qu_linkman);
+        quReply = findViewById(R.id.qu_reply);
+        quVp = findViewById(R.id.qu_vp);
+        quesIndexTitle = findViewById(R.id.ques_index_title);
+        quesIndex = findViewById(R.id.ques_index);
+        quesRank = findViewById(R.id.ques_rank);
+        quesCreatetime = findViewById(R.id.ques_createtime);
+        quesAddress = findViewById(R.id.ques_address);
+        listQuestionList = findViewById(R.id.list_question_list);
+        dataTimeTv = findViewById(R.id.data_time_tv);
+        quBtLl = findViewById(R.id.qu_bt_ll);
+        quesImg = findViewById(R.id.ques_img);
+        quLlTop = findViewById(R.id.qu_ll_top);
+        quLlCneter = findViewById(R.id.qu_ll_cneter);
+        quesValueTv1 = findViewById(R.id.ques_value_tv1);
+        quesValueTitle1 = findViewById(R.id.ques_value_title1);
+        quesValueTv2 = findViewById(R.id.ques_value_tv2);
+        quesValueTitle2 = findViewById(R.id.ques_value_title2);
+        quesValueTv3 = findViewById(R.id.ques_value_tv3);
+        quesValueTitle3 = findViewById(R.id.ques_value_title3);
+        quesTitle = findViewById(R.id.ques_title);
     }
 
     private void initView() {
         selImageList = new ArrayList<>();
-        adapter = new ImagePickerAdapter(this, selImageList, maxImgCount);
+        adapter = new ImagePickerAdapter(selImageList, maxImgCount);
 
         toolbarText.setText("问题详情");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -303,7 +300,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
 //        QuestionListAdapter adapter = new QuestionListAdapter(QuestionsActivity.this, listbean);
 //        listQuestionList.setAdapter(adapter);
         quesTitle.setText(listbean.getTitle()+"");
-        DescriptionListViewAdapter adapter = new DescriptionListViewAdapter(QuestionsActivity.this, listbean);
+        DescriptionListViewAdapter adapter = new DescriptionListViewAdapter(listbean);
         listQuestionList.setAdapter(adapter);
         AppUtils.setListViewHeight(listQuestionList, 30);
     }
@@ -439,10 +436,5 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 break;
 
         }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

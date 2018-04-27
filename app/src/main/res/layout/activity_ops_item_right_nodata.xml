@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/ops_item_ll"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/btn_date_dwmy_normal"
+        android:layout_height="@dimen/y344">
+      <ImageView
+          android:layout_gravity="center"
+          android:layout_marginTop="@dimen/y76"
+          android:src="@mipmap/ic_right"
+          android:layout_width="@dimen/x107"
+          android:layout_height="@dimen/y96"
+          />
+        <TextView
+            android:textColor="#666666"
+            android:id="@+id/ops_item_right_nodata_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y36"
+            android:textSize="14sp"
+            android:text="全部设备运转良好，请继续保持！"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"
+        android:background="@color/border"
+        />
+</LinearLayout>

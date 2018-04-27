@@ -43,11 +43,20 @@ public class DoubleUtils {
     public static String getNum(double d){
         double n=0;
         if(d!=0){
-           if(d<10000){
-               return String.format("%.1f", d)+"";
-           }else{
-               n = (double)d/10000;
-           }
+            if(d>0){
+                if(d<10000){
+                    return String.format("%.1f", d)+"";
+                }else{
+                    n = (double)d/10000;
+                }
+            }else{
+                if(d>-10000){
+                    return String.format("%.1f", d)+"";
+                }else{
+                    n = (double)d/10000;
+                }
+            }
+
         }else{
             return 0+"";
         }

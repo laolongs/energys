@@ -15,9 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.model.result.Identity_Passbean;
@@ -27,32 +24,33 @@ import cn.tties.energy.view.iview.IIdentity_PassView;
 
 public class PasswordActivity extends BaseActivity<Identity_PassPresenter> implements IIdentity_PassView {
     private static final String TAG = "PasswordActivity";
-    @BindView(R.id.toolbar_ll)
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.identity_pass_oldpwd)
     EditText identityPassOldpwd;
-    @BindView(R.id.identity_pass_newpwd)
     EditText identityPassNewpwd;
-    @BindView(R.id.identity_pass_confirm)
     Button identityPassConfirm;
-    @BindView(R.id.identity_pass_newpwd2)
     EditText identityPassNewpwd2;
-    @BindView(R.id.identity_pass_call)
     TextView identityPassCall;
     //打电话
     private String[] perms = {Manifest.permission.CALL_PHONE};
     private final int PERMS_REQUEST_CODE = 200;
-    private Unbinder bind;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
+    }
+
+    private void initFindView() {
+        toolbarLl = findViewById(R.id.toolbar_ll);
+        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarText = findViewById(R.id.toolbar_text);
+        identityPassOldpwd = findViewById(R.id.identity_pass_oldpwd);
+        identityPassNewpwd = findViewById(R.id.identity_pass_newpwd);
+        identityPassConfirm = findViewById(R.id.identity_pass_confirm);
+        identityPassNewpwd2 = findViewById(R.id.identity_pass_newpwd2);
+        identityPassCall = findViewById(R.id.identity_pass_call);
     }
 
     private void initView() {
@@ -135,10 +133,5 @@ public class PasswordActivity extends BaseActivity<Identity_PassPresenter> imple
             intent.setData(Uri.parse("tel:" +"4006682879"));
             startActivity(intent);
         }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

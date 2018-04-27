@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import cn.tties.energy.R;
@@ -42,13 +40,10 @@ import cn.tties.energy.view.dialog.HorProgressDialog;
 import static cn.tties.energy.R.drawable.versetion_text_shop_select;
 
 public class UpdateActivity extends Activity implements View.OnClickListener,EasyPermissions.PermissionCallbacks {
-    @BindView(R.id.title)
+    private static final String TAG = "UpdateActivity";
     TextView title;
-    @BindView(R.id.description)
     TextView description;
-    @BindView(R.id.btn_confirm)
     Button btnConfirm;
-    @BindView(R.id.btn_cancel)
     Button btnCancel;
     private HorProgressDialog dialog;
 
@@ -66,7 +61,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener,Eas
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        ButterKnife.bind(this);
+        initFindView();
         mVersion = ACache.getInstance().getAsObject(Constants.CACHEE_VERSION);
         isMminVersion = false;
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -97,7 +92,12 @@ public class UpdateActivity extends Activity implements View.OnClickListener,Eas
         btnCancel.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
     }
-
+    private void initFindView() {
+        title=findViewById(R.id.title);
+        description=findViewById(R.id.description);
+        btnConfirm=findViewById(R.id.btn_confirm);
+        btnCancel=findViewById(R.id.btn_cancel);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

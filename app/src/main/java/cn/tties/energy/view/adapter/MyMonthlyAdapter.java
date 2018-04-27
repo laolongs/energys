@@ -24,9 +24,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.model.result.Energy_Monthlybean;
 import cn.tties.energy.utils.ShareUtils;
@@ -48,8 +47,8 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
     //------进度条
     private OutputStream outputStream;
 
-    public MyMonthlyAdapter(Context context, Energy_Monthlybean bean) {
-        this.context = context;
+    public MyMonthlyAdapter(Energy_Monthlybean bean) {
+        this.context = MyApplication.getInstance();
         this.bean = bean;
         inflater = LayoutInflater.from(context);
     }
@@ -187,23 +186,22 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.energy_monthly_pdfimg)
         ImageView energyMonthlyPdfimg;
-        @BindView(R.id.energy_monthly_tv)
         TextView energyMonthlyTv;
-        @BindView(R.id.energy_monthly_time)
         TextView energyMonthlyTime;
-        @BindView(R.id.energy_monthly_loadimg)
         ImageView energyMonthlyLoadimg;
-        @BindView(R.id.energy_monthly_load)
         TextView energyMonthlyLoad;
-        @BindView(R.id.month_probar)
         ProgressBar monthProbar;
-        @BindView(R.id.energy_monthly_imgshare)
         ImageView energyMonthlyImgshare;
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            energyMonthlyPdfimg = (ImageView) itemView.findViewById(R.id.energy_monthly_pdfimg);
+            energyMonthlyTv = (TextView) itemView.findViewById(R.id.energy_monthly_tv);
+            energyMonthlyTime = (TextView) itemView.findViewById(R.id.energy_monthly_time);
+            energyMonthlyLoadimg = (ImageView) itemView.findViewById(R.id.energy_monthly_loadimg);
+            energyMonthlyLoad = (TextView) itemView.findViewById(R.id.energy_monthly_load);
+            monthProbar = (ProgressBar) itemView.findViewById(R.id.month_probar);
+            energyMonthlyImgshare = (ImageView) itemView.findViewById(R.id.energy_monthly_imgshare);
         }
     }
 }

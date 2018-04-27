@@ -20,9 +20,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.common.Constants;
@@ -36,19 +33,12 @@ import cn.tties.energy.view.iview.ILoginView;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements ILoginView {
     private static final String TAG = "LoginActivity";
-    @BindView(R.id.edittext_username)
     EditText edittextUsername;
-    @BindView(R.id.edittext_password)
     EditText edittextPassword;
-    @BindView(R.id.btn_intoMain)
     Button btnIntoMain;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.login_check)
     CheckBox loginCheck;
-    @BindView(R.id.login_call)
     TextView loginCall;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -59,14 +49,23 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     //打电话
     private String[] perms = {Manifest.permission.CALL_PHONE};
     private final int PERMS_REQUEST_CODE = 200;
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
+        initFindView();
         initView();
     }
+    private void initFindView() {
+        edittextUsername = findViewById(R.id.edittext_username);
+        edittextPassword = findViewById(R.id.edittext_password);
+        btnIntoMain = findViewById(R.id.btn_intoMain);
+        toolbarLeft = findViewById(R.id.toolbar_left);
+        toolbarText = findViewById(R.id.toolbar_text);
+        loginCheck = findViewById(R.id.login_check);
+        loginCall = findViewById(R.id.login_call);
+    }
+
     private void initView() {
         toolbarText.setText("登录");
         toolbarLeft.setVisibility(View.GONE);
@@ -177,10 +176,5 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
             intent.setData(Uri.parse("tel:" +"4006682879"));
             startActivity(intent);
         }
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
     }
 }

@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.BarDataThreeChart;
@@ -47,40 +44,43 @@ import cn.tties.energy.view.iview.IData_PressView;
  * 电压不平衡
  */
 public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implements IData_PressView {
-    @BindView(R.id.toolbar_ll)
+    private static final String TAG = "Data_PressActivity";
     LinearLayout toolbarLl;
-    @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_press_chart1)
     LineDataChart dataPressChart1;
-    @BindView(R.id.data_press_chart2)
     LineDataChart dataPressChart2;
-    @BindView(R.id.data_press_chart3)
     BarDataThreeChart dataPressChart3;
-    @BindView(R.id.data_press_time_tv)
     TextView dataTimeTv;
-    @BindView(R.id.data_press_time)
     LinearLayout dataPressTime;
-    @BindView(R.id.data_press_allelectric)
     LinearLayout dataPressAllelectric;
-    @BindView(R.id.data_press_ele_tv)
     TextView dataPressEleTv;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
-    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ButterKnife.bind(this);
-        mPresenter.getAllElectricityData();
+        initFindView();
         initView();
     }
 
+    private void initFindView() {
+        toolbarLl= findViewById(R.id.toolbar_ll);
+        toolbarLeft= findViewById(R.id.toolbar_left);
+        toolbarText= findViewById(R.id.toolbar_text);
+        dataPressChart1= findViewById(R.id.data_press_chart1);
+        dataPressChart2= findViewById(R.id.data_press_chart2);
+        dataPressChart3= findViewById(R.id.data_press_chart3);
+        dataTimeTv= findViewById(R.id.data_press_time_tv);
+        dataPressTime= findViewById(R.id.data_press_time);
+        dataPressAllelectric= findViewById(R.id.data_press_allelectric);
+        dataPressEleTv= findViewById(R.id.data_press_ele_tv);
+    }
+
     private void initView() {
+        mPresenter.getAllElectricityData();
         dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerWheelTwoDialog(Data_PressActivity.this);
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -250,11 +250,4 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         float minute = allnumber * 60;
         return minute;
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        bind.unbind();
-    }
-
 }

@@ -17,9 +17,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseFragment;
 import cn.tties.energy.common.Constants;
@@ -46,50 +43,43 @@ import cn.tties.energy.view.iview.IIdentityFragmentView;
 
 public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> implements View.OnClickListener, IIdentityFragmentView {
     private static final String TAG = "IdentityFragment";
-    Unbinder unbinder;
-    @BindView(R.id.identity_toolbar)
     Toolbar identityToolbar;
-    //    @BindView(R.id.identity_name)
     TextView identityName;
-    //    @BindView(R.id.identity_company)
     TextView identityCompany;
-    //    @BindView(R.id.identity_number)
     TextView identityNumber;
-    @BindView(R.id.layout_password)
     LinearLayout layoutPassword;
-    @BindView(R.id.layout_version)
     LinearLayout layoutVersion;
-    @BindView(R.id.identity_about)
     LinearLayout identityAbout;
-    @BindView(R.id.layout_loginout)
     LinearLayout layoutLoginout;
-    //    @BindView(R.id.identity_switch_electricity)
     TextView identitySwitchElectricity;
-    @BindView(R.id.identity_img)
     ImageView identityImg;
-    int num = 0;
-//    @BindView(R.id.identity_switch_selsect)
     ImageView identitySwitchSelsect;
-
+    int num = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_identity, null);
-        EventBus.getDefault().isRegistered(this);
+        initFindView(inflate);
+        return inflate;
+    }
+
+    private void initFindView(View inflate) {
+        identityToolbar = inflate.findViewById(R.id.identity_toolbar);
+        layoutPassword = inflate.findViewById(R.id.layout_password);
+        layoutVersion = inflate.findViewById(R.id.layout_version);
+        identityAbout = inflate.findViewById(R.id.identity_about);
+        layoutLoginout = inflate.findViewById(R.id.layout_loginout);
+        identityImg = inflate.findViewById(R.id.identity_img);
         identityName = inflate.findViewById(R.id.identity_name);
         identityNumber = inflate.findViewById(R.id.identity_number);
         identityCompany = inflate.findViewById(R.id.identity_company);
         identitySwitchSelsect = inflate.findViewById(R.id.identity_switch_selsect);
         identitySwitchElectricity = inflate.findViewById(R.id.identity_switch_electricity);
-        unbinder = ButterKnife.bind(this, inflate);
-        Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
-//        mPresenter.getOpsloginData();//1502183891109
         layoutPassword.setOnClickListener(this);
         layoutVersion.setOnClickListener(this);
         identityAbout.setOnClickListener(this);
         layoutLoginout.setOnClickListener(this);
-        return inflate;
     }
 
     @Override
@@ -114,13 +104,19 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
 //                break;
             //修改密码
             case R.id.layout_password:
-                intent = new Intent(getActivity(), PasswordActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), PasswordActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //版本更新
             case R.id.layout_version:
-                intent = new Intent(getActivity(), UpdateActivity.class);
-                startActivity(intent);
+                if(MyNoDoubleClickListener.isFastClick()){
+                    intent = new Intent(getActivity(), UpdateActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             //关于我们
             case R.id.identity_about:
@@ -134,7 +130,6 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ToastUtil.showLong(getActivity(), "已退出登录");
-
                         ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS, false);
                         final Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
@@ -144,13 +139,6 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                 break;
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     @Override
     public void getOpsLoginData(final OpsLoginbean opsLoginbean) {
         OpsLoginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
@@ -190,7 +178,5 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
         } else {
             Log.i(TAG, "getOpsLoginData: " + "当前运维无信息");
         }
-
-
     }
 }

@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.tties.energy.R;
+import cn.tties.energy.application.MyApplication;
 import cn.tties.energy.model.result.Opsbean;
 
 /**
@@ -26,8 +25,8 @@ public class Questions_discussAdapter extends RecyclerView.Adapter<Questions_dis
 
 
 
-    public Questions_discussAdapter(Context context, List<Opsbean.ResultBean.QuestionListBean.AdviceListBean> bean) {
-        this.context = context;
+    public Questions_discussAdapter( List<Opsbean.ResultBean.QuestionListBean.AdviceListBean> bean) {
+        this.context = MyApplication.getInstance();
         this.bean = bean;
     }
 
@@ -53,19 +52,18 @@ public class Questions_discussAdapter extends RecyclerView.Adapter<Questions_dis
     }
 
     public class MydiscussViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.discuss_logo)
         TextView discussLogo;
-        @BindView(R.id.discuss_name)
         TextView discussName;
-        @BindView(R.id.discuss_time)
         TextView discussTime;
-        @BindView(R.id.discuss_content)
         TextView discussContent;
-        @BindView(R.id.discuss_group)
         TextView discussGroup;
         public MydiscussViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            discussLogo = (TextView) itemView.findViewById(R.id.discuss_logo);
+            discussName = (TextView) itemView.findViewById(R.id.discuss_name);
+            discussTime = (TextView) itemView.findViewById(R.id.discuss_time);
+            discussContent = (TextView) itemView.findViewById(R.id.discuss_content);
+            discussGroup = (TextView) itemView.findViewById(R.id.discuss_group);
         }
     }
 }
