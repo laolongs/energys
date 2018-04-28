@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,16 +11,20 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
@@ -57,7 +62,9 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
-
+    private int days;
+    int  months;
+    int years;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +92,10 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         electricalTv.setOnClickListener(this);
         mPresenter.getAllElectricityData();
         dataElectricalTv.setText(DateUtil.getCurrentYear() + "年" + DateUtil.getCurrentMonth() + "月");
+        //设置x轴数量 判断当前月份
+        months=DateUtil.getCurrentMonth();
+        years=DateUtil.getCurrentYear();
+        days = DateUtil.getDays(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth());
         dialogtime = new MyTimePickerWheelTwoDialog(Data_ElectricActivity.this);
         toolbarText.setText("电量数据");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +114,14 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                         if (MyNoDoubleClickListener.isFastClick()) {
                             String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
                             dataElectricalTv.setText(tiemMonthBase);
+                            String month = StringUtil.getMonth(tiemMonthBase);
+                            String year = StringUtil.getYear(tiemMonthBase);
+                            months=(Integer.parseInt(month));
+                            years=(Integer.parseInt(year));
+                            days = DateUtil.getDays(Integer.parseInt(year), (Integer.parseInt(month)-1));
                             mPresenter.getData_Electric();
+                            Log.i(TAG, "OnCliekTimeListener: "+month+year);
+                            Log.i(TAG, "OnCliekTimeListener: "+days);
                         }
                     }
                 });
@@ -119,6 +137,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                 }
             }
         });
+
     }
     @Override
     public void onClick(View view) {
@@ -156,27 +175,28 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     public void setData_ElectricData(Data_Electricbean bean) {
 
         if (bean.getDataList().size() > 0) {
+            ArrayList<Integer> listcolor=new ArrayList<>();
             electricalChart.clearData();
-            Log.i(TAG, "setData_ElectricData: " + "zzzzzzzzz");
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < bean.getDataList().size(); i++) {
+                Log.i(TAG, "setData_ElectricData: "+bean.getDataList().size());
                 num = num + bean.getDataList().get(i).getA();
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getDataList().get(i).getA());
-                values.add(entry);
-                if (bean.getDataList().get(i).getFreezeTime() != null || bean.getDataList().get(i).getFreezeTime().equals("")) {
-                    String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(), 5, 10);
-                    listDate.add(split);
-                }
-
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(), 5, 10);
+                int index = (int) XMap.get(split);
+                values.add(new Entry(index, (float) bean.getDataList().get(i).getA()));
             }
             XAxis xAxis = electricalChart.getXAxis();
             xAxis.setLabelCount(bean.getDataList().size(), true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0);
+            xAxis.setAxisMaximum(days - 1);
             electricalNum.setText("￥" + DoubleUtils.getNum(num));
             electricalChart.setDataSet(values, "");
-            electricalChart.setDayXAxis(listDate);
+            electricalChart.setDayXAxis((List)map.get("X"));
             electricalChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
@@ -188,7 +208,6 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         } else {
             MyHint.myHintDialog(this);
         }
-
 
     }
 

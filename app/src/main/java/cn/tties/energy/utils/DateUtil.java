@@ -197,7 +197,7 @@ public class DateUtil {
     }
 
     //返回当月天数
-    int getDays(int year, int month)
+   public static int getDays(int year, int month)
     {
         int days;
         int FebDay = 28;

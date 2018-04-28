@@ -107,8 +107,8 @@ public class LineDataChart extends  LineChart {
         //设置曲线值的圆点是实心还是空心
 //        set.setDrawCircleHole(false);
         //线模式为圆滑曲线（默认折线）
-//        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        set.setMode(LineDataSet.Mode.LINEAR);
+        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        set.setMode(LineDataSet.Mode.LINEAR);
 
         setList.add(set);
         return set;
@@ -154,8 +154,8 @@ public class LineDataChart extends  LineChart {
         //lineLength控制虚线段的长度
         //spaceLength控制线之间的空间
         xAxis.enableGridDashedLine(10f, 10f, 0f);
-//        xAxis.setAxisMinimum(0f);//设置x轴的最小值
-//        xAxis.setAxisMaximum(10f);//设置最大值
+        xAxis.setAxisMinimum(0f);//设置x轴的最小值
+        xAxis.setAxisMaximum(11f);//设置最大值
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差

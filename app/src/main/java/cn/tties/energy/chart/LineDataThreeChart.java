@@ -272,7 +272,7 @@ public class LineDataThreeChart extends  LineChart {
         //设置图列文字颜色
 
         Legend l = getLegend();//图例
-        l.setEnabled(true);
+        l.setEnabled(false);
 //        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);//设置图例的位置
 //        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);//设置图例的位置
         l.setTextSize(10f);//设置文字大小

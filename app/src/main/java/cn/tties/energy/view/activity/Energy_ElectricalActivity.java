@@ -8,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataFourChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.common.MyProgressRound;
@@ -166,50 +169,50 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
             ArrayList<Entry> values3 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if(bean.getDataList().size()!=12){
-                int num = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry1 = new Entry(i, 0f);
-                    Entry entry2 = new Entry(i, 0f);
-                    Entry entry3 = new Entry(i, 0f);
-                    if(i>=bean.getDataList().size()){
-                        int monthNum=i+1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if(positionNum==1){
-                            listDate.add("0"+monthNum);
-                        }else{
-                            listDate.add(monthNum+"");
-                        }
-                        entry1.setY(0);
-                        entry2.setY(0);
-                        entry3.setY(0);
-
-                    }else{
-                        int low = bean.getDataList().get(i).getSectorGuValue();
-                        int cusp = bean.getDataList().get(i).getSectorJianValue();
-                        int hight = bean.getDataList().get(i).getSectorFengValue();
-                        number = low + hight + cusp;
-                        if(number==0){
-                            cusp2 = (float) 0;
-                            hight2 = (float) 0;
-                            low2 = (float) 0;
-                        }else{
-                            cusp2 = (float) (bean.getDataList().get(i).getSectorJianValue()/number*100);
-                            hight2 = (float) (bean.getDataList().get(i).getSectorFengValue()/number*100)+ cusp2;
-                            low2 = (float) (bean.getDataList().get(i).getSectorGuValue()/number*100)+ cusp2 + hight2;
-                        }
-                        entry1.setY(cusp2);
-                        entry2.setY(hight2);
-                        entry3.setY(low2);
-                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                        listDate.add(split[1]);
-                    }
-                    values1.add(entry1);
-                    values2.add(entry2);
-                    values3.add(entry3);
-                }
-            }else{
+//            if(bean.getDataList().size()!=12){
+//                int num = 12 - bean.getDataList().size();
+//                allnum = bean.getDataList().size() + num;
+//                for (int i = 0; i < allnum; i++) {
+//                    Entry entry1 = new Entry(i, 0f);
+//                    Entry entry2 = new Entry(i, 0f);
+//                    Entry entry3 = new Entry(i, 0f);
+//                    if(i>=bean.getDataList().size()){
+//                        int monthNum=i+1;
+//                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+//                        if(positionNum==1){
+//                            listDate.add("0"+monthNum);
+//                        }else{
+//                            listDate.add(monthNum+"");
+//                        }
+//                        entry1.setY(0);
+//                        entry2.setY(0);
+//                        entry3.setY(0);
+//
+//                    }else{
+//                        int low = bean.getDataList().get(i).getSectorGuValue();
+//                        int cusp = bean.getDataList().get(i).getSectorJianValue();
+//                        int hight = bean.getDataList().get(i).getSectorFengValue();
+//                        number = low + hight + cusp;
+//                        if(number==0){
+//                            cusp2 = (float) 0;
+//                            hight2 = (float) 0;
+//                            low2 = (float) 0;
+//                        }else{
+//                            cusp2 = (float) (bean.getDataList().get(i).getSectorJianValue()/number*100);
+//                            hight2 = (float) (bean.getDataList().get(i).getSectorFengValue()/number*100)+ cusp2;
+//                            low2 = (float) (bean.getDataList().get(i).getSectorGuValue()/number*100)+ cusp2 + hight2;
+//                        }
+//                        entry1.setY(cusp2);
+//                        entry2.setY(hight2);
+//                        entry3.setY(low2);
+//                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+//                        listDate.add(split[1]);
+//                    }
+//                    values1.add(entry1);
+//                    values2.add(entry2);
+//                    values3.add(entry3);
+//                }
+//            }else{
                 for (int i = 0; i < bean.getDataList().size(); i++) {
                     double num = 0;
                     int low = bean.getDataList().get(i).getSectorGuValue();
@@ -228,20 +231,24 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
                         hight2 = (float) (bean.getDataList().get(i).getSectorFengValue()/num*100)+ cusp2;
                         low2 = (float) (bean.getDataList().get(i).getSectorGuValue()/num*100)+ cusp2 + hight2;
                     }
-                    entry1.setY(cusp2);
-                    entry2.setY(hight2);
-                    entry3.setY(low2);
-                    values1.add(entry1);
-                    values2.add(entry2);
-                    values3.add(entry3);
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
+
+                    values1.add(new Entry(i,(float) cusp2));
+                    values2.add(new Entry(i,(float) hight2));
+                    values3.add(new Entry(i,(float) low2));
+
                 }
-            }
             enereyElectricalChart.setDataSet3(values1, "尖峰");
             enereyElectricalChart.setDataSet2(values2, "高峰");
             enereyElectricalChart.setDataSet1(values3, "低谷");
-            enereyElectricalChart.setDayXAxis(listDate);
+            enereyElectricalChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+//            enereyElectricalChart.setDayXAxis(listDate);
             enereyElectricalChart.loadChart();
         }else{
             MyHint.myHintDialog(this);

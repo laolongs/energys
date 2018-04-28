@@ -42,12 +42,47 @@
                 </cn.tties.energy.chart.LineDataThreeChart>
 
             </LinearLayout>
-            <View
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_below="@+id/data_current_ll"
                 android:id="@+id/data_currentpress_vvvv"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="@dimen/y60">
-            </View>
+                <TextView
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#F7A750"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:text="A相电流"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#20F248"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="11sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B相电流"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#E22E2D"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="11sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C相电流"/>
+
+            </LinearLayout>
             <View
                 android:layout_below="@+id/data_currentpress_vvvv"
                 android:id="@+id/data_currentpress_vvv"
@@ -78,12 +113,46 @@
                     android:layout_height="@dimen/y520">
                 </cn.tties.energy.chart.LineDataThreeChart>
             </LinearLayout>
-            <View
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_below="@+id/data_currentpress_ll"
                 android:id="@+id/data_currentpress_vv"
                 android:layout_width="match_parent"
+                android:gravity="center"
                 android:layout_height="@dimen/y60">
-            </View>
+                <TextView
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#F7A750"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:text="A相电流"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#20F248"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="11sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B相电流"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x20"
+                    android:layout_width="@dimen/x30"
+                    android:layout_height="@dimen/y12"
+                    android:background="#E22E2D"/>
+                <TextView
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="11sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C相电流"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_below="@+id/data_currentpress_vv"

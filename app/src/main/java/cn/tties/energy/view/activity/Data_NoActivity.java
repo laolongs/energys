@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,12 +13,15 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
@@ -25,6 +29,7 @@ import cn.tties.energy.chart.BarDataThreeChart;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
@@ -59,7 +64,9 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
-
+    private int days;
+    int  months;
+    int years;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +92,9 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     private void initView() {
         mPresenter.getAllElectricityData();
         dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        months=DateUtil.getCurrentMonth();
+        years=DateUtil.getCurrentYear();
+        days = DateUtil.getDays(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth());
         dialogtime = new MyTimePickerWheelTwoDialog(Data_NoActivity.this);
         toolbarText.setText("电流不平衡");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +114,11 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                     public void OnCliekTimeListener(int poaiton) {
                         String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
                         dataNoTimeTv.setText(tiemMonthBase);
+                        String month = StringUtil.getMonth(tiemMonthBase);
+                        String year = StringUtil.getYear(tiemMonthBase);
+                        months=(Integer.parseInt(month));
+                        years=(Integer.parseInt(year));
+                        days = DateUtil.getDays(Integer.parseInt(year), (Integer.parseInt(month)-1));
                         mPresenter.getData_NoData();
                     }
                 });
@@ -141,26 +156,29 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
-                entry.setY((float)Float.parseFloat(split1[0])/24*100);
-                values1.add(entry);
-                if(bean.getMaxTimeData().get(i).getFREEZETIME()!=null||bean.getMaxTimeData().get(i).getFREEZETIME().equals("")){
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getMaxTimeData().size()-1; i++) {
                     String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
-                    listDate.add(split);
-                }
+                    String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
+                    Integer index = (int)XMap.get(split);
+                    values1.add(new Entry(index, (float)Float.parseFloat(split1[0])/24*100));
 
+
+//                values1.add(new Entry(index, 0));
             }
+
             XAxis xAxis = dataNoChart2.getXAxis();
             xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days - 1);
             YAxis axisLeft = dataNoChart2.getAxisLeft();
             axisLeft.setLabelCount(7,true);
             axisLeft.setStartAtZero(true);
             dataNoChart2.setDataSet(values1, "");
-            dataNoChart2.setDayXAxis(listDate);
-//            dataNoChart2.setDayYAxis(listYDate);
+            dataNoChart2.setDayXAxis((List)map.get("X"));
             dataNoChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
@@ -178,21 +196,24 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();
             List<String> listDate2 = new ArrayList<String>();
-            for (int i = 0; i < bean.getMaxData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getMaxData().get(i).getIUMAX());
-                values2.add(entry);
-                if(bean.getMaxData().get(i).getFREEZETIME()!=null||bean.getMaxData().get(i).getFREEZETIME().equals("")) {
-                    String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
-                    listDate2.add(split);
-                }
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getMaxData().size()-1; i++) {
+                String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
+                listDate2.add(split);
+                int index = (int) XMap.get(split);
+                values2.add(new Entry(index, (float) bean.getMaxData().get(i).getIUMAX()));
+
 
             }
             XAxis xAxis = dataNoChart1.getXAxis();
             xAxis.setLabelCount(bean.getMaxData().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             dataNoChart1.setDataSet(values2, "");
-            dataNoChart1.setDayXAxis(listDate2);
+            dataNoChart1.setDayXAxis((List)map.get("X"));
             dataNoChart1.loadChart();
         }else {
             MyHint.myHintDialog(this);
@@ -201,21 +222,21 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart3.clearData();
             //不平衡度越限日累计时间
             ArrayList<BarEntry> values3 = new ArrayList<>();
-            List<String> listDate3 = new ArrayList<String>();
-            for (int i = 0; i < bean.getLimitData().size(); i++) {
-                BarEntry entry = new BarEntry(i, 0f);
-                entry.setY((float) bean.getLimitData().get(i).getIULIMIT());
-                values3.add(entry);
-                if(bean.getLimitData().get(i).getFREEZETIME()!=null||bean.getLimitData().get(i).getFREEZETIME().equals("")) {
-                    String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
-                    listDate3.add(split);
-                }
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getLimitData().size()-1; i++) {
+                String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
+                int index = (int) XMap.get(split);
+                values3.add(new BarEntry(index, (float) bean.getLimitData().get(i).getIULIMIT()));
             }
             XAxis xAxis = dataNoChart3.getXAxis();
             xAxis.setLabelCount(bean.getLimitData().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(1f);
+            xAxis.setAxisMaximum(days-1);
             dataNoChart3.setDataSet(values3, "");
-            dataNoChart3.setDayXAxis(listDate3);
+            dataNoChart3.setDayXAxis((List)map.get("X"));
             dataNoChart3.loadChart();
         }else {
             MyHint.myHintDialog(this);

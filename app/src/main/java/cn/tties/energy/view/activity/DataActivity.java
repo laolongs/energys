@@ -23,6 +23,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
@@ -69,6 +70,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean = new DataAllbean();
     int year = 0;
+    private ArrayList<String> liststr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -268,66 +270,32 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setDataChartData(Databean bean) {
-        int allnum;
         if (bean.getDataList().size() > 0) {
-            int color = Color.parseColor("#38A6FE");
-            int color2 = Color.parseColor("#00000000");
             dataChart.clearData();
-            ArrayList<Integer> listcolor=new ArrayList<>();
             ArrayList<Entry> values = new ArrayList<>();
-            List<String> listDate = new ArrayList<String>();
-            //判断数据是否全年，否则动态添加数据
-            if (bean.getDataList().size() != 12) {
-                int num = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i,0f);
-                    if (i >= bean.getDataList().size()) {
-                        int monthNum = i + 1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if (positionNum == 1) {
-                            listDate.add("0" + monthNum);
-                        } else {
-                            listDate.add(monthNum + "");
-                        }
-                        entry.setY((float) 0);
-                        listcolor.add(color2);
-                    } else {
-                        entry.setY((float) bean.getDataList().get(i).getTotalSum());
-                        Log.i(TAG, "setEnergy_BaseenergyYearData: " + bean.getDataList().get(i).getBaseDate());
-                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                        if(i==bean.getDataList().size()-1){
-                            listcolor.add(color2);
-                            Log.i(TAG, "setDataChartData: "+i);
-                        }
-                    }
-                    values.add(entry);
-
-                }
-            } else {
-                for (int i = 0; i < bean.getDataList().size(); i++) {
-                    bean.getDataList().get(i).getCost();
-                    Entry entry = new Entry(i, 0f);
-                    entry.setY((float) bean.getDataList().get(i).getTotalSum());
-                    values.add(entry);
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
-                    listcolor.add(color);
-
-                }
+            for (int i = 0; i < bean.getDataList().size(); i++) {
+                values.add(new Entry(i,(float) bean.getDataList().get(i).getTotalSum()));
             }
-            LineDataSet dataSet = dataChart.setDataSet(values, "");
-            dataSet.setColors(listcolor);
+            dataChart.setDataSet(values, "");
             dataChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    String num = DoubleUtils.getNum((double) value);
+                    String num = DoubleUtils.getNum(value);
                     return num;
                 }
             });
-            dataChart.setDayXAxis(listDate);
+
+            dataChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+//                    Log.i(TAG, "getFormattedValue: "+value);
+//                    String num0 = liststr.get((int) value);
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+
             dataChart.loadChart();
         }
 

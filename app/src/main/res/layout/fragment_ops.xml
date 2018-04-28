@@ -261,6 +261,7 @@
                         </android.support.v7.widget.RecyclerView>
 
                     </in.srain.cube.views.ptr.PtrFrameLayout>
+
                     <TextView
                         android:visibility="gone"
                         android:id="@+id/ops_rcy_hint"

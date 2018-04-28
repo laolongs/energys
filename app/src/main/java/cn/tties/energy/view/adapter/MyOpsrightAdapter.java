@@ -190,9 +190,4 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public interface onClickListener {
         void onClickItemListener(int postion);
     }
-//    public void apapterClear(){
-//        for (int i = 0; i < listhead.size(); i++) {
-//            listhead.remove(i);
-//        }
-//    }
 }

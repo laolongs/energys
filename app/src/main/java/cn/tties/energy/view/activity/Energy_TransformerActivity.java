@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
@@ -208,44 +211,53 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if(bean.getResult().size()!=12){
-                int num = 12 - bean.getResult().size();
-                allnum = bean.getResult().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i, 0f);
-                    if(i>=bean.getResult().size()){
-                        int monthNum=i+1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if(positionNum==1){
-                            listDate.add("0"+monthNum);
-                        }else{
-                            listDate.add(monthNum+"");
-                        }
-                        entry.setY((float)0);
-                        listcolor.add(color2);
-                    }else{
-                        entry.setY((float) bean.getResult().get(i).getData());
-                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                    }
-                    values.add(entry);
-                }
-            }else{
+//            if(bean.getResult().size()!=12){
+//                int num = 12 - bean.getResult().size();
+//                allnum = bean.getResult().size() + num;
+//                for (int i = 0; i < allnum; i++) {
+//                    Entry entry = new Entry(i, 0f);
+//                    if(i>=bean.getResult().size()){
+//                        int monthNum=i+1;
+//                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+//                        if(positionNum==1){
+//                            listDate.add("0"+monthNum);
+//                        }else{
+//                            listDate.add(monthNum+"");
+//                        }
+//                        entry.setY((float)0);
+//                        listcolor.add(color2);
+//                    }else{
+//                        entry.setY((float) bean.getResult().get(i).getData());
+//                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
+//                        listDate.add(split[1]);
+//                        listcolor.add(color);
+//                    }
+//                    values.add(entry);
+//                }
+//            }else{
                 for (int i = 0; i < bean.getResult().size(); i++) {
-                    Entry entry = new Entry(i, 0f);
-                    entry.setY((float) bean.getResult().get(i).getData());
-                    values.add(entry);
-                    if(bean.getResult().get(i).getTime()!=null||!bean.getResult().get(i).getTime().equals("")){
-                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                    }
+//                    Entry entry = new Entry(i, 0f);
+//                    entry.setY((float) bean.getResult().get(i).getData());
+//                    values.add(entry);
+                    values.add(new Entry(i,(float) bean.getResult().get(i).getData()));
+//                    if(bean.getResult().get(i).getTime()!=null||!bean.getResult().get(i).getTime().equals("")){
+//                        String[] split = StringUtil.split(bean.getResult().get(i).getTime(), "-");
+//                        listDate.add(split[1]);
+//                        listcolor.add(color);
+//                    }
                 }
-            }
-            LineDataSet dataSet = energyTransformerChart1.setDataSet(values, "");
-            dataSet.setColors(listcolor);
-            energyTransformerChart1.setDayXAxis(listDate);
+//            }
+            energyTransformerChart1.setDataSet(values, "");
+//            dataSet.setColors(listcolor);
+            energyTransformerChart1.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+//            energyTransformerChart1.setDayXAxis(listDate);
             energyTransformerChart1.loadChart();
         }else{
             MyHint.myHintDialog(this);
@@ -266,42 +278,51 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if(bean.getResult().size()!=12){
-                int num = 12 - bean.getResult().size();
-                allnum = bean.getResult().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i, 0f);
-                    if(i>=bean.getResult().size()){
-                        int monthNum=i+1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if(positionNum==1){
-                            listDate.add("0"+monthNum);
-                        }else{
-                            listDate.add(monthNum+"");
-                        }
-                        entry.setY((float)0);
-                        listcolor.add(color2);
-                    }else{
-                        entry.setY((float) bean.getResult().get(i).getData());
-                        String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                    }
-                    values.add(entry);
-                }
-            }else{
+//            if(bean.getResult().size()!=12){
+//                int num = 12 - bean.getResult().size();
+//                allnum = bean.getResult().size() + num;
+//                for (int i = 0; i < allnum; i++) {
+//                    Entry entry = new Entry(i, 0f);
+//                    if(i>=bean.getResult().size()){
+//                        int monthNum=i+1;
+//                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+//                        if(positionNum==1){
+//                            listDate.add("0"+monthNum);
+//                        }else{
+//                            listDate.add(monthNum+"");
+//                        }
+//                        entry.setY((float)0);
+//                        listcolor.add(color2);
+//                    }else{
+//                        entry.setY((float) bean.getResult().get(i).getData());
+//                        String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
+//                        listDate.add(split[1]);
+//                        listcolor.add(color);
+//                    }
+//                    values.add(entry);
+//                }
+//            }else{
                 for (int i = 0; i < bean.getResult().size(); i++) {
-                    Entry entry = new Entry(i, 0f);
-                    entry.setY((float) bean.getResult().get(i).getData());
-                    values.add(entry);
-                    String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
-                    listcolor.add(color);
+//                    Entry entry = new Entry(i, 0f);
+//                    entry.setY((float) bean.getResult().get(i).getData());
+//                    values.add(entry);
+                    values.add(new Entry(i,(float) bean.getResult().get(i).getData()));
+//                    String[] split = StringUtil.split(bean.getResult().get(i).getBaseDate(), "-");
+//                    listDate.add(split[1]);
+//                    listcolor.add(color);
                 }
-            }
-            LineDataSet dataSet = energyTransformerChart2.setDataSet(values, "");
-            dataSet.setColors(listcolor);
-            energyTransformerChart2.setDayXAxis(listDate);
+//            }
+            energyTransformerChart2.setDataSet(values, "");
+            energyTransformerChart2.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+//            dataSet.setColors(listcolor);
+//            energyTransformerChart2.setDayXAxis(listDate);
             energyTransformerChart2.loadChart();
         }else{
             MyHint.myHintDialog(this);

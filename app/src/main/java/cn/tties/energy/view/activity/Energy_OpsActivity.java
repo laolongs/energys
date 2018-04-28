@@ -77,7 +77,7 @@ public class Energy_OpsActivity extends BaseActivity<Energy_MonthlyPresenter> im
         }else{
             enereyOpsLl.setVisibility(View.GONE);
         }
-        MyOpsMonthlyAdapter adapter = new MyOpsMonthlyAdapter(bean);
+        MyOpsMonthlyAdapter adapter = new MyOpsMonthlyAdapter(Energy_OpsActivity.this,bean);
         enereyOpsRec.setAdapter(adapter);
     }
 }

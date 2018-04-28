@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
@@ -25,6 +26,7 @@ import cn.tties.energy.chart.BarDataThreeChart;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
@@ -58,7 +60,9 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
-
+    private int days;
+    int  months;
+    int years;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +86,9 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     private void initView() {
         mPresenter.getAllElectricityData();
         dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        months=DateUtil.getCurrentMonth();
+        years=DateUtil.getCurrentYear();
+        days = DateUtil.getDays(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth());
         dialogtime = new MyTimePickerWheelTwoDialog(Data_PressActivity.this);
         toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +107,11 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                         public void OnCliekTimeListener(int poaiton) {
                             String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
                             dataTimeTv.setText(tiemMonthBase);
+                            String month = StringUtil.getMonth(tiemMonthBase);
+                            String year = StringUtil.getYear(tiemMonthBase);
+                            months=(Integer.parseInt(month));
+                            years=(Integer.parseInt(year));
+                            days = DateUtil.getDays(Integer.parseInt(year), (Integer.parseInt(month)-1));
                             mPresenter.getData_PressData();
                         }
                     });
@@ -139,27 +151,26 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-//            List<String> listYDate = new ArrayList<String>();
-            for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getMaxTimeData().size()-1; i++) {
+                String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
                 String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getVUMAXTIME(), ":");
-                entry.setY((float)Float.parseFloat(split1[0])/24*100);
-                values1.add(entry);
-                if(bean.getMaxTimeData().get(i).getFREEZETIME()!=null||bean.getMaxTimeData().get(i).getFREEZETIME().equals("")){
-                    String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
-                    listDate.add(split);
-                }
+                Integer index = (int)XMap.get(split);
+                values1.add(new Entry(index, (float)Float.parseFloat(split1[0])/24*100));
 
             }
             XAxis xAxis = dataPressChart2.getXAxis();
             xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             YAxis axisLeft = dataPressChart2.getAxisLeft();
             axisLeft.setLabelCount(7,true);
             axisLeft.setStartAtZero(true);
             dataPressChart2.setDataSet(values1, "");
-            dataPressChart2.setDayXAxis(listDate);
-//            dataPressChart2.setDayYAxis(listYDate);
+            dataPressChart2.setDayXAxis((List)map.get("X"));
             dataPressChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
@@ -177,21 +188,22 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();
             List<String> listDate2 = new ArrayList<String>();
-            for (int i = 0; i < bean.getMaxData().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getMaxData().get(i).getVUMAX());
-                values2.add(entry);
-                if(bean.getMaxData().get(i).getFREEZETIME()!=null||bean.getMaxData().get(i).getFREEZETIME().equals("")){
-                    String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
-                    listDate2.add(split);
-                }
-
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getMaxData().size()-1; i++) {
+                String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
+                listDate2.add(split);
+                int index = (int) XMap.get(split);
+                values2.add(new Entry(index, (float) bean.getMaxData().get(i).getVUMAX()));
             }
             XAxis xAxis = dataPressChart1.getXAxis();
-            xAxis.setLabelCount(bean.getMaxData().size(),true);
+            xAxis.setLabelCount(bean.getMaxData().size()-1,true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             dataPressChart1.setDataSet(values2, "");
-            dataPressChart1.setDayXAxis(listDate2);
+            dataPressChart1.setDayXAxis((List)map.get("X"));
             dataPressChart1.loadChart();
         }else {
             MyHint.myHintDialog(this);
@@ -201,21 +213,21 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             //不平衡度越限日累计时间
             ArrayList<BarEntry> values3 = new ArrayList<>();
             List<String> listDate3 = new ArrayList<String>();
-            for (int i = 0; i < bean.getLimitData().size(); i++) {
-                BarEntry entry = new BarEntry(i, 0f);
-                entry.setY((float) bean.getLimitData().get(i).getVULIMIT());
-                values3.add(entry);
-                if(bean.getLimitData().get(i).getFREEZETIME()!=null||bean.getLimitData().get(i).getFREEZETIME().equals("")){
-                    String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
-                    listDate3.add(split);
-                }
-
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
+            for (int i = 0; i < bean.getLimitData().size()-1; i++) {
+                String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
+                int index = (int) XMap.get(split);
+                values3.add(new BarEntry(index, (float) bean.getLimitData().get(i).getVULIMIT()));
             }
             XAxis xAxis = dataPressChart3.getXAxis();
             xAxis.setLabelCount(bean.getLimitData().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             dataPressChart3.setDataSet(values3, "");
-            dataPressChart3.setDayXAxis(listDate3);
+            dataPressChart3.setDayXAxis((List)map.get("X"));
             dataPressChart3.loadChart();
         }else {
             MyHint.myHintDialog(this);

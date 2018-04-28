@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -15,8 +16,10 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import cn.tties.energy.R;
 import cn.tties.energy.application.MyApplication;
@@ -25,6 +28,7 @@ import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.chart.LineDataTwoChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
@@ -64,7 +68,9 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     DataAllbean allbean=new DataAllbean();
-
+    private int days;
+    int  months;
+    int years;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +94,9 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         mPresenter.getAllElectricityData();
         dialogtime = new MyTimePickerWheelTwoDialog(Data_RateActivity.this);
         dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        months=DateUtil.getCurrentMonth();
+        years=DateUtil.getCurrentYear();
+        days = DateUtil.getDays(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth());
         toolbarText.setText("功率数据");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +114,11 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
                         public void OnCliekTimeListener(int poaiton) {
                             String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
                             dataRateTv.setText(tiemMonthBase);
+                            String month = StringUtil.getMonth(tiemMonthBase);
+                            String year = StringUtil.getYear(tiemMonthBase);
+                            months=(Integer.parseInt(month));
+                            years=(Integer.parseInt(year));
+                            days = DateUtil.getDays(Integer.parseInt(year), (Integer.parseInt(month)-1));
                             mPresenter.getData_HaveKwData();
                             mPresenter.getData_NoKvarKwData();
                         }
@@ -142,21 +156,21 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             havakwChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < data_haveKwbean.getDataList().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float)Float.parseFloat(String.valueOf(data_haveKwbean.getDataList().get(i).getD())) );
-                values.add(entry);
-                if(data_haveKwbean.getDataList().get(i).getFreezeTime()!=null||data_haveKwbean.getDataList().get(i).getFreezeTime().equals("")){
-                    String split = StringUtil.substring(data_haveKwbean.getDataList().get(i).getFreezeTime(),5,10);
-                    listDate.add(split);
-                }
-
+                String split = StringUtil.substring(data_haveKwbean.getDataList().get(i).getFreezeTime(),5,10);
+                int index = (int) XMap.get(split);
+                values.add(new Entry(index, (float)(float)Float.parseFloat(String.valueOf(data_haveKwbean.getDataList().get(i).getD()))));
             }
             XAxis xAxis = havakwChart.getXAxis();
             xAxis.setLabelCount(data_haveKwbean.getDataList().size(),true);
             xAxis.setLabelRotationAngle(-50);
-            LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
-            havakwChart.setDayXAxis(listDate);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
+            havakwChart.setDataSet(values, "");
+            havakwChart.setDayXAxis((List)map.get("X"));
             havakwChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
@@ -177,21 +191,22 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             nokvarChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < data_noKvarbean.getDataList().size(); i++) {
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) Float.parseFloat(String.valueOf(data_noKvarbean.getDataList().get(i).getD())));
-                values.add(entry);
-                if(data_noKvarbean.getDataList().get(i).getFreezeTime()!=null||data_noKvarbean.getDataList().get(i).getFreezeTime().equals("")){
-                    String split = StringUtil.substring(data_noKvarbean.getDataList().get(i).getFreezeTime(),5,10);
-                    listDate.add(split);
-                }
+                String split = StringUtil.substring(data_noKvarbean.getDataList().get(i).getFreezeTime(),5,10);
+                int index = (int) XMap.get(split);
+                values.add(new Entry(index, (float)Float.parseFloat(String.valueOf(data_noKvarbean.getDataList().get(i).getD()))));
 
             }
             XAxis xAxis = nokvarChart.getXAxis();
             xAxis.setLabelCount(data_noKvarbean.getDataList().size(),true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             nokvarChart.setDataSet(values, "");
-            nokvarChart.setDayXAxis(listDate);
+            nokvarChart.setDayXAxis((List)map.get("X"));
             nokvarChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {

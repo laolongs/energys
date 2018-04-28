@@ -23,6 +23,7 @@ import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
@@ -157,62 +158,33 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     public void setEnergy_BaseenergyYearData(Databean bean) {
 
         if(bean.getDataList().size()>0){
-            int color = Color.parseColor("#38A6FE");
-            int color2 = Color.parseColor("#00000000");
-            ArrayList<Integer> listcolor=new ArrayList<>();
-            int allnum=0;
             energyBaseChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            //判断数据是否全年，否则动态添加数据
-            if(bean.getDataList().size()!=12){
-                int num = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i, 0f);
-                    if(i>=bean.getDataList().size()){
-                        int monthNum=i+1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if(positionNum==1){
-                            listDate.add("0"+monthNum);
-                        }else{
-                            listDate.add(monthNum+"");
-                        }
-                        entry.setY((float)0);
-                        listcolor.add(color2);
-                    }else{
-                        entry.setY((float) bean.getDataList().get(i).getBaseSum());
-                        Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
-                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                    }
-                    values.add(entry);
+                for (int i = 0; i <bean.getDataList().size(); i++) {
+                    values.add(new Entry(i,(float) bean.getDataList().get(i).getBaseSum()));
 
                 }
-            }else{
-                for (int i = 0; i <bean.getDataList().size(); i++) {
-                    Entry entry = new Entry(i, 0f);
-                    entry.setY((float) bean.getDataList().get(i).getBaseSum());
-                    values.add(entry);
-                    Log.i(TAG, "setEnergy_BaseenergyYearData: "+bean.getDataList().get(i).getBaseDate());
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
-                    listcolor.add(color);
-                    }
-            }
-            LineDataSet dataSet = energyBaseChart.setDataSet(values, "");
-            dataSet.setColors(listcolor);
+             energyBaseChart.setDataSet(values, "");
+
             energyBaseChart.setDayXAxis(listDate);
-                energyBaseChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value, AxisBase axis) {
-                        int i = (int) value;
-                        String str = DoubleUtils.getThousandNum(i)+ "KW";
-                        return str;
-                    }
-                });
-                energyBaseChart.loadChart();
+            energyBaseChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    int i = (int) value;
+                    String str = DoubleUtils.getThousandNum(i)+ "KW";
+                    return str;
+                }
+            });
+            energyBaseChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+            energyBaseChart.loadChart();
 
         }else{
             MyHint.myHintDialog(this);

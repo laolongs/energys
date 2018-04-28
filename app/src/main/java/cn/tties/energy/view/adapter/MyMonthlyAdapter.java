@@ -47,8 +47,8 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
     //------进度条
     private OutputStream outputStream;
 
-    public MyMonthlyAdapter(Energy_Monthlybean bean) {
-        this.context = MyApplication.getInstance();
+    public MyMonthlyAdapter(Context context,Energy_Monthlybean bean) {
+        this.context = context;
         this.bean = bean;
         inflater = LayoutInflater.from(context);
     }

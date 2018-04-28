@@ -3,6 +3,8 @@
  */
 package cn.tties.energy.utils;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 
@@ -76,5 +78,42 @@ public class StringUtil {
         }
        return "";
     }
+    //获取点击后的年月
+    public static String getYear(String value){
+        if(value!=null){
+            String[] years = StringUtil.split(value, "年");
+//        String month=years[1];
+//        String[] months = StringUtil.split(month, "月");
+//        String month1 = months[0];
+//        if(month1.length()==1){
+//            month2 = StringUtil.split(month1, "0");
+//        }
+//        month2= StringUtil.split(month1, "0");
+//        Log.i(TAG, "OnCliekTimeListener: "+years[0]);
+//        Log.i(TAG, "OnCliekTimeListener: "+month2[1]);
+            return years[0];
+        }
+      return "";
+    }
+    //获取点击后的年月
+    public static String getMonth(String value){
+        if(value!=null){
+            String[] years = StringUtil.split(value, "年");
+            String month=years[1];
+            String[] months = StringUtil.split(month, "月");
+            String month1 = months[0];
+            if(month1.contains("0")){
+                if(month1.equals("10")){
+                    return month1;
+                }
+                String[] month2 = StringUtil.split(month1, "0");
+                return month2[1];
+            }else{
+                return month1;
+            }
 
+        }
+        return "";
+
+    }
 }

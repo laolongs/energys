@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ import cn.tties.energy.chart.BarDataCharttwo;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.DataAllbean;
@@ -144,44 +147,53 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if (bean.getDataList().size() != 12) {
-                int num = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    Entry entry = new Entry(i, 0f);
-                    if (i >= bean.getDataList().size()) {
-                        int monthNum = i + 1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if (positionNum == 1) {
-                            listDate.add("0" + monthNum);
-                        } else {
-                            listDate.add(monthNum + "");
-                        }
-                        entry.setY((float) 0);
-                        listcolor.add(color2);
-                    } else {
-                        entry.setY((float) bean.getDataList().get(i).getRate());
-                        Log.i(TAG, "setEnergy_BaseenergyYearData: " + bean.getDataList().get(i).getBaseDate());
-                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                        listDate.add(split[1]);
-                        listcolor.add(color);
-                    }
-                    values.add(entry);
-                }
-            } else {
+//            if (bean.getDataList().size() != 12) {
+//                int num = 12 - bean.getDataList().size();
+//                allnum = bean.getDataList().size() + num;
+//                for (int i = 0; i < allnum; i++) {
+//                    Entry entry = new Entry(i, 0f);
+//                    if (i >= bean.getDataList().size()) {
+//                        int monthNum = i + 1;
+//                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+//                        if (positionNum == 1) {
+//                            listDate.add("0" + monthNum);
+//                        } else {
+//                            listDate.add(monthNum + "");
+//                        }
+//                        entry.setY((float) 0);
+//                        listcolor.add(color2);
+//                    } else {
+//                        entry.setY((float) bean.getDataList().get(i).getRate());
+//                        Log.i(TAG, "setEnergy_BaseenergyYearData: " + bean.getDataList().get(i).getBaseDate());
+//                        String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+//                        listDate.add(split[1]);
+//                        listcolor.add(color);
+//                    }
+//                    values.add(entry);
+//                }
+//            } else {
                 for (int i = 0; i < bean.getDataList().size(); i++) {
                     Entry entry = new Entry(i, 0f);
                     entry.setY((float) bean.getDataList().get(i).getRate());
                     values.add(entry);
-                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-                    listDate.add(split[1]);
-                    listcolor.add(color);
+//                    String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+//                    listDate.add(split[1]);
+//                    listcolor.add(color);
                 }
-            }
+//            }
 
-            LineDataSet dataSet = energyForceChart1.setDataSet(values, "");
-            dataSet.setColors(listcolor);
-            energyForceChart1.setDayXAxis(listDate);
+            energyForceChart1.setDataSet(values, "");
+            energyForceChart1.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+//            dataSet.setColors(listcolor);
+
+//            energyForceChart1.setDayXAxis(listDate);
             energyForceChart1.loadChart();
         } else {
             MyHint.myHintDialog(this);
@@ -198,42 +210,51 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
             ArrayList<BarEntry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             //判断数据是否全年，否则动态添加数据
-            if (bean.getDataList().size() != 12) {
-                int num = 12 - bean.getDataList().size();
-                allnum = bean.getDataList().size() + num;
-                for (int i = 0; i < allnum; i++) {
-                    BarEntry entry = new BarEntry(i, 0f);
-                    if (i >= bean.getDataList().size()) {
-                        int monthNum = i + 1;
-                        int positionNum = DoubleUtils.getPositionNum(monthNum);
-                        if (positionNum == 1) {
-                            listDate.add("0" + monthNum);
-                        } else {
-                            listDate.add(monthNum + "");
-                        }
-                        entry.setY((float) 0);
-
-                    } else {
-                        entry.setY((float) bean.getDataList().get(i).getFouceSum());
-                        String month = bean.getDataList().get(i).getBaseDate();
-                        String[] split = StringUtil.split(month, "-");
-                        listDate.add(split[1]);
-                    }
-                    values.add(entry);
-                }
-            } else {
+//            if (bean.getDataList().size() != 12) {
+//                int num = 12 - bean.getDataList().size();
+//                allnum = bean.getDataList().size() + num;
+//                for (int i = 0; i < allnum; i++) {
+//                    BarEntry entry = new BarEntry(i, 0f);
+//                    if (i >= bean.getDataList().size()) {
+//                        int monthNum = i + 1;
+//                        int positionNum = DoubleUtils.getPositionNum(monthNum);
+//                        if (positionNum == 1) {
+//                            listDate.add("0" + monthNum);
+//                        } else {
+//                            listDate.add(monthNum + "");
+//                        }
+//                        entry.setY((float) 0);
+//
+//                    } else {
+//                        entry.setY((float) bean.getDataList().get(i).getFouceSum());
+//                        String month = bean.getDataList().get(i).getBaseDate();
+//                        String[] split = StringUtil.split(month, "-");
+//                        listDate.add(split[1]);
+//                    }
+//                    values.add(entry);
+//                }
+//            } else {
                 for (int i = 0; i < bean.getDataList().size(); i++) {
-                    BarEntry entry = new BarEntry(i, 0f);
-                    entry.setY((float) bean.getDataList().get(i).getFouceSum());
-                    values.add(entry);
-                    String month = bean.getDataList().get(i).getBaseDate();
-                    String[] split = StringUtil.split(month, "-");
-                    listDate.add(split[1]);
+//                    BarEntry entry = new BarEntry(i, 0f);
+//                    entry.setY((float) bean.getDataList().get(i).getFouceSum());
+//                    values.add(entry);
+                    values.add(new BarEntry(i,(float) bean.getDataList().get(i).getFouceSum()));
+//                    String month = bean.getDataList().get(i).getBaseDate();
+//                    String[] split = StringUtil.split(month, "-");
+//                    listDate.add(split[1]);
                 }
-            }
+//            }
 
             energyForceChart2.setDataSet(values, "");
-            energyForceChart2.setDayXAxis(listDate);
+            energyForceChart2.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    MyChartXList myChartXList = new MyChartXList();
+                    String s = myChartXList.getlist().get((int) value);
+                    return s;
+                }
+            });
+//            energyForceChart2.setDayXAxis(listDate);
             energyForceChart2.loadChart();
         } else {
             MyHint.myHintDialog(this);

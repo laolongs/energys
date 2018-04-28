@@ -1,5 +1,6 @@
 package cn.tties.energy.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,16 +10,20 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import cn.tties.energy.R;
 import cn.tties.energy.base.BaseActivity;
 import cn.tties.energy.chart.LineDataChart;
 import cn.tties.energy.common.Constants;
 import cn.tties.energy.common.MyAllTimeYear;
+import cn.tties.energy.common.MyChartXList;
 import cn.tties.energy.common.MyHint;
 import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.AllElectricitybean;
@@ -54,7 +59,9 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear = new MyAllTimeYear();
     private MyPopupWindow popupWindow;
-
+    private int days;
+    int  months;
+    int years;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,9 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         dataFactorText.setOnClickListener(this);
         mPresenter.getAllElectricityData();
         dataFactorTv.setText(DateUtil.getCurrentYear() + "年" + DateUtil.getCurrentMonth() + "月");
+        months=DateUtil.getCurrentMonth();
+        years=DateUtil.getCurrentYear();
+        days = DateUtil.getDays(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth());
         dialogtime = new MyTimePickerWheelTwoDialog(Data_FactorActivity.this);
         toolbarText.setText("功率因数");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +111,11 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
                         public void OnCliekTimeListener(int poaiton) {
                             String tiemMonthBase = timeYear.getTiemMonthBase(poaiton);
                             dataFactorTv.setText(tiemMonthBase);
+                            String month = StringUtil.getMonth(tiemMonthBase);
+                            String year = StringUtil.getYear(tiemMonthBase);
+                            months=(Integer.parseInt(month));
+                            years=(Integer.parseInt(year));
+                            days = DateUtil.getDays(Integer.parseInt(year), (Integer.parseInt(month)-1));
                             mPresenter.getData_Electric();
                         }
                     });
@@ -155,16 +170,14 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             dataFactorChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
+            MyChartXList myChartXList = new MyChartXList();
+            Map map = myChartXList.get(years, months);
+            Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < bean.getDataList().size(); i++) {
                 num = num + Double.parseDouble(String.valueOf(bean.getDataList().get(i).getD()));
-                Entry entry = new Entry(i, 0f);
-                entry.setY((float) Float.parseFloat(String.valueOf(bean.getDataList().get(i).getD())));
-                values.add(entry);
-                if (bean.getDataList().get(i).getFreezeTime() != null || bean.getDataList().get(i).getFreezeTime().equals("")) {
-                    String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(), 5, 10);
-                    listDate.add(split);
-                }
-
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(), 5, 10);
+                int index = (int) XMap.get(split);
+                values.add(new Entry(index, (float)Float.parseFloat(String.valueOf(bean.getDataList().get(i).getD()))));
             }
             //保留三位小数
 //            BigDecimal b = new BigDecimal(num / bean.getDataList().size());
@@ -175,8 +188,10 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             XAxis xAxis = dataFactorChart.getXAxis();
             xAxis.setLabelCount(bean.getDataList().size(), true);
             xAxis.setLabelRotationAngle(-50);
+            xAxis.setAxisMinimum(0f);
+            xAxis.setAxisMaximum(days-1);
             dataFactorChart.setDataSet(values, "");
-            dataFactorChart.setDayXAxis(listDate);
+            dataFactorChart.setDayXAxis((List)map.get("X"));
             dataFactorChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
