@@ -41,6 +41,7 @@ import cn.tties.energy.view.activity.Data_FactorActivity;
 import cn.tties.energy.view.activity.Data_NoActivity;
 import cn.tties.energy.view.activity.Data_PressActivity;
 import cn.tties.energy.view.activity.Data_RateActivity;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.iview.IDataFragmentView;
 
 import static cn.tties.energy.R.drawable.month_load_bg;
@@ -66,7 +67,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     TextView datafragmentPrice;
     BarDataChart datafragmentChart;
     private List<Integer> listColor;
-
+    CriProgressDialog dialogPgs;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +101,8 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(getActivity());
+        dialogPgs.loadDialog("加载中...");
         datafragmentTimeTv.setText((DateUtil.getCurrentMonth()-1)+"月");
         toolbarText.setText("电力数据");
         mPresenter.getDataFragment();
@@ -181,6 +184,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
         int color2 = Color.parseColor("#FF7247");
         int color3 = Color.parseColor("#FFD5C8");
         if(bean.getDataList().size()>0){
+            dialogPgs.removeDialog();
             float max = getMax(bean);
             datafragmentChart.clearData();
             ArrayList<BarEntry> values = new ArrayList<>();

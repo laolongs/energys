@@ -123,7 +123,7 @@ public class BarDataThreeChart extends BarChart {
 //        xAxis.setLabelCount(12,false);
 //        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
-        xAxis.setTextColor(color);//设置轴标签的颜色
+//        xAxis.setTextColor(color);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
 //        xAxis.setGridColor(Color.RED);//设置竖线颜色

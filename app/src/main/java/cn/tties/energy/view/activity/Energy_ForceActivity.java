@@ -33,6 +33,7 @@ import cn.tties.energy.utils.ACache;
 import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_ForceView;
 
@@ -56,6 +57,7 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     int currentYear;
     int currentMonth;
     DataAllbean dataAllbean = new DataAllbean();
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,8 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         dialogtime = new MyTimePickerWheelDialog(Energy_ForceActivity.this);
         //当月
         mPresenter.getEnergy_Force();
@@ -123,6 +127,7 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     @Override
     public void setEnergy_ForceData(Databean bean) {
         if (bean.getDataList().size() > 0) {
+            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getEnergy_ForcechartData();
             mPresenter.getEnergy_Forcecharge();

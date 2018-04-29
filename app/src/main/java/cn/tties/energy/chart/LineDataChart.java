@@ -149,7 +149,7 @@ public class LineDataChart extends  LineChart {
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
         //xAxis.setTextSize(20f);//设置字体
-        //xAxis.setTextColor(Color.BLACK);//设置字体颜色
+        xAxis.setTextColor(Color.BLACK);//设置字体颜色
         //设置竖线的显示样式为虚线
         //lineLength控制虚线段的长度
         //spaceLength控制线之间的空间

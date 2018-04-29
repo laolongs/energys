@@ -36,6 +36,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.BottomStyleDialog;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyPopupWindow;
 import cn.tties.energy.view.dialog.MyTimePickerWheelTwoDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
@@ -65,6 +66,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     private int days;
     int  months;
     int years;
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,8 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         popupWindow = new MyPopupWindow();
         electricalVerify.setOnClickListener(this);
         electricalTv.setOnClickListener(this);
@@ -214,6 +218,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if (allElectricitybean.getMeterList().size() > 0) {
+            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());

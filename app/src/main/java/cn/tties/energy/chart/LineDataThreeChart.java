@@ -191,6 +191,7 @@ public class LineDataThreeChart extends  LineChart {
     }
 
     public void setStyle() {
+        int color1 = Color.parseColor("#000000");
         Description description = new Description();
         description.setEnabled(false);
         setDescription(description);//设置图表描述信息
@@ -207,8 +208,8 @@ public class LineDataThreeChart extends  LineChart {
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
-        //xAxis.setTextSize(20f);//设置字体
-        //xAxis.setTextColor(Color.BLACK);//设置字体颜色
+//        xAxis.setTextSize(20f);//设置字体
+        xAxis.setTextColor(Color.BLACK);//设置字体颜色
         //设置竖线的显示样式为虚线
         //lineLength控制虚线段的长度
         //spaceLength控制线之间的空间
@@ -218,10 +219,10 @@ public class LineDataThreeChart extends  LineChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-        xAxis.setLabelCount(20);
-        xAxis.setLabelRotationAngle(-50);
+//        xAxis.setLabelCount(20);
+//        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
-        xAxis.setTextColor(color);//设置轴标签的颜色
+//        xAxis.setTextColor(color);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
 //        xAxis.setGridColor(Color.RED);//设置竖线颜色

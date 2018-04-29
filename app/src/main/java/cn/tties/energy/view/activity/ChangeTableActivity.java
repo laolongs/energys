@@ -18,6 +18,7 @@ import cn.tties.energy.common.MyNoDoubleClickListener;
 import cn.tties.energy.model.result.OpsLoginbean;
 import cn.tties.energy.utils.ACache;
 import cn.tties.energy.view.adapter.MyElectricityAdapter;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 
 /**
  * 切换电表
@@ -52,6 +53,7 @@ public class ChangeTableActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         sp = getSharedPreferences("check", MODE_PRIVATE);
         editor = sp.edit();
         toolbarText.setText("切换电表");

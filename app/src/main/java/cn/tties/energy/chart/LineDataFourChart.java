@@ -209,7 +209,7 @@ public class LineDataFourChart extends  LineChart {
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
         //xAxis.setTextSize(20f);//设置字体
-        //xAxis.setTextColor(Color.BLACK);//设置字体颜色
+        xAxis.setTextColor(Color.BLACK);//设置字体颜色
         //设置竖线的显示样式为虚线
         //lineLength控制虚线段的长度
         //spaceLength控制线之间的空间
@@ -222,7 +222,7 @@ public class LineDataFourChart extends  LineChart {
         xAxis.setLabelCount(12,true);
 //        xAxis.setLabelRotationAngle(-50);
         int color = Color.parseColor("#9A9A9A");
-        xAxis.setTextColor(color);//设置轴标签的颜色
+//        xAxis.setTextColor(color);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
 //        xAxis.setGridColor(Color.RED);//设置竖线颜色

@@ -39,6 +39,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_TransformerView;
 
@@ -63,6 +64,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     MyTimePickerWheelDialog dialogtime;
     int year=0;
     DataAllbean dataAllbean=new DataAllbean();
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,8 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         mPresenter.getEnergy_TransformerList();
         toolbarText.setText("变压器优化");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +156,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         //设置可以滑动
         energyTransformerTab.setTabMode(TabLayout.MODE_SCROLLABLE);
         if (bean.getResult().size() > 0) {
+            dialogPgs.removeDialog();
             for (int i = 0; i < bean.getResult().size(); i++) {
                 energyTransformerTab.addTab(energyTransformerTab.newTab().setText(bean.getResult().get(i).getName()));
             }

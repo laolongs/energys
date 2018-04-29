@@ -42,8 +42,8 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
     Context context;
 
 
-    public QuestionListAdapter(Opsbean.ResultBean.QuestionListBean listbean) {
-        this.context = MyApplication.getInstance();
+    public QuestionListAdapter(Context context,Opsbean.ResultBean.QuestionListBean listbean) {
+        this.context =context;
         this.listbean = listbean;
         inflater = LayoutInflater.from(context);
     }

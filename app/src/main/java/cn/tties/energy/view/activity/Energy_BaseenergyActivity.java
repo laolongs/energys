@@ -35,6 +35,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 import cn.tties.energy.view.dialog.CriHintDialog;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
 
@@ -63,6 +64,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     TextView energyBaseYear;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,8 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         dialogtime=new MyTimePickerWheelDialog(Energy_BaseenergyActivity.this);
         mPresenter.getEnergy_Baseenergy();
         mPresenter.getEnergy_BasePlan();
@@ -193,6 +197,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     }
     @Override
     public void setEnergy_BasePlanData(Energy_BasePlanbean bean) {
+        dialogPgs.removeDialog();
         if (bean.getBestType() == 1) {
             enTv3.setText("报装容量");
         } else {

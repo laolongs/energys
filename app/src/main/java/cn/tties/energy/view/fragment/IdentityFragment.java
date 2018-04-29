@@ -33,6 +33,7 @@ import cn.tties.energy.view.activity.PasswordActivity;
 import cn.tties.energy.view.activity.UpdateActivity;
 import cn.tties.energy.view.activity.VersionActivity;
 import cn.tties.energy.view.dialog.ConfirmDialog;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.iview.IIdentityFragmentView;
 
 /**
@@ -55,6 +56,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     ImageView identityImg;
     ImageView identitySwitchSelsect;
     int num = 0;
+    CriProgressDialog dialogPgs;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,6 +87,8 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     @Override
     public void onResume() {
         super.onResume();
+        dialogPgs=new CriProgressDialog(getActivity());
+        dialogPgs.loadDialog("加载中...");
         mPresenter.getOpsloginData();//1502183891109
     }
 
@@ -142,6 +146,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     }
     @Override
     public void getOpsLoginData(final OpsLoginbean opsLoginbean) {
+        dialogPgs.removeDialog();
         OpsLoginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
         List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = opsLoginbean.getResult().getEnergyLedgerList();
         identityName.setText(opsLoginbean.getResult().getMaintUser().getStaffName());

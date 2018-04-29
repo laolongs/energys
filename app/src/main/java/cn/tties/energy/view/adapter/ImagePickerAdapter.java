@@ -57,8 +57,8 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         else return mData;
     }
 
-    public ImagePickerAdapter(List<ImageItem> data, int maxImgCount) {
-        this.mContext = MyApplication.getInstance();
+    public ImagePickerAdapter(Context context,List<ImageItem> data, int maxImgCount) {
+        this.mContext = context;
         this.maxImgCount = maxImgCount;
         this.mInflater = LayoutInflater.from(mContext);
         setImages(data);

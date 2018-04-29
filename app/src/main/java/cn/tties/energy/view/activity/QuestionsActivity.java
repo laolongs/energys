@@ -44,6 +44,7 @@ import cn.tties.energy.utils.ToastUtil;
 import cn.tties.energy.view.adapter.DescriptionListViewAdapter;
 import cn.tties.energy.view.adapter.ImagePickerAdapter;
 import cn.tties.energy.view.adapter.MyQurestionTabAdapter;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyPressDialog;
 import cn.tties.energy.view.fragment.Questions_discussFragment;
 import cn.tties.energy.view.fragment.Questions_progressFragment;
@@ -94,7 +95,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
-
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,8 +132,10 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         selImageList = new ArrayList<>();
-        adapter = new ImagePickerAdapter(selImageList, maxImgCount);
+        adapter = new ImagePickerAdapter(QuestionsActivity.this,selImageList, maxImgCount);
 
         toolbarText.setText("问题详情");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +234,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     @Override
     public void setQuestionData(Opsbean bean) {
         if (bean.getResult().getQuestionList().size() > 0) {
+            dialogPgs.removeDialog();
             getImageSelector(bean);
             getValueType(bean);
             listbean = bean.getResult().getQuestionList().get(0);
@@ -300,7 +304,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
 //        QuestionListAdapter adapter = new QuestionListAdapter(QuestionsActivity.this, listbean);
 //        listQuestionList.setAdapter(adapter);
         quesTitle.setText(listbean.getTitle()+"");
-        DescriptionListViewAdapter adapter = new DescriptionListViewAdapter(listbean);
+        DescriptionListViewAdapter adapter = new DescriptionListViewAdapter(QuestionsActivity.this,listbean);
         listQuestionList.setAdapter(adapter);
         AppUtils.setListViewHeight(listQuestionList, 30);
     }

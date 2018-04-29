@@ -35,6 +35,7 @@ import cn.tties.energy.utils.DateUtil;
 import cn.tties.energy.utils.DoubleUtils;
 import cn.tties.energy.utils.StringUtil;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.dialog.MyTimePickerWheelDialog;
 import cn.tties.energy.view.iview.IDataView;
 
@@ -61,7 +62,7 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     private float cusp2;
     private float hight2;
     private float low2;
-
+    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,8 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     }
 
     private void initView() {
+        dialogPgs=new CriProgressDialog(this);
+        dialogPgs.loadDialog("加载中...");
         dialogtime=new MyTimePickerWheelDialog(Energy_ElectricalActivity.this);
         mPresenter.getEnergy_Electrical();
         toolbarText.setText("电度电费优化");
@@ -130,6 +133,7 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     @Override
     public void setDataData(Databean bean) {
         if (bean.getDataList().size() > 0) {
+            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getEnergy_ElectricalChart();
             int percentage = 0;
