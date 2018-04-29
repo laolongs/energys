@@ -96,7 +96,9 @@
         <activity
             android:name=".view.activity.QuestionsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <!-- 密码修改 -->
         <activity
             android:name=".view.activity.PasswordActivity"
