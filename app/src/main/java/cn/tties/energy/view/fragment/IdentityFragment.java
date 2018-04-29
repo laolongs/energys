@@ -120,6 +120,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                 break;
             //关于我们
             case R.id.identity_about:
+                ToastUtil.showShort(getActivity(),"暂无关于我们！");
 //                intent = new Intent(getActivity(), AboutActivity.class);
 //                startActivity(intent);
                 break;

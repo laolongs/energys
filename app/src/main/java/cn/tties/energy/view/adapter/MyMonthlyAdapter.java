@@ -158,9 +158,10 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
 //                                                        ShareUtils.shareWeb((Activity) context, Defaultcontent.url, Defaultcontent.title
 //                                                                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
 //                                                        );
-                                                        ShareUtils.shareWeb((Activity) context, httpurl, "天天智电智慧能效管理平台"
-                                                                , bean.getResult().get(position).getReportName(),"", R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN
-                                                        );
+//                                                        ShareUtils.shareWeb((Activity) context, httpurl, "天天智电智慧能效管理平台"
+//                                                                , bean.getResult().get(position).getReportName(),"", R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN
+//                                                        );
+                                                        ToastUtil.showShort(context,"暂无分享功能！");
                                                     }
                                                 });
                                             }

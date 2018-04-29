@@ -132,21 +132,6 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
         ivCurrent = iv1;
         tvCurrent = tv1;
         setClickButton(0);
-//        //RecyclerView的滑动监听
-//        opsRcyRight.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            //当RecyclerView滑动时触发
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                //获取可见item个数
-//                int lastVisibleItemPosition = manager.findLastVisibleItemPosition();
-//                //说明是最后一条数据
-//                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-//                    Toast.makeText(getActivity(), "已经是最后一条",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
     }
 
     private void initRefresh() {
@@ -206,21 +191,8 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
                 }
             });
         } else {
-//            opsRcyHint.setVisibility(View.VISIBLE);
-//            new Thread(){
-//                @Override
-//                public void run() {
-//                    super.run();
-//                    try {
-//                        sleep(500);
-//
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }.start();
-//            opsRcyHint.setVisibility(View.GONE);
-            MyHint.myHintDialog(getActivity());
+            adapter.getFlag(true);
+            adapter.notifyDataSetChanged();
             Log.i(TAG, "setOpsRightData: " + "当前bean里无数据");
         }
         if (opsbean.getResult().getCount() == 0 && opsbean.getResult().getQuestionList().size() == 0) {
@@ -298,5 +270,4 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView,
                 break;
         }
     }
-
 }

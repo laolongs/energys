@@ -34,7 +34,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     onClickListener listener;
     Opsbean.ResultBean opsbean;
     Context context;
-
+    boolean flag=false;
     public void setonClickListener(onClickListener listener) {
         this.listener = listener;
     }
@@ -56,7 +56,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ONE) {
-            return new MyNoQuestionViewHoder(inflater.inflate(R.layout.activity_ops_item_right_no, parent, false));
+            return new MyNoQuestionViewHoder(inflater.inflate(R.layout.activity_ops_item_right_foot, parent, false));
         } else {
             return new MyViewHoder(inflater.inflate(R.layout.activity_ops_item_right, parent, false));
         }
@@ -66,7 +66,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MyNoQuestionViewHoder) {
-            ((MyNoQuestionViewHoder) holder).opsItemRightNoTv.setText("全部设备运转良好，请继续保持！");
+            ((MyNoQuestionViewHoder) holder).opsItemRightfoot.setText("已经显示全部内容");
         }
         if (holder instanceof MyViewHoder) {
             ((MyViewHoder) holder).opsItemTitle.setText(listbean.get(position).getTitle());
@@ -145,7 +145,8 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        if (opsbean.getCount()== 0&&position<listhead.size()) {
+
+        if (position>=listbean.size()) {
             return TYPE_ONE;
         } else {
             return TYPE_TWO;
@@ -156,8 +157,12 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
+        if(flag){
+            return listbean != null ? listbean.size()+1 : 0;
+        }else{
+            return listbean != null ? listbean.size() : 0;
+        }
 
-        return listbean != null ? listbean.size() : 0;
     }
 
 
@@ -178,16 +183,19 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class MyNoQuestionViewHoder extends RecyclerView.ViewHolder {
-        TextView opsItemRightNoTv;
+        TextView opsItemRightfoot;
 
         public MyNoQuestionViewHoder(View itemView) {
             super(itemView);
-            opsItemRightNoTv = (TextView) itemView.findViewById(R.id.ops_item_right_no_tv);
+            opsItemRightfoot = (TextView) itemView.findViewById(R.id.ops_item_right_foot);
         }
     }
 
 
     public interface onClickListener {
         void onClickItemListener(int postion);
+    }
+    public void getFlag(boolean flag){
+        this.flag=flag;
     }
 }
