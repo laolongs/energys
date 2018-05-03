@@ -33,7 +33,7 @@ public class CriProgressDialog {
     public Dialog loadDialog(String str) {
         mDialog = new Dialog(mContext, R.style.dialog);
         LayoutInflater in = LayoutInflater.from(mContext);
-        View viewDialog = in.inflate(R.layout.dialog_progress, null);
+        View viewDialog = in.inflate(R.layout.dialog_progressall, null);
 //        viewDialog.setBackgroundColor(0x7f000000);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 这里可以设置dialog的大小，当然也可以设置dialog title等

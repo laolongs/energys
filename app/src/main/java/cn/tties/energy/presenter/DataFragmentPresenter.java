@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -31,14 +33,17 @@ import cn.tties.energy.view.iview.IDataView;
 
 public class DataFragmentPresenter extends BasePresenter<IDataFragmentView> {
     private static final String TAG = "DataFragmentPresenter";
+    CriProgressDialog dialogPgs;
     IDataFragmentView view;
     IDataFragmentModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public DataFragmentPresenter(IDataFragmentView view){
+    public DataFragmentPresenter(IDataFragmentView view, Context context){
         this.view=view;
         model=new DataFragmentModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getDataFragment(){
+        dialogPgs.loadDialog("加载中...");
         String baseDate=DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1);
         Map<String,Object> map=new HashMap<>();
         map.put("userName",dataAllbean.getUserName());
@@ -59,6 +64,7 @@ public class DataFragmentPresenter extends BasePresenter<IDataFragmentView> {
 
                     @Override
                     public void onNext(DataFragmentbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setDataFragmentData(value);
                         }else{
@@ -68,6 +74,7 @@ public class DataFragmentPresenter extends BasePresenter<IDataFragmentView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

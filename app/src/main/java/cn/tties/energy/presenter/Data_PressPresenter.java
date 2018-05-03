@@ -43,14 +43,17 @@ import cn.tties.energy.view.iview.ILoginView;
 
 public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
     private static final String TAG = "Data_PressPresenter";
+    CriProgressDialog dialogPgs;
     IData_PressView view;
     IData_PressModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_PressPresenter(IData_PressView view) {
+    public Data_PressPresenter(IData_PressView view,Context context) {
         this.view = view;
         this.model = new Data_PressModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getData_PressData(){
+        dialogPgs.loadDialog("加载中...");
         Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
         Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
         Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
@@ -71,6 +74,7 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
 
                     @Override
                     public void onNext(Data_Pressbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setData_PressData(value);
                         }else{
@@ -81,6 +85,7 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

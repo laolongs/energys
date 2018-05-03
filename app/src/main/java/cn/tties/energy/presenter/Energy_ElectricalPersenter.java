@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -26,14 +28,17 @@ import cn.tties.energy.view.iview.IEnergy_BaseenergyView;
 
 public class Energy_ElectricalPersenter extends BasePresenter<IDataView> {
     private static final String TAG = "Energy_ElectricalPersen";
+    CriProgressDialog dialogPgs;
     IDataView view;
     IDataModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Energy_ElectricalPersenter(IDataView view){
+    public Energy_ElectricalPersenter(IDataView view, Context context){
         this.view=view;
         model=new DataModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getEnergy_Electrical(){
+        dialogPgs.loadDialog("加载中...");
         String baseDate= DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1);
         Map<String,Object> map=new HashMap<>();
         map.put("userName",dataAllbean.getUserName());
@@ -58,6 +63,7 @@ public class Energy_ElectricalPersenter extends BasePresenter<IDataView> {
 
                     @Override
                     public void onNext(Databean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setDataData(value);
                         }else{
@@ -67,6 +73,7 @@ public class Energy_ElectricalPersenter extends BasePresenter<IDataView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onErrordata: "+e.getMessage());
                     }
 

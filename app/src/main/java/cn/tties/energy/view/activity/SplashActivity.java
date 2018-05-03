@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity<MainPresenter> implements IMain
     }
 
     private int loadingCache() {
-        Boolean loginStatus = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_STATUS);
+        Boolean loginStatus = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_STATUS_TWO);
         initVersion();
         if (!MyApplication.mNetWorkState || loginStatus == null || !loginStatus) {
             Log.d("logStatus", "用户非登录状态");

@@ -55,6 +55,7 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     TextView dataFactorEleTv;
     ImageView dataFactorVerify;
     TextView dataFactorText;
+    LinearLayout dataFactorLL;
     private BottomStyleDialog dialog;
     double num = 0;
     MyTimePickerWheelTwoDialog dialogtime;
@@ -63,7 +64,6 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +84,10 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
         dataFactorEleTv= findViewById(R.id.data_factor_ele_tv);
         dataFactorVerify= findViewById(R.id.data_factor_verify);
         dataFactorText= findViewById(R.id.data_factor_text);
+        dataFactorLL= findViewById(R.id.data_factor_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         popupWindow = new MyPopupWindow();
         dataFactorVerify.setOnClickListener(this);
         dataFactorText.setOnClickListener(this);
@@ -160,7 +159,7 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     }
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_FactorPresenter(this);
+        mPresenter = new Data_FactorPresenter(this,this);
     }
 
     @Override
@@ -170,6 +169,7 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
 
     @Override
     public void setData_FactorData(Data_Factorbean bean) {
+        dataFactorLL.setVisibility(View.VISIBLE);
         if (bean.getDataList().size() > 0) {
             dataFactorChart.clearData();
             ArrayList<Entry> values = new ArrayList<>();
@@ -190,7 +190,7 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             double bigDecimal = DoubleUtils.getBigDecimal(num, bean.getDataList().size());
             factorNum.setText(bigDecimal + "");
             XAxis xAxis = dataFactorChart.getXAxis();
-            xAxis.setLabelCount(bean.getDataList().size(), true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -213,7 +213,6 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if (allElectricitybean.getMeterList().size() > 0) {
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());

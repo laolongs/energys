@@ -127,6 +127,7 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
                             conn.setRequestMethod("GET");
                             conn.setReadTimeout(5000);
                             conn.setConnectTimeout(5000);
+                            conn.setRequestProperty("Charset", "gb2312");//设置编码utf-8   pdfgb2312
                             int contentLength = conn.getContentLength();
                             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                                 InputStream is = conn.getInputStream();
@@ -158,10 +159,10 @@ public class MyMonthlyAdapter extends RecyclerView.Adapter<MyMonthlyAdapter.View
 //                                                        ShareUtils.shareWeb((Activity) context, Defaultcontent.url, Defaultcontent.title
 //                                                                , Defaultcontent.text, Defaultcontent.imageurl, R.mipmap.icon_logo_share, SHARE_MEDIA.WEIXIN
 //                                                        );
-//                                                        ShareUtils.shareWeb((Activity) context, httpurl, "天天智电智慧能效管理平台"
-//                                                                , bean.getResult().get(position).getReportName(),"", R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN
-//                                                        );
-                                                        ToastUtil.showShort(context,"暂无分享功能！");
+                                                        ShareUtils.shareWeb((Activity) context, httpurl, "天天智电智慧能效管理平台"
+                                                                , bean.getResult().get(position).getReportName(),"", R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN
+                                                        );
+//                                                        ToastUtil.showShort(context,"暂无分享功能！");
                                                     }
                                                 });
                                             }

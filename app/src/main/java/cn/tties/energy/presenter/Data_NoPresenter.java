@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -31,14 +33,17 @@ import cn.tties.energy.view.iview.IData_PressView;
 
 public class Data_NoPresenter extends BasePresenter<IData_NoView>  {
     private static final String TAG = "Data_NoPresenter";
+    CriProgressDialog dialogPgs;
     IData_NoView view;
     IData_NoModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_NoPresenter(IData_NoView view) {
+    public Data_NoPresenter(IData_NoView view, Context context) {
         this.view = view;
         this.model = new Data_NoModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getData_NoData(){
+        dialogPgs.loadDialog("加载中...");
         Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
         Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
         Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
@@ -60,6 +65,7 @@ public class Data_NoPresenter extends BasePresenter<IData_NoView>  {
 
                     @Override
                     public void onNext(Data_Nobean value) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onNext: "+value.getLimitData().size());
                         if(value!=null){
                             view.setData_NoData(value);
@@ -71,6 +77,7 @@ public class Data_NoPresenter extends BasePresenter<IData_NoView>  {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

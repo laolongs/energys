@@ -191,7 +191,6 @@ public class LineDataThreeChart extends  LineChart {
     }
 
     public void setStyle() {
-        int color1 = Color.parseColor("#000000");
         Description description = new Description();
         description.setEnabled(false);
         setDescription(description);//设置图表描述信息
@@ -208,21 +207,19 @@ public class LineDataThreeChart extends  LineChart {
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
-//        xAxis.setTextSize(20f);//设置字体
+        //xAxis.setTextSize(20f);//设置字体
         xAxis.setTextColor(Color.BLACK);//设置字体颜色
         //设置竖线的显示样式为虚线
         //lineLength控制虚线段的长度
         //spaceLength控制线之间的空间
         xAxis.enableGridDashedLine(10f, 10f, 0f);
-//        xAxis.setAxisMinimum(0f);//设置x轴的最小值
-//        xAxis.setAxisMaximum(10f);//设置最大值
+        xAxis.setAxisMinimum(0f);//设置x轴的最小值
+        xAxis.setAxisMaximum(11f);//设置最大值
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-//        xAxis.setLabelCount(20);
-//        xAxis.setLabelRotationAngle(-50);
-        int color = Color.parseColor("#9A9A9A");
-//        xAxis.setTextColor(color);//设置轴标签的颜色
+        xAxis.setLabelCount(12,true);
+//        xAxis.setTextColor(Color.BLUE);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
 //        xAxis.setGridColor(Color.RED);//设置竖线颜色
@@ -242,7 +239,7 @@ public class LineDataThreeChart extends  LineChart {
         //是否绘制0所在的网格线
         rightAxis.setDrawZeroLine(false);
         rightAxis.setAxisLineWidth(0f);
-        rightAxis.setDrawAxisLine(false); //无轴线
+        rightAxis.setDrawAxisLine(true); //无轴线
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
@@ -270,21 +267,14 @@ public class LineDataThreeChart extends  LineChart {
         setHighlightPerDragEnabled(false);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
         setDragDecelerationEnabled(false);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
         setDragDecelerationFrictionCoef(0.99f);//与上面那个属性配合，持续滚动时的速度快慢，[0,1) 0代表立即停止。
-        //设置图列文字颜色
-
         Legend l = getLegend();//图例
         l.setEnabled(false);
-//        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);//设置图例的位置
-//        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);//设置图例的位置
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);//设置图例的位置
         l.setTextSize(10f);//设置文字大小
-        l.setForm(Legend.LegendForm.LINE);//正方形，圆形或线
+        l.setForm(Legend.LegendForm.CIRCLE);//正方形，圆形或线
         l.setFormSize(10f); // 设置Form的大小
         l.setWordWrapEnabled(true);//是否支持自动换行 目前只支持BelowChartLeft, BelowChartRight, BelowChartCenter
-        l.setFormLineWidth(3f);//设置Form的宽度
-        l.setTextColor(Color.BLACK);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setFormLineWidth(10f);//设置Form的宽度
         animateXY(1000, 1000);
     }
 

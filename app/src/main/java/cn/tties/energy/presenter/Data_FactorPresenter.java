@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -32,14 +34,17 @@ import cn.tties.energy.view.iview.IData_FactorView;
 
 public class Data_FactorPresenter extends BasePresenter<IData_FactorView> {
     private static final String TAG = "Data_FactorPresenter";
+    CriProgressDialog dialogPgs;
     IData_FactorView view;
     IData_FactorModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_FactorPresenter(IData_FactorView view){
+    public Data_FactorPresenter(IData_FactorView view, Context context){
         this.view=view;
         model=new Data_FactorModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getData_Electric(){
+        dialogPgs.loadDialog("加载中...");
         Map<String,Object> map=new HashMap<>();
         map.put("userName",dataAllbean.getUserName());
         map.put("password",dataAllbean.getPassword());
@@ -58,6 +63,7 @@ public class Data_FactorPresenter extends BasePresenter<IData_FactorView> {
 
                     @Override
                     public void onNext(Data_Factorbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setData_FactorData(value);
                         }else{
@@ -67,6 +73,7 @@ public class Data_FactorPresenter extends BasePresenter<IData_FactorView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

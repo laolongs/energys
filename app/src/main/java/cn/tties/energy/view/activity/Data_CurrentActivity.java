@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.XAxis;
@@ -56,13 +57,14 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
     LinearLayout dataCurrentTime;
     LinearLayout dataCurrentAllelectric;
     TextView dataCurrentEleTv;
+    RelativeLayout dataCurrentRl;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +83,11 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
         dataCurrentTime= findViewById(R.id.data_current_time);
         dataCurrentAllelectric= findViewById(R.id.data_current_allelectric);
         dataCurrentEleTv= findViewById(R.id.data_current_ele_tv);
+        dataCurrentRl= findViewById(R.id.data_current_Rl);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
+
         dataCurrentTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         months=DateUtil.getCurrentMonth();
         years=DateUtil.getCurrentYear();
@@ -136,7 +138,7 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_CurrentPresenter(this);
+        mPresenter = new Data_CurrentPresenter(this,this);
     }
 
     @Override
@@ -157,20 +159,19 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < bean.getDataList().size(); i++) {
                 String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
-                listDate.add(split);
                 int index = (int) XMap.get(split);
                 values1.add(new Entry(index, (float) bean.getDataList().get(i).getA()));
                 values2.add(new Entry(index, (float) bean.getDataList().get(i).getB()));
                 values3.add(new Entry(index, (float) bean.getDataList().get(i).getC()));
             }
             XAxis xAxis = dataCurrentChart.getXAxis();
-            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
-            LineDataSet dataSet1 = dataCurrentChart.setDataSet1(values1, "A相电流");
-            LineDataSet dataSet2 = dataCurrentChart.setDataSet2(values2, "B相电流");
-            LineDataSet dataSet3 = dataCurrentChart.setDataSet3(values3, "C相电流");
+            dataCurrentChart.setDataSet1(values1, "A相电流");
+            dataCurrentChart.setDataSet2(values2, "B相电流");
+            dataCurrentChart.setDataSet3(values3, "C相电流");
             dataCurrentChart.setDayXAxis((List)map.get("X"));
             dataCurrentChart.loadChart();
         }else{
@@ -192,7 +193,6 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             Map XMap = (Map) map.get("XMap");
             for (int i = 0; i < bean.getDataList().size(); i++) {
                 String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
-                listDate.add(split);
                 int index = (int) XMap.get(split);
                 values1.add(new Entry(index, (float) bean.getDataList().get(i).getA()));
                 values2.add(new Entry(index, (float) bean.getDataList().get(i).getB()));
@@ -201,7 +201,7 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
             }
 
             XAxis xAxis = dataCurrentpressChart.getXAxis();
-            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -218,8 +218,8 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+        dataCurrentRl.setVisibility(View.VISIBLE);
         if(allElectricitybean.getMeterList().size()>0){
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());

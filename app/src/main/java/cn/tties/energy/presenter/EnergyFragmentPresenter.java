@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -33,14 +35,17 @@ import cn.tties.energy.view.iview.IEnergyFragmentView;
 
 public class EnergyFragmentPresenter extends BasePresenter<IEnergyFragmentView> {
     private static final String TAG = "EnergyFragmentPresenter";
+    CriProgressDialog dialogPgs;
     IEnergyFragmentView view;
     IEnergyFragmentModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public EnergyFragmentPresenter(IEnergyFragmentView view){
+    public EnergyFragmentPresenter(IEnergyFragmentView view, Context context){
         this.view=view;
         model=new EnergyFragmentModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getEnergyFragment(){
+        dialogPgs.loadDialog("加载中...");
         Map<String,Object> map=new HashMap<>();
         map.put("userName",dataAllbean.getUserName());
         map.put("password",dataAllbean.getPassword());
@@ -55,6 +60,7 @@ public class EnergyFragmentPresenter extends BasePresenter<IEnergyFragmentView> 
 
                     @Override
                     public void onNext(EnergyFragmentbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setEnergyFragmentData(value);
                         }else{
@@ -64,6 +70,7 @@ public class EnergyFragmentPresenter extends BasePresenter<IEnergyFragmentView> 
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

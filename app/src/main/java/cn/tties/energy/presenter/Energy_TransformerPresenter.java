@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,15 +36,18 @@ import cn.tties.energy.view.iview.IEnergy_TransformerView;
 
 public class Energy_TransformerPresenter extends BasePresenter<IEnergy_TransformerView> {
     private static final String TAG = "Energy_TransformerPrese";
+    CriProgressDialog dialogPgs;
     IEnergy_TransformerView view;
     IEnergy_TransformerModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Energy_TransformerPresenter(IEnergy_TransformerView view){
+    public Energy_TransformerPresenter(IEnergy_TransformerView view, Context context){
         this.view=view;
         model=new Energy_TransformerModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     //变压器列表
     public void getEnergy_TransformerList(){
+        dialogPgs.loadDialog("加载中...");
         Map<String,Object> map=new HashMap<>();
         map.put("eleAccountId",dataAllbean.getEleAccountId());
         model.getEnergy_TransformerListData().getEnergy_TransformerList(map).subscribeOn(Schedulers.io())
@@ -55,6 +60,7 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
 
                     @Override
                     public void onNext(Energy_TransformerListbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null&&value.getErrorCode()==0){
                             view.setEnergy_TransformerListbeanData(value);
                         }else{
@@ -64,6 +70,7 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError000: "+e.getMessage());
                     }
 

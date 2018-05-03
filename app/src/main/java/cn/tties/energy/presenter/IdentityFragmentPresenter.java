@@ -1,7 +1,9 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,13 +26,16 @@ import cn.tties.energy.view.iview.IIdentityFragmentView;
 
 public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentView> {
     private static final String TAG = "IdentityFragmentPresent";
+    CriProgressDialog dialogPgs;
     IIdentityFragmentView view;
     IIdentityFragmentModel model;
-    public IdentityFragmentPresenter(IIdentityFragmentView view){
+    public IdentityFragmentPresenter(IIdentityFragmentView view, Context context){
         this.view=view;
         model= new IdentityFragmentModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getOpsloginData(){
+        dialogPgs.loadDialog("加载中...");
         //这个回来得数据暂时有误
         Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);//"1502183891109"
 //        bean.getAccountId();
@@ -44,8 +49,8 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
 
                     @Override
                     public void onNext(OpsLoginbean value) {
+                        dialogPgs.removeDialog();
                         if(value != null&&value.getErrorCode()==0){
-
                             Log.i(TAG, "onNext: "+value.getResult().getMaintUser().getStaffName());
                             view.getOpsLoginData(value);
                         }else{
@@ -56,6 +61,7 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

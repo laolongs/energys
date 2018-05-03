@@ -60,11 +60,10 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     TextView energyTransformerKwh;
     TextView energyTransformerYear1;
     TextView energyTransformerYear2;
+    LinearLayout energyTransformerLL;
     int transformerId = 0;
     MyTimePickerWheelDialog dialogtime;
-    int year=0;
-    DataAllbean dataAllbean=new DataAllbean();
-    CriProgressDialog dialogPgs;
+    CriProgressDialog dialogPrg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +84,11 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
         energyTransformerKwh = findViewById(R.id.energy_transformer_kwh);
         energyTransformerYear1 = findViewById(R.id.energy_transformer_year1);
         energyTransformerYear2 = findViewById(R.id.energy_transformer_year2);
+        energyTransformerLL = findViewById(R.id.energy_transformer_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
+        dialogPrg=new CriProgressDialog(this);
         mPresenter.getEnergy_TransformerList();
         toolbarText.setText("变压器优化");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +141,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
     }
     @Override
     protected void createPresenter() {
-        mPresenter = new Energy_TransformerPresenter(this);
+        mPresenter = new Energy_TransformerPresenter(this,this);
     }
 
     @Override
@@ -153,10 +152,10 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
 
     @Override
     public void setEnergy_TransformerListbeanData(final Energy_TransformerListbean bean) {
+        energyTransformerLL.setVisibility(View.VISIBLE);
         //设置可以滑动
         energyTransformerTab.setTabMode(TabLayout.MODE_SCROLLABLE);
         if (bean.getResult().size() > 0) {
-            dialogPgs.removeDialog();
             for (int i = 0; i < bean.getResult().size(); i++) {
                 energyTransformerTab.addTab(energyTransformerTab.newTab().setText(bean.getResult().get(i).getName()));
             }
@@ -170,6 +169,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
 //                ToastUtil.showShort(Energy_TransformerActivity.this, tab.getText());
+                    dialogPrg.loadDialog("加载中...");
                     int position = tab.getPosition();
                     transformerId = bean.getResult().get(position).getCompanyEquipmentId();
                     mPresenter.getEnergy_TransformerDamge(transformerId);
@@ -205,8 +205,10 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
 
 
     }
+    //温度
     @Override
     public void setEnergy_TransformerTemperaturebeanData(Energy_TransformerTemperaturebean bean) {
+        dialogPrg.removeDialog();
         int allnum;
         if(bean.getResult().size()>0){
             int color = Color.parseColor("#38A6FE");
@@ -273,6 +275,7 @@ public class Energy_TransformerActivity extends BaseActivity<Energy_TransformerP
 //变压器容量
     @Override
     public void setEnergy_TransformerVolumebeanData(Energy_TransformerVolumebean bean) {
+        dialogPrg.removeDialog();
         int allnum;
         //实体bean暂无数据
         if(bean.getResult().size()>0){

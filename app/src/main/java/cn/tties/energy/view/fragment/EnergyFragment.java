@@ -47,7 +47,6 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     LinearLayout energyTransformer;
     RatingBar energyBar;
     TextView energyToolbarText;
-    CriProgressDialog dialogPgs;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,15 +77,13 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(getActivity());
-        dialogPgs.loadDialog("加载中...");
         mPresenter.getEnergyFragment();
         energyToolbarText.setText("电力能效");
     }
 
     @Override
     protected void createPresenter() {
-        mPresenter = new EnergyFragmentPresenter(this);
+        mPresenter = new EnergyFragmentPresenter(this,getActivity());
     }
 
     @Override
@@ -146,7 +143,6 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
 
     @Override
     public void setEnergyFragmentData(EnergyFragmentbean bean) {
-            dialogPgs.removeDialog();
             tasksView.setProgressMax(bean.getTotalScore());
             energyBar.setRating((float) bean.getStartScore() / 20);
             energyUsermark.setText("您目前击败了"+bean.getRank() + "%的同行用户");

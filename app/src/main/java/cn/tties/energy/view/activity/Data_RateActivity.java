@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
@@ -65,6 +66,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     LinearLayout dataRateTime;
     LinearLayout dataRateElectrical;
     TextView dataRateEleTv;
+    RelativeLayout dataRateRl;
     private BottomStyleDialog dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
@@ -72,7 +74,6 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +91,10 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         dataRateTime= findViewById(R.id.data_rate_time);
         dataRateElectrical= findViewById(R.id.data_rate_electrical);
         dataRateEleTv= findViewById(R.id.data_rate_ele_tv);
+        dataRateRl= findViewById(R.id.data_rate_Rl);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         mPresenter.getAllElectricityData();
         dialogtime = new MyTimePickerWheelTwoDialog(Data_RateActivity.this);
         dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
@@ -146,7 +146,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_RatePresenter(this);
+        mPresenter = new Data_RatePresenter(this,this);
     }
 
     @Override
@@ -169,10 +169,12 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
                 values.add(new Entry(index, (float)(float)Float.parseFloat(String.valueOf(data_haveKwbean.getDataList().get(i).getD()))));
             }
             XAxis xAxis = havakwChart.getXAxis();
-            xAxis.setLabelCount(data_haveKwbean.getDataList().size(),true);
+            xAxis.setLabelCount(15,true);
+//            xAxis.setLabelCount(data_haveKwbean.getDataList().size(),true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
+
             havakwChart.setDataSet(values, "");
             havakwChart.setDayXAxis((List)map.get("X"));
             havakwChart.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
@@ -205,7 +207,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
 
             }
             XAxis xAxis = nokvarChart.getXAxis();
-            xAxis.setLabelCount(data_noKvarbean.getDataList().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -227,8 +229,8 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+        dataRateRl.setVisibility(View.VISIBLE);
         if(allElectricitybean.getMeterList().size()>0){
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());

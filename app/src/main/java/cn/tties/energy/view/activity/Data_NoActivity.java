@@ -62,13 +62,13 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     LinearLayout dataNoTime;
     LinearLayout dataNoAllelectric;
     TextView dataNoEleTv;
+    LinearLayout dataNoLL;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +88,11 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         dataNoTime= findViewById(R.id.data_no_time);
         dataNoAllelectric= findViewById(R.id.data_no_allelectric);
         dataNoEleTv= findViewById(R.id.data_no_ele_tv);
+        dataNoLL= findViewById(R.id.data_no_LL);
     }
 
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         mPresenter.getAllElectricityData();
         dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         months=DateUtil.getCurrentMonth();
@@ -145,7 +144,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_NoPresenter(Data_NoActivity.this);
+        mPresenter = new Data_NoPresenter(this,this);
     }
 
     @Override
@@ -155,6 +154,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
     @Override
     public void setData_NoData(Data_Nobean bean) {
+        dataNoLL.setVisibility(View.VISIBLE);
         if (bean.getMaxTimeData().size()>0) {
             dataNoChart2.clearData();
             //不平衡最大值
@@ -163,7 +163,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getMaxTimeData().size()-1; i++) {
+            for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                     String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
                     String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
                     Integer index = (int)XMap.get(split);
@@ -174,7 +174,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             }
 
             XAxis xAxis = dataNoChart2.getXAxis();
-            xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days - 1);
@@ -203,7 +203,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getMaxData().size()-1; i++) {
+            for (int i = 0; i < bean.getMaxData().size(); i++) {
                 String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
                 listDate2.add(split);
                 int index = (int) XMap.get(split);
@@ -212,7 +212,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
             }
             XAxis xAxis = dataNoChart1.getXAxis();
-            xAxis.setLabelCount(bean.getMaxData().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -229,15 +229,15 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getLimitData().size()-1; i++) {
+            for (int i = 0; i < bean.getLimitData().size(); i++) {
                 String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
                 int index = (int) XMap.get(split);
                 values3.add(new BarEntry(index, (float) bean.getLimitData().get(i).getIULIMIT()));
             }
             XAxis xAxis = dataNoChart3.getXAxis();
-            xAxis.setLabelCount(bean.getLimitData().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
-            xAxis.setAxisMinimum(1f);
+            xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
             dataNoChart3.setDataSet(values3, "");
             dataNoChart3.setDayXAxis((List)map.get("X"));
@@ -250,7 +250,6 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if(allElectricitybean.getMeterList().size()>0){
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
             mPresenter.getData_NoData();

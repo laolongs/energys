@@ -52,12 +52,8 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
     LineDataChart energyForceChart1;
     BarDataCharttwo energyForceChart2;
     TextView energyForceYear;
+    LinearLayout energyForceLL;
     MyTimePickerWheelDialog dialogtime;
-    int year = 0;
-    int currentYear;
-    int currentMonth;
-    DataAllbean dataAllbean = new DataAllbean();
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +72,10 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
         energyForceChart1 = findViewById(R.id.energy_force_chart1);
         energyForceChart2 = findViewById(R.id.energy_force_chart2);
         energyForceYear = findViewById(R.id.energy_force_year);
+        energyForceLL = findViewById(R.id.energy_force_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         dialogtime = new MyTimePickerWheelDialog(Energy_ForceActivity.this);
         //当月
         mPresenter.getEnergy_Force();
@@ -115,7 +110,7 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Energy_ForcePresenter(this);
+        mPresenter = new Energy_ForcePresenter(this,this);
     }
 
     @Override
@@ -126,8 +121,8 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
 
     @Override
     public void setEnergy_ForceData(Databean bean) {
+        energyForceLL.setVisibility(View.VISIBLE);
         if (bean.getDataList().size() > 0) {
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getEnergy_ForcechartData();
             mPresenter.getEnergy_Forcecharge();
@@ -137,6 +132,8 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
             energyForceNokvar.setText(DoubleUtils.getNum(bean.getDataList().get(0).getRp()) + "kVar");
             //因数
             energyForceNum.setText(DoubleUtils.getRate(bean.getDataList().get(0).getRate()) + "");
+        }else {
+            MyHint.myHintDialog(this);
         }
 
     }

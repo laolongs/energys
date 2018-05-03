@@ -44,7 +44,7 @@ public class Energy_EnergyActivity extends BaseActivity<Energy_MonthlyPresenter>
     }
 
     private void initView() {
-        mPresenter.getEnergy_Monthly(3);//能效pdf格式
+        mPresenter.getEnergy_Monthly(3);//2能效doc格式  3能效pdf格式
         toolbarText.setText("能效月报");
         toolbarLl.setOnClickListener(new View.OnClickListener() {
             @Override

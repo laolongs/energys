@@ -56,7 +56,6 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     ImageView identityImg;
     ImageView identitySwitchSelsect;
     int num = 0;
-    CriProgressDialog dialogPgs;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,14 +86,12 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     @Override
     public void onResume() {
         super.onResume();
-        dialogPgs=new CriProgressDialog(getActivity());
-        dialogPgs.loadDialog("加载中...");
         mPresenter.getOpsloginData();//1502183891109
     }
 
     @Override
     protected void createPresenter() {
-        mPresenter = new IdentityFragmentPresenter(this);
+        mPresenter = new IdentityFragmentPresenter(this,getActivity());
     }
 
     @Override
@@ -135,7 +132,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ToastUtil.showLong(getActivity(), "已退出登录");
-                        ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS, false);
+                        ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS_TWO, false);
                         final Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
                         getActivity().finish();
@@ -146,7 +143,6 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     }
     @Override
     public void getOpsLoginData(final OpsLoginbean opsLoginbean) {
-        dialogPgs.removeDialog();
         OpsLoginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
         List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = opsLoginbean.getResult().getEnergyLedgerList();
         identityName.setText(opsLoginbean.getResult().getMaintUser().getStaffName());

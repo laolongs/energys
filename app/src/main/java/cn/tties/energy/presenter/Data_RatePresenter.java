@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -31,12 +33,14 @@ import cn.tties.energy.view.iview.IData_RateView;
 
 public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
     private static final String TAG = "Data_RatePresenter";
+    CriProgressDialog dialogPgs;
     IData_RateView view;
     IData_RateModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_RatePresenter(IData_RateView view) {
+    public Data_RatePresenter(IData_RateView view, Context context) {
         this.view = view;
         this.model = new Data_RateModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getData_HaveKwData(){
         Map<String,Object> map=new HashMap<>();
@@ -117,6 +121,7 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
 
     }
     public void getAllElectricityData() {
+        dialogPgs.loadDialog("加载中...");
         Map<String,Object> map=new HashMap<>();
         long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
         map.put("userName",dataAllbean.getUserName());
@@ -133,6 +138,7 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
 
             @Override
             public void onNext(AllElectricitybean value) {
+                dialogPgs.removeDialog();
                 if(value!=null){
                     Log.i(TAG, "onNext: "+value.getMeterList().size());
                     view.setAllElectricity(value);
@@ -144,6 +150,7 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
 
             @Override
             public void onError(Throwable e) {
+                dialogPgs.removeDialog();
                 Log.i(TAG, "onError: "+e.getMessage());
             }
 

@@ -194,7 +194,7 @@ public class LineDataTwoChart extends  LineChart {
         leftAxis.setDrawAxisLine(false); //无轴线
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
-        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMinimum(0f);
 
         setTouchEnabled(false); // 设置是否可以触摸
         setDragEnabled(false);// 是否可以拖拽

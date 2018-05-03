@@ -1,5 +1,6 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import cn.tties.energy.model.result.AllElectricitybean;
 import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_Electricbean;
 import cn.tties.energy.utils.ACache;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.iview.IData_ElectricView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,14 +31,17 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Data_ElectricPresenter extends BasePresenter<IData_ElectricView> {
     private static final String TAG = "Data_ElectricPresenter";
+    CriProgressDialog dialogPgs;
     IData_ElectricView view;
     IData_ElectricModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_ElectricPresenter(IData_ElectricView view){
+    public Data_ElectricPresenter(IData_ElectricView view, Context context){
         this.view=view;
         model=new Data_ElectricModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getData_Electric(){
+        dialogPgs.loadDialog("加载中...");
         Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
         Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
         Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
@@ -60,6 +65,7 @@ public class Data_ElectricPresenter extends BasePresenter<IData_ElectricView> {
 
                     @Override
                     public void onNext(Data_Electricbean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setData_ElectricData(value);
                         }else{
@@ -69,6 +75,7 @@ public class Data_ElectricPresenter extends BasePresenter<IData_ElectricView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

@@ -58,13 +58,13 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     LinearLayout dataPressTime;
     LinearLayout dataPressAllelectric;
     TextView dataPressEleTv;
+    LinearLayout dataPressLL;
     private BottomStyleDialogTwo dialog;
     MyTimePickerWheelTwoDialog dialogtime;
     MyAllTimeYear timeYear=new MyAllTimeYear();
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,11 +83,10 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         dataPressTime= findViewById(R.id.data_press_time);
         dataPressAllelectric= findViewById(R.id.data_press_allelectric);
         dataPressEleTv= findViewById(R.id.data_press_ele_tv);
+        dataPressLL= findViewById(R.id.data_press_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         mPresenter.getAllElectricityData();
         dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         months=DateUtil.getCurrentMonth();
@@ -139,7 +138,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_PressPresenter(this);
+        mPresenter = new Data_PressPresenter(this,this);
     }
 
     @Override
@@ -150,6 +149,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     @Override
     public void setData_PressData(Data_Pressbean bean) {
+        dataPressLL.setVisibility(View.VISIBLE);
         if (bean.getMaxTimeData().size()>0) {
             dataPressChart2.clearData();
             //不平衡最大值
@@ -158,7 +158,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getMaxTimeData().size()-1; i++) {
+            for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                 String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
                 String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getVUMAXTIME(), ":");
                 Integer index = (int)XMap.get(split);
@@ -166,7 +166,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
             }
             XAxis xAxis = dataPressChart2.getXAxis();
-            xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -195,14 +195,14 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getMaxData().size()-1; i++) {
+            for (int i = 0; i < bean.getMaxData().size(); i++) {
                 String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
                 listDate2.add(split);
                 int index = (int) XMap.get(split);
                 values2.add(new Entry(index, (float) bean.getMaxData().get(i).getVUMAX()));
             }
             XAxis xAxis = dataPressChart1.getXAxis();
-            xAxis.setLabelCount(bean.getMaxData().size()-1,true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -220,13 +220,13 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             MyChartXList myChartXList = new MyChartXList();
             Map map = myChartXList.get(years, months);
             Map XMap = (Map) map.get("XMap");
-            for (int i = 0; i < bean.getLimitData().size()-1; i++) {
+            for (int i = 0; i < bean.getLimitData().size(); i++) {
                 String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
                 int index = (int) XMap.get(split);
                 values3.add(new BarEntry(index, (float) bean.getLimitData().get(i).getVULIMIT()));
             }
             XAxis xAxis = dataPressChart3.getXAxis();
-            xAxis.setLabelCount(bean.getLimitData().size(),true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0f);
             xAxis.setAxisMaximum(days-1);
@@ -242,7 +242,6 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if(allElectricitybean.getMeterList().size()>0){
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
             mPresenter.getData_PressData();

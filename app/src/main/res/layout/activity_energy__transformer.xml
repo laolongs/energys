@@ -13,258 +13,266 @@
 
         <include layout="@layout/toobar"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y96"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@drawable/selector_layout">
-            <android.support.design.widget.TabLayout
-                android:id="@+id/energy_transformer_tab"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:tabIndicatorColor="@color/statment_layout_title_h_line"
-                app:tabSelectedTextColor="@color/statment_layout_title_h_line"
-                app:tabTextColor="#C9C9C9"
-              >
-            </android.support.design.widget.TabLayout>
-
-        </LinearLayout>
-
-
-        <View
-            style="@style/cut_off_line_5dp"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="@dimen/y85">
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="13sp"
-                android:gravity="center"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="上月变损比例"
-                />
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="13sp"
-                android:gravity="center"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="上月总消耗(KW/H)"/>
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="@dimen/x2">
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y3"
-                android:background="#F2F2F2"
-                />
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y3"
-                android:background="#F2F2F2"/>
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y85">
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/energy_transformer_damge"
-                android:gravity="center"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="NaN"
-                />
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/energy_transformer_kwh"
-                android:gravity="center"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="NaN"
-                />
-            <TextView
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <View
-            style="@style/cut_off_line_5dp"/>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y120">
-            <TextView
-                android:layout_marginLeft="@dimen/x34"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="温度"/>
-            <TextView
-                android:gravity="center"
-                android:layout_weight="5"
-                android:layout_width="0dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:textSize="13sp"
-                android:gravity="center"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="选择年度"
-                />
+            android:visibility="invisible"
+            android:id="@+id/energy_transformer_LL"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y96"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/energy_transformer_year1"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/datatextcolor"
-                    android:layout_height="wrap_content"
-                    android:text="2018年"
-                    />
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/x13"
-                    android:id="@+id/energy_transformer_select1"
-                    android:layout_marginRight="@dimen/x47"
-                    android:src="@mipmap/arrowsblack"
-                    android:layout_width="@dimen/x14"
-                    android:layout_height="@dimen/x24" />
+                android:background="@drawable/selector_layout">
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/energy_transformer_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tabIndicatorColor="@color/statment_layout_title_h_line"
+                    app:tabSelectedTextColor="@color/statment_layout_title_h_line"
+                    app:tabTextColor="#C9C9C9"
+                    >
+                </android.support.design.widget.TabLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y450"
-            android:orientation="vertical">
-            <cn.tties.energy.chart.LineDataChart
-                android:id="@+id/energy_transformer_chart1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y428">
-            </cn.tties.energy.chart.LineDataChart>
-        </LinearLayout>
-        <View
-            style="@style/cut_off_line_5dp"/>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y120">
-            <TextView
-                android:layout_marginLeft="@dimen/x34"
-                android:layout_weight="6"
-                android:textSize="14sp"
-                android:layout_width="0dp"
-                android:textColor="@color/datatextcolor"
-                android:layout_height="wrap_content"
-                android:text="使用容量比例"/>
-            <TextView
-                android:gravity="center"
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:textSize="20sp"
-                android:textColor="@color/datatextcolor"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:textSize="13sp"
-                android:gravity="center"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="选择年度"
-                />
+
+            <View
+                style="@style/cut_off_line_5dp"/>
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/y85">
                 <TextView
-                    android:id="@+id/energy_transformer_year2"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="13sp"
                     android:gravity="center"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="上月变损比例"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="上月总消耗(KW/H)"/>
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="@dimen/x2">
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y3"
+                    android:background="#F2F2F2"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y3"
+                    android:background="#F2F2F2"/>
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y85">
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/energy_transformer_damge"
+                    android:gravity="center"
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="NaN"
+                    />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/energy_transformer_kwh"
+                    android:gravity="center"
+                    android:layout_weight="6"
+                    android:layout_width="0dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="NaN"
+                    />
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                style="@style/cut_off_line_5dp"/>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y120">
+                <TextView
+                    android:layout_marginLeft="@dimen/x34"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="温度"/>
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择年度"
+                    />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/energy_transformer_year1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/datatextcolor"
+                        android:layout_height="wrap_content"
+                        android:text="2018年"
+                        />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/x13"
+                        android:id="@+id/energy_transformer_select1"
+                        android:layout_marginRight="@dimen/x47"
+                        android:src="@mipmap/arrowsblack"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/x24" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y450"
+                android:orientation="vertical">
+                <cn.tties.energy.chart.LineDataChart
+                    android:id="@+id/energy_transformer_chart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y428">
+                </cn.tties.energy.chart.LineDataChart>
+            </LinearLayout>
+            <View
+                style="@style/cut_off_line_5dp"/>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y120">
+                <TextView
+                    android:layout_marginLeft="@dimen/x34"
+                    android:layout_weight="6"
+                    android:textSize="14sp"
+                    android:layout_width="0dp"
                     android:textColor="@color/datatextcolor"
                     android:layout_height="wrap_content"
-                    android:text="2018年"
+                    android:text="使用容量比例"/>
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/datatextcolor"
+                    android:layout_height="wrap_content"
                     />
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/x13"
-                    android:id="@+id/energy_transformer_select2"
-                    android:layout_marginRight="@dimen/x47"
-                    android:src="@mipmap/arrowsblack"
-                    android:layout_width="@dimen/x14"
-                    android:layout_height="@dimen/x24" />
-            </LinearLayout>
+                <TextView
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择年度"
+                    />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_weight="4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/energy_transformer_year2"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/datatextcolor"
+                        android:layout_height="wrap_content"
+                        android:text="2018年"
+                        />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/x13"
+                        android:id="@+id/energy_transformer_select2"
+                        android:layout_marginRight="@dimen/x47"
+                        android:src="@mipmap/arrowsblack"
+                        android:layout_width="@dimen/x14"
+                        android:layout_height="@dimen/x24" />
+                </LinearLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y450"
-            android:orientation="vertical">
-            <cn.tties.energy.chart.LineDataTwoChart
-                android:id="@+id/energy_transformer_chart2"
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y428">
-            </cn.tties.energy.chart.LineDataTwoChart>
+                android:layout_height="@dimen/y450"
+                android:orientation="vertical">
+                <cn.tties.energy.chart.LineDataTwoChart
+                    android:id="@+id/energy_transformer_chart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y428">
+                </cn.tties.energy.chart.LineDataTwoChart>
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 

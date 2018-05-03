@@ -175,6 +175,8 @@
             <!--style="@style/cut_off_line_5dp"-->
             <!--/>-->
         <RelativeLayout
+            android:id="@+id/data_rate_Rl"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout

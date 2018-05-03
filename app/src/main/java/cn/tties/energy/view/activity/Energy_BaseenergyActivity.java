@@ -64,7 +64,8 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     TextView energyBaseYear;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean allbean=new DataAllbean();
-    CriProgressDialog dialogPgs;
+    private LinearLayout energyBasLL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +92,10 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBaseType= findViewById(R.id.energy_base_type);
         enTv3= findViewById(R.id.en_tv3);
         energyBaseYear= findViewById(R.id.energy_base_year);
+        energyBasLL = (LinearLayout) findViewById(R.id.energy_base_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         dialogtime=new MyTimePickerWheelDialog(Energy_BaseenergyActivity.this);
         mPresenter.getEnergy_Baseenergy();
         mPresenter.getEnergy_BasePlan();
@@ -130,7 +130,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Energy_BaseenergyPresenter(this);
+        mPresenter = new Energy_BaseenergyPresenter(this,this);
     }
 
     @Override
@@ -141,6 +141,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
 
     @Override
     public void setEnergy_BaseenergyData(Databean bean) {
+        energyBasLL.setVisibility(View.VISIBLE);
         if(bean.getDataList().size()>0){
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getEnergy_BaseenergyYear();
@@ -154,6 +155,8 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
             energyBasePrice.setText(DoubleUtils.getNum(bean.getDataList().get(0).getBaseSum())+"元");
             energyBaseMonthmax.setText(DoubleUtils.getNum(bean.getDataList().get(0).getMaxMD()) + "kW");
             energyBaseTime.setText(bean.getDataList().get(0).getMaxMDDate() + "");
+        }else{
+            MyHint.myHintDialog(this);
         }
 
     }
@@ -197,7 +200,6 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     }
     @Override
     public void setEnergy_BasePlanData(Energy_BasePlanbean bean) {
-        dialogPgs.removeDialog();
         if (bean.getBestType() == 1) {
             enTv3.setText("报装容量");
         } else {

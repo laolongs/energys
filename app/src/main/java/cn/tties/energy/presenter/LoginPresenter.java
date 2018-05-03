@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.tties.energy.R;
+import cn.tties.energy.view.dialog.MyCriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -37,7 +38,7 @@ import cn.tties.energy.view.iview.ILoginView;
 
 public class LoginPresenter extends BasePresenter<ILoginView>  {
     private static final String TAG = "LoginSend";
-    private CriProgressDialog dialog;
+    private MyCriProgressDialog dialog;
     ILoginView view;
     ILoginModel mainModel;
     String loginPass;
@@ -47,7 +48,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
        this.view=view;
         mainModel=new LoginModel();
         this.context=context;
-        dialog = new CriProgressDialog(context);
+        dialog = new MyCriProgressDialog(context);
     }
     public void showloginData(){
         loginName = view.getLoginName();
@@ -87,7 +88,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
                         if (value.isLoginFlag()) {
                             Log.d(TAG, "------"+value.isLoginFlag());
                             ACache.getInstance().put(Constants.CACHE_USERINFO, value);
-                            ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS, true);
+                            ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS_TWO, true);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_USERNAME, loginName);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORD, view.getLoginPass());
                             ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORDMD5, getPassword());

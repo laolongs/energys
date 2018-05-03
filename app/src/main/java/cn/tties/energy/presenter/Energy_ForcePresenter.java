@@ -1,10 +1,12 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -31,14 +33,17 @@ import cn.tties.energy.view.iview.IEnergy_ForceView;
 
 public class Energy_ForcePresenter extends BasePresenter<IEnergy_ForceView> {
     private static final String TAG = "Energy_ForcePresenter";
+    CriProgressDialog dialogPgs;
     IEnergy_ForceView view;
     IEnergy_ForceModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Energy_ForcePresenter(IEnergy_ForceView view){
+    public Energy_ForcePresenter(IEnergy_ForceView view, Context context){
         this.view=view;
         model=new Energy_ForceModel();
+        dialogPgs=new CriProgressDialog(context);
     }
     public void getEnergy_Force(){
+        dialogPgs.loadDialog("加载中...");
         String baseDate= DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1);
         Map<String,Object> map=new HashMap<>();
         map.put("userName",dataAllbean.getUserName());
@@ -58,6 +63,7 @@ public class Energy_ForcePresenter extends BasePresenter<IEnergy_ForceView> {
 
                     @Override
                     public void onNext(Databean value) {
+                        dialogPgs.removeDialog();
                         if(value!=null){
                             view.setEnergy_ForceData(value);
                         }else{
@@ -67,6 +73,7 @@ public class Energy_ForcePresenter extends BasePresenter<IEnergy_ForceView> {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialogPgs.removeDialog();
                         Log.i(TAG, "onError: "+e.getMessage());
                     }
 

@@ -1,5 +1,6 @@
 package cn.tties.energy.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import cn.tties.energy.model.result.DataAllbean;
 import cn.tties.energy.model.result.Data_CurrentPressbean;
 import cn.tties.energy.model.result.Data_Currentbean;
 import cn.tties.energy.utils.ACache;
+import cn.tties.energy.view.dialog.CriProgressDialog;
 import cn.tties.energy.view.iview.IData_CurrentView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,12 +30,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView> {
     private static final String TAG = "Data_CurrentPresenter";
+    CriProgressDialog dialogPgs;
     IData_CurrentView view;
     IData_CurrentModel model;
     DataAllbean dataAllbean=new DataAllbean();
-    public Data_CurrentPresenter(IData_CurrentView view) {
+    public Data_CurrentPresenter(IData_CurrentView view, Context context) {
         this.view = view;
         this.model = new Data_CurrentModel();
+        dialogPgs=new CriProgressDialog(context);
+
     }
     public void getData_CurrentData(){
         Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
@@ -119,6 +124,7 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView> {
 
     }
     public void getAllElectricityData() {
+        dialogPgs.loadDialog("加载中...");
         Map<String,Object> map=new HashMap<>();
         long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
         map.put("userName",dataAllbean.getUserName());
@@ -135,6 +141,7 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView> {
 
             @Override
             public void onNext(AllElectricitybean value) {
+                dialogPgs.removeDialog();
                 if(value!=null){
                     Log.i(TAG, "onNext: "+value.getMeterList().size());
                     view.setAllElectricity(value);
@@ -146,6 +153,7 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView> {
 
             @Override
             public void onError(Throwable e) {
+                dialogPgs.removeDialog();
                 Log.i(TAG, "onError: "+e.getMessage());
             }
 

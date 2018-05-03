@@ -167,7 +167,7 @@ public class LineDataChart extends  LineChart {
 //        xAxis.setAxisLineColor(Color.GREEN);//设置x轴线颜色
 //        xAxis.setAxisLineWidth(5f);//设置x轴线宽度
 //        xAxis.setValueFormatter();//格式化x轴标签显示字符
-
+//        xAxis.setGranularity(2f);//设置x轴间隔
         /**
          * Y轴默认显示左右两个轴线
          */

@@ -64,15 +64,13 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     TextView dataChargeTv2;
     TextView dataChargeTv3;
     TextView dataChargeTv4;
+    LinearLayout dataChargeLL;
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
     private BottomStyleDialog dialog;
     //    MyTimePickerDialog dialogtime;
     MyTimePickerWheelDialog dialogtime;
-    DataAllbean allbean = new DataAllbean();
-    int year = 0;
-    private ArrayList<String> liststr;
-    CriProgressDialog dialogPgs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +101,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
         dataChargeTv3= findViewById(R.id.data_charge_tv3);
         dataChargeTv4= findViewById(R.id.data_charge_tv4);
         toolbarText= findViewById(R.id.toolbar_text);
+        dataChargeLL= findViewById(R.id.data_charge_LL);
         dataChargeImg1.setOnClickListener(this);
         dataChargeImg2.setOnClickListener(this);
         dataChargeImg3.setOnClickListener(this);
@@ -114,8 +113,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         popupWindow = new MyPopupWindow();
         int currentYear = DateUtil.getCurrentYear();
         int currentMonth = DateUtil.getCurrentMonth();
@@ -166,7 +163,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     protected void createPresenter() {
-        mPresenter = new DataPresenter(this);
+        mPresenter = new DataPresenter(this,this);
     }
 
     @Override
@@ -257,6 +254,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setDataData(Databean bean) {
+        dataChargeLL.setVisibility(View.VISIBLE);
         if (bean.getDataList().size() > 0) {
             //总电费
             dataAllCharge.setText("￥" + DoubleUtils.getNum(bean.getDataList().get(0).getTotalSum()));
@@ -307,7 +305,6 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if (allElectricitybean.getMeterList().size() > 0) {
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + (DateUtil.getCurrentMonth() - 1));

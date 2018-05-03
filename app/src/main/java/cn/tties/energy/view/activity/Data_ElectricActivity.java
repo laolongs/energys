@@ -57,6 +57,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     TextView dataElectricalTimeTv;
     ImageView electricalVerify;
     TextView electricalTv;
+    LinearLayout electricalLL;
     private BottomStyleDialog dialog;
     double num = 0;
     DataAllbean allbean = new DataAllbean();
@@ -66,7 +67,6 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     private int days;
     int  months;
     int years;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,11 +86,10 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         dataElectricalTimeTv= findViewById(R.id.data_electrical_time_tv);
         electricalVerify= findViewById(R.id.electrical_verify);
         electricalTv= findViewById(R.id.electrical_tv);
+        electricalLL= findViewById(R.id.electrical_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         popupWindow = new MyPopupWindow();
         electricalVerify.setOnClickListener(this);
         electricalTv.setOnClickListener(this);
@@ -166,7 +165,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     }
     @Override
     protected void createPresenter() {
-        mPresenter = new Data_ElectricPresenter(this);
+        mPresenter = new Data_ElectricPresenter(this,this);
     }
 
     @Override
@@ -177,7 +176,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 
     @Override
     public void setData_ElectricData(Data_Electricbean bean) {
-
+        electricalLL.setVisibility(View.VISIBLE);
         if (bean.getDataList().size() > 0) {
             ArrayList<Integer> listcolor=new ArrayList<>();
             electricalChart.clearData();
@@ -194,7 +193,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                 values.add(new Entry(index, (float) bean.getDataList().get(i).getA()));
             }
             XAxis xAxis = electricalChart.getXAxis();
-            xAxis.setLabelCount(bean.getDataList().size(), true);
+            xAxis.setLabelCount(15,true);
             xAxis.setLabelRotationAngle(-50);
             xAxis.setAxisMinimum(0);
             xAxis.setAxisMaximum(days - 1);
@@ -218,7 +217,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
         if (allElectricitybean.getMeterList().size() > 0) {
-            dialogPgs.removeDialog();
+
             ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
             ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());

@@ -57,12 +57,12 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
     ImageView enereyElectricalSelect;
     LineDataFourChart enereyElectricalChart;
     TextView enereyElectricalYear;
+    LinearLayout electricalLL;
     MyTimePickerWheelDialog dialogtime;
     DataAllbean dataAllbean=new DataAllbean();
     private float cusp2;
     private float hight2;
     private float low2;
-    CriProgressDialog dialogPgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +84,10 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
         enereyElectricalSelect= findViewById(R.id.enerey_electrical_select);
         enereyElectricalChart= findViewById(R.id.enerey_electrical_chart);
         enereyElectricalYear= findViewById(R.id.enerey_electrical_year);
+        electricalLL= (LinearLayout) findViewById(R.id.electrical_LL);
     }
 
     private void initView() {
-        dialogPgs=new CriProgressDialog(this);
-        dialogPgs.loadDialog("加载中...");
         dialogtime=new MyTimePickerWheelDialog(Energy_ElectricalActivity.this);
         mPresenter.getEnergy_Electrical();
         toolbarText.setText("电度电费优化");
@@ -122,7 +121,7 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
 
     @Override
     protected void createPresenter() {
-        mPresenter = new Energy_ElectricalPersenter(this);
+        mPresenter = new Energy_ElectricalPersenter(this,this);
     }
 
     @Override
@@ -132,8 +131,8 @@ public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPer
 
     @Override
     public void setDataData(Databean bean) {
+        electricalLL.setVisibility(View.VISIBLE);
         if (bean.getDataList().size() > 0) {
-            dialogPgs.removeDialog();
             ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
             mPresenter.getEnergy_ElectricalChart();
             int percentage = 0;
